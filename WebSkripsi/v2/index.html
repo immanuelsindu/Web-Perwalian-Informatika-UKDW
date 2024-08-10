@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="9716725623-mp47r86gsnefjk7fssq0ultd20klhvvk.apps.googleusercontent.com">
+    <title>Document</title>
+    <!-- <script src="https://apis.google.com/js/api.js"></script> -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link rel="stylesheet" href="./styling/indexLogin.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+<body>
+    <div class="d-flex align-items-center"  id="navbar">
+        <!-- <img src="./media/tiukdw.jpg" alt=""> -->
+        <p>Program Studi Informatika UKDW</p>
+    </div>
+
+    
+    <div id="loginPanel">
+        <p id="judulWeb" class="pt-4 pl-4 mb-0">Perwalian Informatika UKDW</p>
+        <div id="garis"></div>
+
+        <div class="d-flex pb-4">
+            <div class="row mx-0">
+                <div class="col-lg-6 col-md-12 px-0 d-flex justify-content-center">
+                    <div id="loginPanelKiri" class="text-center mx-3">
+                        <img class="pt-4" src="./media/people.jpg" alt="">
+                    </div>
+                </div>
+    
+                <div class="col-lg-6 col-md-12 px-0 d-flex justify-content-center align-self-center">
+                    <div  id="loginPanelKanan">
+                        <div class="text-center">
+                            <p class="judulWelcome mb-1">Selamat Datang !</p>
+                            <p>Login untuk melanjutkan</p>
+                        </div>
+    
+                        <div id="loginSSO" class="mt-2">
+                            <div class="d-flex justify-content-center mt-2">
+                                <!-- Add the Google Sign-in button -->
+                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

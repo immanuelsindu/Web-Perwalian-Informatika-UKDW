@@ -1,0 +1,693 @@
+@font-face {
+    font-family: poppins;
+    src: url("../font/Poppins-Regular.otf");
+}
+
+@font-face {
+    font-family: inter;
+    src: url("../font/Inter-Regular.ttf");
+}
+
+body {
+    margin: 0rem;
+    font-family: inter !important;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+}
+
+
+@media screen and (max-width: 575px) {
+
+    /* breakpoint navbar */
+    div#iconBeranda {
+        display: none;
+    }
+
+    div#navbar1 {
+        margin-top: 0.5rem;
+    }
+
+    div#navbar2 {
+        margin-bottom: 0.5rem;
+    }
+
+    div#idPengguna {
+        float: none;
+    }
+
+    div#navbar {
+        height: fit-content;
+    }
+
+    div#itemCatatan {
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media screen and (max-width:992px) {
+
+    /* breakpoint navbar */
+    div#navbar {
+        height: fit-content !important;
+    }
+}
+
+
+.paddingTop {
+    padding-top: 4rem;
+}
+
+.stickyNavbar {
+    position: sticky;
+    top: 0;
+    position: -webkit-sticky;
+    z-index: 99 !important;
+}
+
+#navbar {
+    width: 100%;
+    height: 4rem;
+    background-color: #E5E5CB;
+}
+
+.breadCrumb {
+    font-size: 0.8rem;
+    font-family: inter !important;
+}
+
+#navbar p {
+    /* width: 500px; */
+    margin: 0rem;
+    font-size: 1.2rem;
+    font-family: inter;
+    color: #3C2A21;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+#idPengguna {
+    float: right;
+}
+
+.btn-group {
+    background-color: #efefef;
+}
+
+.btn.btn-secondary.dropdown-toggle {
+    background-color: #E5E5CB;
+    color: #3C2A21;
+    font-family: inter;
+    border: none;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    margin-left: 0.2rem;
+}
+
+/* batas navbar */
+.myContainer.mt-4 {
+    width: 85% !important;
+    margin-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#breadcrumb {
+    font-size: 0.8rem !important;
+
+}
+
+#catatanAngkatan p {
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: inter;
+}
+
+#judulAngkatan p {
+    display: inline !important;
+}
+
+#judulAngkatan p {
+    color: #0D0C1D !important;
+    font-weight: bold;
+    font-family: inter;
+    font-size: 2rem;
+    text-align: center;
+}
+
+#judulPerBagian {
+    color: #0D0C1D !important;
+    font-weight: bold;
+    font-family: inter;
+    font-size: 1.2rem;
+}
+
+#itemCatatan {
+    border: none;
+    flex: none !important;
+    min-height: 15.625rem;
+    width: 16rem !important;
+    word-wrap: break-word;
+    background-color: white !important;
+    box-shadow: 7px 7px 37px -4px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 0.625rem;
+    margin-right: 1.3rem;
+}
+
+.catatanNotFound1 {
+    font-size: 1.2rem !important;
+    margin: 0rem !important;
+    font-family: inter;
+}
+
+.catatanNotFound2 {
+    font-size: 1rem !important;
+    margin: 0rem !important;
+    font-family: inter;
+}
+
+#judulCatatan p {
+    color: #0D0C1D !important;
+    font-weight: bold;
+    font-family: inter;
+    font-size: 1rem;
+    text-align: center;
+}
+
+#judulCatatan p:nth-child(2) {
+    color: #0D0C1D !important;
+    font-weight: normal;
+    font-family: inter;
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 0.2rem;
+    margin-bottom: 1.5rem;
+}
+
+#judulCatatan p:nth-child(3) {
+    color: #0D0C1D !important;
+    font-weight: normal;
+    font-family: inter;
+    font-size: 1rem;
+    text-align: left;
+    margin-top: 0rem;
+
+}
+
+#judulCatatan p:nth-child(4) {
+    font-weight: normal;
+    font-family: inter;
+    font-size: 1rem;
+    text-align: justify;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+    margin-left: 0.7rem;
+    margin-right: 1.1rem;
+}
+
+.judulCatatan:hover {
+    cursor: pointer;
+
+}
+
+#tambahCatatan {
+    text-decoration: none;
+    color: #3C2A21;
+    font-family: inter;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.tambahCatatanRouter {
+    text-decoration: none;
+}
+
+
+.judulTambahCatatan {
+    width: 70%;
+}
+
+.material-symbols-outlined.search {
+    color: #666666;
+    font-size: 20px;
+}
+
+#alertPencarian p {
+    font-weight: normal;
+    font-size: 0.9rem;
+}
+
+#grupHasilCari {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.material-symbols-outlined.search {
+    position: absolute;
+    padding-top: 0.4rem;
+    padding-left: 0.3rem;
+    color: #878787;
+}
+
+#inputCariCatatanMahasiswa {
+    width: 22rem;
+    height: 35px;
+    border: 2px solid #878787;
+    padding-left: 1.9rem !important;
+    border-radius: 0.6rem;
+    font-size: 0.8rem;
+}
+
+#inputCariCatatanMahasiswa:focus {
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#itemCariMahasiswa {
+    height: fit-content;
+}
+
+#containerListMahasiswa {
+    height: fit-content;
+    margin: 0rem;
+}
+
+#fotoMhs {
+    height: 60px;
+}
+
+#dataMahasiswa {
+    height: fit-content;
+    margin-right: 0rem !important;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #D3D3D3;
+    font-family: inter !important;
+}
+
+.material-symbols-outlined.accCirlcle {
+    color: #3C2A21;
+    font-size: 3.2rem;
+}
+
+#perItemCariMhs {
+    width: 100%;
+}
+
+#dataMahasiswa a {
+    color: #0D0C1D !important;
+}
+
+#dataMahasiswa p {
+    color: #0D0C1D;
+    margin: 0px;
+
+}
+
+#dataMahasiswa p:nth-child(1) {
+    margin: 0px;
+    font-weight: bold;
+}
+
+#dataMahasiswa p:nth-child(2) {
+    margin: 0px;
+    font-weight: normal;
+    font-size: 0.9rem;
+    margin-bottom: 0.1rem !important;
+}
+
+.statusAktif {
+    cursor: pointer;
+    display: inline;
+    background-color: #007BFF;
+    color: white !important;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.625rem;
+    font-size: 0.8rem;
+
+}
+
+
+/* higlight warna cekal per mahasiswa */
+.cekal {
+    cursor: pointer;
+    font-size: 0.8rem;
+    background-color: #dc3545;
+    color: white;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.625rem;
+}
+
+.cekalSAC {
+    cursor: pointer;
+    font-size: 0.8rem;
+    background-color: #FFC107;
+    color: white;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.625rem;
+}
+
+.warningIPK {
+    cursor: pointer;
+    font-size: 0.8rem;
+    background-color: #ff8307;
+    color: white;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.625rem;
+}
+
+#lihatSemuaCatatan a {
+    color: #3C2A21;
+    text-decoration: underline;
+    font-family: inter;
+    font-weight: bold;
+}
+
+.d-flex.mt-4 {
+    /* margin-left: 3.5rem; */
+
+}
+
+.dropdown-item {
+    cursor: default;
+}
+
+
+#logoutUser {
+    color: #3C2A21;
+    text-decoration: none;
+}
+
+.slide-fade-enter-active {
+    transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    transform: translateX(20px);
+    opacity: 0;
+}
+
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.4s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.dropDownDosen {
+    font-weight: 600;
+    text-transform: capitalize;
+    font-family: inter;
+    font-size: 1rem;
+    letter-spacing: normal;
+}
+
+#agendaPerwalian {
+    word-wrap: break-word;
+}
+
+
+#labelNamaDosen {
+    background-color: #d5d5be;
+    padding: 0rem 0.5rem;
+    border-radius: 0.3rem;
+}
+
+#labelNamaDosen #infoNamaDosen {
+    font-size: 1rem;
+}
+
+#drawerContainer {
+    font-family: inter;
+    padding-top: 8rem;
+    top: 0;
+    position: fixed;
+    z-index: 98 !important;
+}
+
+#navDrawer {
+    background-color: #E5E5CB;
+    position: absolute;
+    z-index: 10;
+    padding: 0.7rem;
+    border-radius: 0rem 0.625rem 0.625rem 0rem;
+    transition: 0.2s all ease-in;
+}
+
+#navDrawer:hover {
+    cursor: pointer;
+    background-color: #E5E5CB;
+    position: absolute;
+    padding: 0.7rem 0.7rem 0.7rem 1.3rem;
+    border-radius: 0rem 0.625rem 0.625rem 0rem;
+    transition: 0.2s all ease-in;
+}
+
+#sideDrawer template {
+    display: block;
+    position: absolute;
+    z-index: 98 !important;
+}
+
+
+#infoMahasiswaBimbingan {
+    font-family: inter !important;
+    width: fit-content;
+    max-height: 150px;
+    background-color: white;
+    border-radius: 0.625rem;
+    padding-top: 1rem;
+    padding-left: 0rem;
+    padding-right: 0.8rem;
+    margin-left: -1rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #dbdbdb;
+}
+
+#infoMahasiswaBimbingan ul {
+    list-style-type: none;
+    margin-bottom: 0rem;
+    padding-left: 0rem;
+}
+
+.itemInfoMahasiswaBimbingan {
+    /* ukuran per item jumlah status*/
+    /* width: 200px; */
+    height: fit-content;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    border-radius: 0.625rem;
+    transition: 0.2s all ease;
+}
+
+.itemInfoMahasiswaBimbingan:hover {
+    background-color: #e6e6e6;
+    cursor: pointer;
+    border-radius: 0.625rem;
+    transition: 0.2s all ease;
+}
+
+.semuaMahasiswa {
+    padding-right: 1.5rem;
+}
+
+.jumlahMahasiswaBimbingan {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    text-align: center;
+    font-size: 1rem;
+    font-family: inter;
+    border-radius: 0.8rem;
+    background-color: #d5d5be;
+}
+
+.selected {
+    background-color: #e6e6e6;
+}
+
+#buttonSort {
+    background-color: #EFEFEF;
+}
+
+#windowPreferensi {
+    width: 400px;
+    background: white;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 7px 7px 36px -4px rgba(0, 0, 0, 0.25);
+    border-radius: 0.625rem;
+    z-index: 2 !important;
+    position: absolute;
+}
+
+#overlay {
+    font-family: inter;
+    position: fixed;
+    /* display: none; */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.btn.batal {
+    background-color: #E5E5CB;
+    transition: 0.4s all ease;
+}
+
+.btn.batal:hover {
+    background-color: #c2c2a9;
+    transition: 0.4s all ease;
+}
+
+.btn.simpan {
+    background-color: #3C2A21;
+    color: white;
+    transition: 0.4s all ease;
+    border: 3px solid #3C2A21;
+}
+
+.btn.simpan:hover {
+    background-color: white;
+    color: black;
+    transition: 0.4s all ease;
+    border: 3px solid #3C2A21;
+}
+
+.ulNoType {
+    list-style-type: none;
+}
+
+#contentPreferensi p {
+    font-weight: bold;
+}
+
+/* transisi vue preferensi */
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
+
+/* snackbar */
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+#snackbar {
+    visibility: hidden;
+    width: fit-content;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+
+    border-radius: 0.625rem;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#filterIPKSAC {
+    font-family: inter !important;
+    width: fit-content;
+    max-height: 200px;
+    background-color: white;
+    border-radius: 0.625rem;
+    padding: 0.7rem 0.5rem;
+    padding-left: 1.5rem;
+    margin-left: -1rem;
+    border: 1px solid #dbdbdb;
+}
+
+
+.form-check-input {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+.form-check-input:checked {
+    background-color: #3C2A21;
+    border-color: #3C2A21;
+}
+
+.form-check-input:focus {
+    border-color: #dbdbdb;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+}

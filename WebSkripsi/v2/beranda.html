@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- js bootstrap  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <!-- external css -->
+    <link rel="stylesheet" href="./styling/beranda.css">
+    <!-- Bootstrap Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Icon Google -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Vue cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  
+
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="row align-items-center ml-0 stickyNavbar " id="navbar">
+        <div id="navbar1" class="col-lg-8 mt-lg-0 col-sm-12 mt-sm-3">
+            <div class="d-flex">
+                <div class="ml-3" id="iconBeranda">
+                    <a id="iconHome" href="./beranda.html">
+                        <span class="material-symbols-outlined" style="color:#3C2A21">
+                            home
+                        </span>
+                    </a>
+                </div>
+
+                <div id="judulWeb">
+                    <p class="ml-2">Program Studi Informatika UKDW</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="navbar2" class="col-lg-4 col-sm-12">
+            <div id="idPengguna">
+                <div class="d-flex align-items-center">
+                    <span class="material-symbols-outlined">person_filled</span>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Nama Dosen
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                            <a class="dropdown-item d-flex align-items-center" href="./index.html">
+                                <span class="material-symbols-outlined mr-2">
+                                    logout
+                                </span>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div id="content" class="row container-fluid p-0 m-0">
+
+        <div class="col-12 mt-4">
+            <div class="row">
+                <div class="col-md-11 col-sm-9 col-8">
+                    <nav aria-label="breadcrumb" id="breadcrumb">
+                        <ol class="breadcrumb bg-white ml-5">
+                            <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div id="preferensi" class="col-md-1 col-sm-3 col-4">
+                    <button type="button" id="buttonSort" v-on:click="showPopUpPreferensi()" class="btn"
+                        data-toggle="tooltip" data-placement="bottom" title="Ubah urutan item beranda">
+                        <span class="material-symbols-outlined viewAgenda">
+                            flex_direction
+                        </span>
+                    </button>
+                </div>
+
+                <Transition>
+                    <div id="overlay" v-if="isOn" class="d-flex justify-content-center align-items-center">
+                        <div id="windowPreferensi">
+                            <div id="contentPreferensi" class="p-4">
+                                <p class="text-center">Pilih Urutan Item Beranda</p>
+
+                                <!-- pilihan urutan opsi pertama  -->
+                                <div class="row mb-3">
+                                    <div class="col-8">
+                                        <ul class="pl-3 ulNoType mb-0">
+                                            <li class="">
+                                                <ol class="pl-4">
+                                                    <li>Catatan Perwalian</li>
+                                                    <li>Catatan Dosen</li>
+                                                    <li>Daftar Grup Perwalian</li>
+                                                </ol>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-4 px-0 d-flex justify-content-center align-items-center">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault1" value="pilihan1" v-model="radioValue"
+                                            :checked="radioValue === 'pilihan1' ? true : false">
+                                    </div>
+                                </div>
+
+                                <!-- pilihan urutan opsi kedua -->
+                                <div class="row mb-3">
+                                    <div class="col-8">
+                                        <ul class="pl-3 ulNoType mb-0">
+                                            <li class="">
+                                                <ol class="pl-4">
+                                                    <li>Daftar Grup Perwalian</li>
+                                                    <li>Catatan Perwalian</li>
+                                                    <li>Catatan Dosen</li>
+                                                </ol>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-4 px-0 d-flex justify-content-center align-items-center">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault1" value="pilihan2" v-model="radioValue"
+                                            :checked="radioValue === 'pilihan2' ? true : false">
+                                    </div>
+                                </div>
+
+                                <!-- bagian tombol simpan batal -->
+                                <div class="row mt-4">
+                                    <div class="col-4 px-0 d-flex justify-content-center">
+                                        <button class="btn batal" @click="batal()">Batal</button>
+                                    </div>
+                                    <div class="col-4 offset-4 px-0 d-flex justify-content-center">
+                                        <button class="btn simpan" @click="simpan()">Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Transition>
+
+            </div>
+        </div>
+
+        <div id="contentKiri" class="col-lg-3 col-sm-12 ">
+            <div class="mySticky">
+                <div class="d-flex justify-content-center">
+                    <img id="fotoDosen" src="./media/sindu.jpg" alt="">
+                </div>
+
+                <div id="infoDosen" class="mt-3">
+                    <p>Nama Dosen</p>
+                    <p class="">email.dosen@ti.ukdw.ac.id</p>
+                    <div class="garis mt-3 text-muted"></div>
+
+                    <div class="d-flex flex-column">
+                        <div class="col-12 d-flex justify-content-center mt-3 mb-2 p-0">
+                            <p class="m-0">Rincian jumlah mahasiswa perwalian</p>
+                        </div>
+                        <div class="col-12 p-0">
+                            <div v-for="index in 2" :key="index"
+                                class="col-11 d-flex justify-content-center flex-wrap px-0 mb-2 mx-auto">
+                              
+                                <div id="dataAngkatanBimbingan"
+                                    class="col-11 d-flex flex-row justify-content-center px-0" @click="showinfoAngkatan(index)">
+                                    <div class="col-6 pr-1 pl-0 d-flex align-items-center">
+                                        <p class="">Angkatan {{tahunAngkatan[index-1]}}</p>
+                                    </div>
+                                    <div class="col-2 px-0 d-flex align-items-center">
+                                        <p class="d-inline-block m-0 jumlahMahasiswaBimbingan">20</p>
+                                    </div>
+                                    <div id="detailMahasiswaBimbingan"
+                                        class="col-1 px-0 ml-3 d-flex align-items-center d-flex justify-content-center">
+                                        <span class="material-symbols-outlined dropdown">
+                                            arrow_drop_down
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <transition>
+                                    <div v-if="showInfoAngkatan[index-1]" class="col-12 d-flex justify-content-center">
+                                        <div id="infoMahasiswaBimbingan" class="col-10 py-3 mt-1">
+                                            <ul class="mb-2">
+                                                <li class="itemInfoMahasiswaBimbingan">
+                                                    <div class="d-flex">
+                                                        <p class="col-8 px-0 m-0 ml-1 align-self-center text-left ">
+                                                            Aktif</p>
+                                                        <div class="col-4 text-right p-0 d-flex justify-content-center">
+                                                            <p class="m-0 jumlahMahasiswaBimbingan">16</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <ul class="mb-2">
+                                                <li class="itemInfoMahasiswaBimbingan">
+                                                    <div class="d-flex">
+                                                        <p class="col-8 px-0 m-0 ml-1 align-self-center text-left ">
+                                                            Lulus</p>
+                                                        <div class="col-4 text-right p-0 d-flex justify-content-center">
+                                                            <p class="m-0 jumlahMahasiswaBimbingan">2</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <ul class="mb-2">
+                                                <li class="itemInfoMahasiswaBimbingan">
+                                                    <div class="d-flex">
+                                                        <p class="col-8 px-0 m-0 ml-1 align-self-center text-left ">Cuti
+                                                            Studi</p>
+                                                        <div class="col-4 text-right p-0 d-flex justify-content-center">
+                                                            <p class="m-0 jumlahMahasiswaBimbingan">1</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <ul class="mb-2">
+                                                <li class="itemInfoMahasiswaBimbingan">
+                                                    <div class="d-flex">
+                                                        <p class="col-8 px-0 m-0 ml-1 align-self-center text-left ">
+                                                            Droopped Out</p>
+                                                        <div class="col-4 text-right p-0 d-flex justify-content-center">
+                                                            <p class="m-0 jumlahMahasiswaBimbingan">1</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <ul>
+                                                <li class="itemInfoMahasiswaBimbingan">
+                                                    <div class="d-flex d-flex justify-content-center">
+                                                        <a href="#">
+                                                            <p class="m-0 align-middle font-weight-bold">
+                                                                <a href="./detailAngkatan.html" target="_blank">
+                                                                    Lihat
+                                                                    selengkapnya >
+                                                                </a>
+                                                            </p>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </transition>
+                            </div>
+
+                            <div class=" d-flex justify-content-center">
+                                <div class="row mb-lg-3" id="totalMahasiswaPerwalian">
+                                    <div class="col-8 px-0">
+                                        <p>Total Mahasiswa Perwalian</p>
+                                    </div>
+                                    <div
+                                        class="col-3 text-center px-0 d-flex align-items-center justify-content-center">
+                                        <p class="jumlahMahasiswaBimbingan">40</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="contentKanan" class="col-lg-9 col-sm-12 mb-md-5 ">
+
+            <div id="bagianCatatan" class="mb-2">
+                <div class="d-flex align-content-start flex-wrap mt-4">
+                    <div class="col-md-7 col-sm-12 px-0">
+                        <div id="judulCariCatatanPerwalian" class="col-12 pl-0">
+                            <p class="mb-0">Catatan Perwalian</p>
+                        </div>
+                        <dir class="col-12 mb-1 mt-xl-3 pl-0">
+                            <span class="material-symbols-outlined search"> search </span>
+                            <input id="inputCariCatatanPerwalian" type="text"
+                                placeholder="Cari catatan perwalian semua angkatan">
+                        </dir>
+                        <div class="pt-0 mb-0">
+                            <p id="indikatorWarna">
+                                <span class="material-symbols-outlined bullet align-middle"> circle </span>
+                                <span class="mr-1">Mahasiswa</span>
+
+                                <span class="material-symbols-outlined bullet align-middle">circle</span>
+                                <span class="mr-1"> Orang Tua / Wali</span>
+
+                                <span class="material-symbols-outlined bullet align-middle"> circle </span>
+                                <span class="mr-1"> Orang Tua / Wali &amp; Mahasiswa</span>
+
+                                <span class="material-symbols-outlined bullet align-middle"> circle </span>
+                                <span class="mr-1"> Grup Angkatan</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 my-sm-3 d-flex align-items-center">
+
+                        <div id="kolomTambahCatatan d-flex ">
+                            <a id="tambahCatatan" class="align-middle" href="./tambahCatatan.html">
+                                <span class="material-symbols-outlined mr-2">
+                                    add_box
+                                </span>
+                            </a>
+                            <a id="tambahCatatan" class="judulTambahCatatan" href="./tambahCatatan.html">
+                                Tambah Catatan Perwalian
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="listCatatanPerwalian" class="d-flex align-content-start flex-wrap mt-1 pb-3">
+                    <div v-for="index in 3" :key="index" id="itemCatatan"
+                        class="d-flex justify-content-center col-lg-3 col-md-4 mr-lg-3 mr-md-0 col-sm-6 mb-sm-4 px-sm-0">
+                        <div id="itemCatatanPerwalian" class="card ">
+                            <div class="card-body">
+                                <span id="garisMahasiswa"></span>
+                                <h5 class="card-title text-center">Catatan Perwalian Mahasiswa {{index}} </h5>
+                                <h6 class="card-subtitle mb-2 text-center">10 Oktober 2022</h6>
+                                <h6 class="card-subtitle text-center">Pra Registrasi</h6>
+                                <h6 class="card-subtitle mt-4 mb-1 font-weight-bold text-left">Immanuel Sindu Kristian Pratama / 71190426</h6>
+                                <p class="card-text mb-3 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing
+                                    elit. Veniam iste nam <span><a href="#" class="font-weight-bold"><u>Lihat selengkapnya</u></a></span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 d-flex justify-content-start mt-3 px-0">
+                        <div id="lihatSemuaCatatan" class="px-0">
+                            <a href="./cariCatatanPerwalianDosen.html">Lihat semua catatan perwalian</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 d-flex justify-content-start mt-4 px-0">
+                    <div id="garisBatasCatatan"></div>
+                </div>
+
+            </div>
+
+            <!-- Catatan refleksi Dosen -->
+            <div id="bagianCatatanDosen">
+                <div class="d-flex align-content-start flex-wrap mt-4">
+                    <div class="col-md-7 col-sm-12 px-0">
+                        <div id="judulCariCatatanPerwalian" class="col-12 pl-0">
+                            <p class="mb-0">Catatan Dosen</p>
+                        </div>
+                        <dir class="col-12 mb-1 mt-xl-3 pl-0">
+                            <span class="material-symbols-outlined search"> search </span>
+                            <input id="inputCariCatatanPerwalian" type="text"
+                                placeholder="Cari dosen">
+                        </dir>
+                        <div class="pt-0 mb-0">
+                            <p id="indikatorWarna">
+                                <span class="material-symbols-outlined bullet align-middle"> circle </span>
+                                <span class="mr-1">Refleksi Dosen</span>
+
+                                <span class="material-symbols-outlined bullet align-middle">circle</span>
+                                <span class="mr-1">Khusus</span>
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 my-sm-3 d-flex align-items-center">
+
+                        <div id="kolomTambahCatatan d-flex ">
+                            <a id="tambahCatatan" class="align-middle" href="./tambahCatatan.html">
+                                <span class="material-symbols-outlined mr-2">
+                                    add_box
+                                </span>
+                            </a>
+                            <a id="tambahCatatan" class="judulTambahCatatan" href="./tambahCatatan.html">
+                                Tambah Catatan Perwalian
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="listCatatanPerwalian" class="d-flex align-content-start flex-wrap mt-1 pb-3">
+                    <div v-for="index in 3" :key="index" id="itemCatatan"
+                        class="d-flex justify-content-center col-lg-3 col-md-4 mr-lg-3 mr-md-0 col-sm-6 mb-sm-4 px-sm-0">
+                        <div id="itemCatatanPerwalian" class="card ">
+
+                            <div class="card-body">
+                                <span id="garisMahasiswa"></span>
+
+                                <h5 class="card-title text-center">Catatan Refleksi UAS {{index}} </h5>
+                                <h6 class="card-subtitle mb-2 text-muted text-center">12 Oktober 2022</h6>
+                                <h6 class="card-subtitle mt-4 font-weight-bold text-left">UAS Angkatan</h6>
+                                <p class="card-text mb-3 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing
+                                    elit. Veniam iste nam <span><a href="#" class="font-weight-bold"><u>Lihat selengkapnya</u></a></span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 d-flex justify-content-start mt-3 px-0">
+                        <div id="lihatSemuaCatatan" class="px-0">
+                            <a href="./cariCatatanPerwalianDosen.html">Lihat semua catatan perwalian</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 d-flex justify-content-start mt-4 px-0">
+                    <div id="garisBatasCatatan"></div>
+                </div>
+            </div>
+
+            <div id="bagianGrupAngkatan">
+                <div id="judulDaftarGrupPerwalian" class="mt-4">
+                    <div id="judulCariCatatanPerwalian" class="col-12 pl-0">
+                        <p class="mb-0">Daftar Grup Perwalian Mahasiswa</p>
+                    </div>
+                    <div class="col-12 mb-1 pl-0 mt-xl-3">
+                        <span class="material-symbols-outlined search"> search </span>
+                        <input id="inputCariCatatanPerwalian" type="text" placeholder="Cari mahasiswa perwalian">
+                    </div>
+
+                </div>
+
+                <div id="containerMahasiswaAngkatan" class="row mt-4 d-flex justify-content-center">
+                    <div v-for="index in 2" :key="index" id="mahasiswaAngkatan" class="col-sm-12 col-md-12 col-lg-12 col-xl-6 mb-3 px-0">
+                        <p>Mahasiswa Informatika {{angkatan + index}}</p>
+                        <div id="itemNamaMhs">
+                            <div v-for="subIndex in 1" :key="subIndex" id="itemMahasiswa" class="col mb-sm-2">
+                                <div id="iconMahasiswa" class="d-flex justify-content-center">
+                                    <span class="material-symbols-outlined align-self-center">
+                                        account_circle
+                                    </span>
+                                </div>
+                                <div id="infoMahasiswa">
+                                    <p><a class="namaMahasiswa" href="./detailMahasiswa.html">Immanuel Sindu Kristian
+                                            Pratama / 71190426</a></p>
+                                    <p id="infoIPK">100 SKS - IPK 3.83 - SAC 50 <span class="cekalDash">- </span>
+                                        <span id="cekalBullet"
+                                            class="material-symbols-outlined bullet text-danger align-middle">circle</span>
+                                        <span class="cekal" data-toggle="tooltip" data-placement="bottom" title=" Cekal SPP Biro 2">Cekal Biro 2</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div v-for="subIndex in 2" :key="subIndex" id="itemMahasiswa" class="col mb-sm-2">
+                                <div id="iconMahasiswa" class="d-flex justify-content-center">
+                                    <span class="material-symbols-outlined align-self-center">
+                                        account_circle
+                                    </span>
+                                </div>
+                                <div id="infoMahasiswa">
+                                    <p><a class="namaMahasiswa" href="./detailMahasiswa.html">Immanuel Sindu Kristian
+                                            Pratama / 71190426</a></p>
+                                    <p id="infoIPK">100 SKS - IPK 3.83 - SAC 50</p>
+                                </div>
+                            </div>
+
+                            
+
+                            <div v-for="subIndex in 1" :key="subIndex" id="itemMahasiswa" class="col mb-sm-2">
+                                <div id="iconMahasiswa" class="d-flex justify-content-center">
+                                    <span class="material-symbols-outlined align-self-center">
+                                        account_circle
+                                    </span>
+                                </div>
+                                <div id="infoMahasiswa">
+                                    <p><a class="namaMahasiswa" href="./detailMahasiswa.html">Immanuel Sindu Kristian
+                                            Pratama / 71190426</a></p>
+                                    <p id="infoIPK">100 SKS - IPK 3.83 - SAC 50 <span class="cekalDash">- </span>
+                                        <span id="cekalBullet"
+                                            class="material-symbols-outlined bullet text-danger align-middle">circle</span>
+                                        <span class="cekal" data-toggle="tooltip" data-placement="bottom" title="Cekal Registrasi Biro 1">Cekal Biro 1</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div v-for="subIndex in 1" :key="subIndex" id="itemMahasiswa" class="col mb-sm-2">
+                                <div id="iconMahasiswa" class="d-flex justify-content-center">
+                                    <span class="material-symbols-outlined align-self-center">
+                                        account_circle
+                                    </span>
+                                </div>
+                                <div id="infoMahasiswa">
+                                    <p><a class="namaMahasiswa" href="./detailMahasiswa.html">Immanuel Sindu Kristian
+                                            Pratama / 71190426</a></p>
+                                    <p id="infoIPK">100 SKS - IPK 3.83 - <span class="cekalSAC"  data-toggle="tooltip" data-placement="bottom" title="Mahasiswa ini memiliki poin keaktifan di bawah 50% dari total Syarat Poin Keaktifan, dalam 2 tahun perkuliahan" >SAC 10</span> <span class="cekalDash">- </span>
+                                        <span id="cekalBullet"
+                                            class="material-symbols-outlined bullet text-danger align-middle">circle</span>
+                                        <span class="cekal" data-toggle="tooltip" data-placement="bottom" title="Cekal Pinjaman Buku Perpustakaan">Cekal Perpustakaan </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div v-for="subIndex in 2" :key="subIndex" id="itemMahasiswa" class="col mb-sm-2">
+                                <div id="iconMahasiswa" class="d-flex justify-content-center">
+                                    <span class="material-symbols-outlined align-self-center">
+                                        account_circle
+                                    </span>
+                                </div>
+                                <div id="infoMahasiswa">
+                                    <p><a class="namaMahasiswa" href="./detailMahasiswa.html">Immanuel Sindu Kristian
+                                            Pratama / 71190426</a></p>
+                                    <p id="infoIPK">100 SKS - IPK 3.83 - SAC 50 </p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end mr-4">
+                                <a class="lihatSelengkapnya" href="detailAngkatan.html">Lihat selengkapnya ></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="chartRataRataIPK" class="mt-4">
+                    <p>Grafik Rata Rata IPK Angkatan</p>
+                    <div id="containerChart">
+                       <canvas id="myChart"></canvas>
+                    </div>
+                    
+                </div>
+
+        
+            </div>
+        </div>
+
+     
+     
+        
+        <div id="snackbar">
+            <p class="m-0">Perubahan berhasil disimpan</p>
+        </div>
+
+        
+
+    </div>
+
+     
+
+    <script src="./js/beranda.js"></script>
+    <script src="./js/lineChart.js"></script>
+ 
+</body>
+
+</html>

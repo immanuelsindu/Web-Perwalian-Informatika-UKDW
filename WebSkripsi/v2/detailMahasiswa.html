@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <link rel="stylesheet" href="./styling/detailMahasiswa.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <!-- Bootstrap Icon -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <!-- Icon Google -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+   <script src="./js/scprit.js"></script>
+
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Vue cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+
+   
+</head>
+<!-- Navbar -->
+<div class="row align-items-center ml-0 stickyNavbar"  id="navbar">
+    <div id="navbar1" class="col-lg-8 mt-lg-0 col-sm-12 mt-sm-3">
+        <div class="d-flex">
+            <div class="ml-3" id="iconBeranda">
+                <a href="./beranda.html">
+                    <span class="material-symbols-outlined" style="color:#3C2A21">
+                        home
+                    </span>
+                </a>
+            </div>
+            
+            <div id="judulWeb">
+                <p class="ml-2">Program Studi Informatika UKDW</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="navbar2" class="col-lg-4 col-sm-12" >
+        <div id="idPengguna">
+            <div class="d-flex align-items-center">
+                <span class="material-symbols-outlined">person_filled</span>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Nama Dosen
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        
+                        <a class="dropdown-item d-flex align-items-center" href="./index.html">
+                            <span class="material-symbols-outlined mr-2">
+                                logout
+                            </span>
+                            Logout
+                        </a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+<div id="content" class=" row container-fluid">
+    <div class="col-12 mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-white ml-5">
+              <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+              <li class="breadcrumb-item"><a href="#">Informatika 2019</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Detail Mahasiswa</li>
+            </ol>
+        </nav>
+    </div>
+
+     
+    <div id="contentKiri" class="col-lg-3 col-sm-12 px-0">
+        <div class="mySticky">
+            <div class="d-flex justify-content-center">
+                <img id="fotoDosen" src="./media/sindu.jpg" alt="">
+            </div>
+
+            <div id="infoDosen" class="mt-3">
+                <p>Immanuel Sindu</p>
+                <div class="garis"></div>
+
+                <div class="row mt-3 ml-5 pl-3" >
+                    <div id="itemMahasiswaKiri" class="col-5 px-0 d-flex justify-content-start">
+                        <p>Total SKS</p>
+                    </div>
+                    <div id="itemMahasiswaKanan" class="col-5 d-flex justify-content-end">
+                        <p>102 / 144</p>
+                    </div>
+                </div>
+
+                <div class="row mt-2 ml-5 pl-3" >
+                    <div id="itemMahasiswaKiri" class="col-5 px-0 d-flex justify-content-start">
+                        <p>IP Kumulatif</p>
+                    </div>
+                    <div id="itemMahasiswaKanan" class="col-5 d-flex justify-content-end">
+                        <p>3.83 / 4.00</p>
+                    </div>
+                </div>
+
+                <div class="row mt-2 ml-5 pl-3" >
+                    <div id="itemMahasiswaKiri" class="col-5 px-0 d-flex justify-content-start">
+                        <p>Poin Keaktifan</p>
+                    </div>
+                    <div id="itemMahasiswaKanan" class="col-5 d-flex justify-content-end">
+                        <p>50 / 50 </p>
+                    </div>
+                </div>
+
+            </div> 
+        </div>
+    </div>
+
+    <div id="contentKanan" class="col-lg-9 col-sm-12 mb-md-5 pl-0">
+        <div class="row mt-4">
+            <div class="col-12 ml-3">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <p id="judulListCatatan">Catatan Perwalian</p>
+                        <p id="tipeCatatanCircle">
+                            <span class="material-symbols-outlined bullet align-middle">
+                                circle
+                            </span>
+                            <span class="mr-1">Mahasiswa</span>
+                            <span class="material-symbols-outlined bullet align-middle">
+                                circle
+                            </span>
+                            <span class="mr-1"> Orang Tua / Wali</span>
+                            <span class="material-symbols-outlined bullet align-middle">
+                                circle
+                            </span>
+                            <span class="mr-1"> Orang Tua / Wali & Mahasiswa</span>
+                        </p>
+                    </div>
+                    <div class="col-lg-5 col-sm-12 d-flex justify-content-end ml-5">
+                        <div class="d-flex align-items-center">
+                            <a id="tambahCatatan" href="#" class="align-middle">
+                                <span class="material-symbols-outlined mr-1 pt-1">
+                                    add_box
+                                    </span>
+                            </a>
+                            <a id="tambahCatatan" class="judulTambahCatatan" href="./tambahCatatanMahasiswa.html">
+                                Tambah Catatan Perwalian
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="col-12 mt-2 pr-5 ml-3">
+                <div class="row mr-2">
+                    <div v-for="(catatan, index) in listCatatan" :key="index" class="col-xl-3 col-md-4 mb-4 col-sm-6">
+                        <div id="itemCatatanPerwalian" class="card">
+                            <div class="card-body">
+
+                                <span v-if="catatan.tipe === 'mahasiswa'" id="garisMahasiswa"></span>
+                                <span v-else-if="catatan.tipe === 'orangTua'" id="garisOrangTua"></span>
+                                <span v-else-if="catatan.tipe === 'orangTuaMahasiswa'" id="garisOrangTuaMahasiswa"></span>
+
+                                <h5 class="card-title text-center">{{catatan.judul}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">12 Oktober 2022</h6>
+                                <h6 class="card-subtitle mt-4 font-weight-bold text-left">Topik Perwalian</h6>
+                                <p class="card-text text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam iste nam labore doloremque facilis nul</p>  
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="col-12 d-flex justify-content-start ml-3 pr-5 mb-5" >
+                <div id="lihatSemuaCatatan" class="mr-4">
+                    <a href="./cariCatatanPerwalianMahasiswa.html">Lihat semua catatan</a>
+                </div>
+            </div>
+
+            <div id="resumeMahasiswa" class="col-12 mb-5 ml-3">
+               <div id="resumeBaris1" class="row mb-5">
+                    <div id="indeksPrestasi" class="col-xl-5 col-md-8 col-sm-10 mb-sm-3">
+                        <p id="judulIP">Indeks Prestasi</p>
+                        <div id="itemIPK" class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div id="batasTengah" class="">
+                                    </div>
+                                    <div id="ipKiri" class="col-6">
+                                        <p>Indeks Prestasi Semester</p>
+                                        <div v-for="(item, index) in 7" :key="index" class="row ml-1 mb-2" >
+                                            <div id="infoSemesterSKSKiriA" class="mr-3">
+                                                <p class="mb-0">Semester {{indeksSemester +index}}</p>
+                                                <p class="mb-0">20 SKS</p>
+                                            </div>
+                                            <p id="infoSemesterSKSKananA" class="my-auto offset-1">3.80</p>
+                                        </div>
+                                    </div>
+
+                                    <div id="ipKanan" class="col-6">
+                                        <p>Indeks Prestasi Kumulatif</p>
+                                        <div class="row mx-1 mb-2">
+                                            <div id="infoSemesterSKSKiriB" class="col-7">
+                                                <p class="mb-0">Total SKS tempuh</p>
+                                            </div>
+                                            <div  id="infoSemesterSKSKananB" class="col-5">
+                                                <p  class="my-auto">120</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mx-1 mb-2">
+                                            <div id="infoSemesterSKSKiriB" class="col-6">
+                                                <p class="mb-0">IPK</p>
+                                            </div>
+                                            <div  id="infoSemesterSKSKananB" class="col-6">
+                                                <p  class="my-auto">3.80</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+
+                    <div id="presensiMahasiswa" class="col-xl-3 col-md-4 col-sm-6">
+                        <p id="judulPresensi">Presensi</p>
+                        <div id="cardPresensi" class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Kuliah Minggu ke - 8</h5>
+                                <h6 class="card-subtitle mb-3 ">Semester 7</h6>
+                                <div v-for="item in matkul" id="infoPresensi" class="row">
+                                    <div id="namaMatkul" class="col-7 offset-1">
+                                        <p >{{item[0]}}</p>
+                                    </div>
+                                    <div id="jumlahHadir" class="col-4">
+                                        <p class="text-center">{{item[1]}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div id="poinKeaktifan" class="col-xl-3 col-md-4 col-sm-6">
+                        <p>Poin Keaktifan</p>
+                        <div id="cardPoinKeaktifan" class="card">
+                            <div class="card-body">
+                                <div class="row ">
+                                    <div class="col-9">
+                                        <h5 class="card-title">Syarat Poin Keaktifan</h5>
+                                    </div>
+                                    <div class="d-flex justify-content-end ml-2">
+                                        <p class="card-title align-self-center">50</path>
+                                    </div>
+                                    <div class="col-9">
+                                        <h5 class="card-title">Poin Keaktifan saat ini</h5>
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <ol>
+                                                    <li>Kegiatan</li>
+                                                    <li>Jabatan</li>
+                                                    <li>Prestasi</li>
+                                                </ol>   
+                                            </div>
+                                            <div class="col-4 px-0 d-flex justify-content-end">
+                                                <ol id="poinPerItem">
+                                                    <li>35</li>
+                                                    <li>5</li>
+                                                    <li>10</li>
+                                                </ol>
+                                            </div>
+    
+                                            <div id="garisPoinKeaktifan" class="col-12"></div>
+    
+                                            <div id="totalPoinKeaktifan" class="row ml-4 pl-3 ml-4 ">
+                                                <div class="col-7 px-0 offset-1">
+                                                    <p id="judulTotal">Total</p>
+                                                </div>
+                                                <div class="col-4 px-0 pr-1 text-center">
+                                                    <p class="cekalSAC" data-toggle="tooltip" data-placement="bottom" title="Mahasiswa ini memiliki poin keaktifan di bawah 50% dari total Syarat Poin Keaktifan, dalam 2 tahun perkuliahan">10</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+               </div>
+
+               <div id="resumeBaris2" class="row mb-5">
+                    <div class="col-xl-4 col-md-8 mb-lg-3 mb-sm-3 col-sm-8">
+                        <p id="judulProfilMahasiswa">Profil Profesional Mandiri</p>
+                        <div class="card" id="cardProfilMahasiswa">
+                            <div class="card-body px-4 pt-4 pb-0" >
+                                <div v-for="index in 4" :key="index" id="judulProfil">
+                                    <p>
+                                        {{profil[index-1]}}
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-8 px-0">
+                                            <ol>
+                                                <li>Mata Kuliah Wajib Profil</li>
+                                                <li>Mata Kuliah Opsional</li>
+                                            </ol>
+                                        </div>
+                                        <div class="col-3 px-0" id="jumlahMatkulProfil">
+                                            <ol class="">
+                                                <li>4/5</li>
+                                                <li>3/5</li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                    
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end pb-4 pr-4">
+                                <a href="./profilMahasiswa.html">Lihat selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4 col-md-6 mb-xl-4 col-sm-6">
+                        <p id="judulPembayaran">Pembayaran</p>
+                        <div id="cardPembayaran" class="card">
+                          <div class="card-body">
+                            <div id="bayarBaris1" class="row">
+                                <div class="col-6">
+                                    <p>SPP Semester 7</p>
+                                </div>
+                                <div class="col-6 text-center">
+                                   <p>Sudah Bayar</p>
+                                </div>
+                            </div>
+                            <div id="bayarBaris2" class="row">
+                                <div class="col-6">
+                                    <p class="mb-2">Riwayat Beasiswa</p>
+                                    <ol class="pl-4">
+                                        <li>Beasiswa A</li>
+                                        <li>Beasiswa B</li>
+                                        <li>Beasiswa C</li>
+                                        <li>Beasiswa D</li>
+                                    </ol>
+                                </div>
+                                <div class="col-6">
+                                    <p class="text-center mb-2">Riwayat Cekal</p>
+                                    <ol class="pl-4">
+                                        <li>Cekal A</li>
+                                        <li>Cekal B</li>
+                                    </ol>
+                                </div>
+                            </div>
+                          </div>  
+                        </div>
+                    </div> 
+
+                    <div class="col-xl-3 col-md-6 col-sm-6">
+                        <p id="judulPembayaran">Yudisium</p>
+                        <div id="cardPembayaran" class="card">
+                          <div class="card-body">
+                            <div id="infoYudisium" class="row">
+                                <div class="col-7">
+                                    <p class="pr-0 mb-2">Aturan Umum</p>
+                                </div>
+                                <div class="col-5 text-right ml-0" id="jumlahProgresYudisium">
+                                   <p >2/2</p>
+                                </div>
+
+                                <div class="col-8">
+                                    <p class="pr-0 mb-2">Prosedur Pendaftaran Yudisium</p>
+                                </div>
+                                <div class="col-4 text-right ml-0" id="jumlahProgresYudisium">
+                                   <p >3/5</p>
+                                </div>
+
+                                <div class="col-8">
+                                    <p class="pr-0 mb-2">Berkas Yudisium</p>
+                                </div>
+                                <div class="col-4 text-right ml-0" id="jumlahProgresYudisium">
+                                   <p >7/10</p>
+                                </div>
+                                
+                                <div class="col-12 d-flex justify-content-end">
+                                    <a href="./detailYudisium.html">Lihat selengkapnya</a>
+                                </div>
+                                
+                            </div>
+                          </div>  
+                        </div>
+                    </div>
+               </div>
+
+               <div id="resumeBaris3" class="row mb-5">
+                <div class="col-xl-4 col-lg-6 col-md-5 col-sm-7">
+                    <p id="judulSuratPeringatan">Surat Peringatan</p>
+                    <div id="cardSuratPeringatan" class="card">
+                        <div class="card-body">
+                            <p class="mb-2 font-weight-bold">Rekap Cekal</p>
+
+                            <div v-for="index in 4" class="row mb-2">
+                                <div class="col-2">
+                                    <p>{{index}}.</p>
+                                </div>
+                                <div class="col pl-0">
+                                    <div class="row">
+                                        <div class="col-12 pl-0 font-weight-bold">
+                                            <p class="mb-0">{{suratPeringatan[index-1][0]}}</p>
+                                        </div>
+                                        <div class="col-12 pl-0">
+                                            <p class="mb-0">{{suratPeringatan[index-1][1]}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+               </div>
+            
+               <div id="resumeBaris4" class="row">
+                <div class="col-sm-12">
+                    <p id="judulKRS">Kartu Rencana Studi</p>
+
+                    <div id="gambarKRS" class="card">
+                        <img src="./media/krs.png" alt="">
+                    </div>
+                </div>
+               </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./js/detailMahasiswa.js"></script>
+
+<body>
+</html>
+   

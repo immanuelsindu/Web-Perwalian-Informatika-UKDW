@@ -1,0 +1,299 @@
+@font-face {
+    font-family: poppins;
+    src: url("../font/Poppins-Regular.otf");
+}
+
+@font-face {
+    font-family: inter;
+    src: url("../font/Inter-Regular.ttf");
+}
+
+body{
+    margin: 0rem;
+    font-family: inter !important;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+
+#navbar{
+    width: 100%;
+    height: 4rem;
+    background-color: #E5E5CB;
+}
+
+#navbar p{
+    width: 500px;
+    margin: 0rem;
+    font-size: 1.1rem;
+    font-family: inter;
+    color: #3C2A21;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+
+#idPengguna{
+    width: 13rem;
+    float: right;
+}
+
+.btn.btn-secondary.dropdown-toggle{
+    background-color: #E5E5CB;
+    color:#3C2A21;
+    font-family: inter;
+    border: none;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    margin-left: 0.2rem;
+}
+
+.btn.btn-secondary.dropdown-toggle:hover{
+    background-color: #d5d5be;
+    color:#3C2A21;
+    font-family: inter;
+    border: none;
+    font-weight: bold;
+}
+
+.btn.btn-secondary.dropdown-toggle:focus{
+    background-color: #d5d5be;
+    color:#3C2A21;
+    font-family: inter;
+    border: none;
+    font-weight: bold;
+}
+
+#breadcrumb{
+    font-size: 0.8rem;
+    font-family: inter;
+}
+#content{
+    clear: both;
+}
+
+#contentKiri{
+    /* margin-top: 2rem; */
+    font-size: 0.9rem !important;
+}
+
+.mySticky{
+    position: sticky;
+    top: 0;
+    position: -webkit-sticky;
+}
+#contentKiri a{
+    text-decoration: underline;
+    color: #3C2A21;
+}
+#fotoDosen{
+    width: 40%;
+    margin-top: 2rem;
+    display: block;
+}
+
+#infoDosen p:nth-child(1){
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem; 
+    margin-bottom: 0.2rem;   
+}
+.garis{
+    width: 3rem;
+    border-top: 3px solid #3C2A21;
+    margin-left: auto;
+    margin-right: auto;
+}
+#infoDosen .col-7 p{
+    font-weight: normal;
+    font-size: 1rem;
+    font-family: inter;
+    text-align: left;
+}
+
+#infoDosen .col-4 p{
+    width: 3rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+    padding: 0.2rem;
+    text-align: center;
+    font-weight: normal;
+    font-size: 1rem;
+    font-family: inter;
+    border-radius: 0.8rem;
+    background-color: #d5d5be;
+    
+}
+
+#infoDosen .col-12 p{
+    font-size: 1rem;
+    font-weight: normal;
+    /* text-align: left; */
+}
+
+#infoDosen .col-3 p{
+    display: inline;
+    padding: 0.3rem 0.8rem;
+    text-align: center;
+    font-size: 1rem;
+    font-family: inter;
+    border-radius: 0.8rem;
+    background-color: #d5d5be;
+}
+#totalMahasiswaPerwalian p:nth-child(1){
+    text-align: left;
+}
+
+#angkatanMahasiswa{
+    width: 17rem;
+}
+
+#inputCariCatatanPerwalian{
+    width: 23rem;
+    height: 35px;
+    padding-left: 1.9rem !important;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
+}
+
+#indikatorWarna{
+    font-size: 0.8rem;
+}
+#judulCariCatatanPerwalian{
+    font-size: 1.2rem;
+    font-weight: bold;
+    /* font-family: inter; */
+}
+
+#listCatatanPerwalian{
+    width: 90%;
+}
+
+#tambahCatatan{
+    color: #3C2A21;
+    font-weight: bold;
+    font-family: inter;
+    text-decoration: none;
+}
+#itemCatatanPerwalian {
+    height: 16.625rem;
+    font-family: inter;
+    background-color: white;
+    border-radius: 0.625rem;
+    box-shadow: 7px 7px 36px -4px rgb(0 0 0 / 25%);
+    border: none;
+}
+#lihatSemuaCatatan a {
+    color: #3C2A21;
+    text-decoration: underline;
+    font-family: inter;
+    font-weight: bold;
+}
+
+#itemCatatanPerwalian h5 {
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: inter;
+}
+
+#garisBatasCatatan{
+    border-bottom: 2px solid #e6e6e6;
+    width: 100%;
+}
+
+.judulTambahCatatan{
+    display: inline;
+    
+}
+
+.material-symbols-outlined.bullet.align-middle:nth-child(1) {
+    font-size: inherit;
+    color: red;
+}
+.material-symbols-outlined.bullet.align-middle:nth-child(3) {
+    font-size: inherit;
+    color: blue;
+}
+.material-symbols-outlined.bullet.align-middle:nth-child(5) {
+    font-size: inherit;
+    color: green;
+}
+.material-symbols-outlined.bullet.align-middle:nth-child(7) {
+    font-size: inherit;
+    color: yellow;
+}
+
+
+span.material-symbols-outlined.search {
+    position: absolute;
+    padding-top: 0.4rem;
+    padding-left: 0.3rem;
+    color: #3C2A21;
+}
+
+#contentKanan{
+    /* margin-top: 2rem; */
+    /* background-color: yellow; */
+}
+#mahasiswaAngkatan{
+    margin-right: -1.25rem;
+}
+#mahasiswaAngkatan p {
+    font-size: 1.2rem;
+    font-weight:bold;
+}
+
+#itemNamaMhs{
+   width: 500px;
+   margin-top: 1.2rem;
+   padding: 1rem 0rem;
+   background-color: white;
+   border-radius: 0.625rem;
+   box-shadow: 7px 7px 36px -4px rgba(0, 0, 0, 0.25);
+}
+
+#itemNamaMhs a {
+    text-decoration: none;
+    text-align: right;
+    color: #3C2A21;
+}
+
+#iconMahasiswa{
+    width:55px;
+    height: 55px;
+    background-color: white;
+    float: left;
+}
+#iconMahasiswa span{
+    font-size: 40px;
+    color: #3C2A21;
+}
+#infoMahasiswa{
+    width: 100%;
+    height: 55px;
+    background-color: white;
+    border-bottom: 2px solid #d3d3d3;
+}
+#infoMahasiswa p{
+    font-weight: normal;
+    font-size: 1rem;
+    margin: 0rem;
+}
+
+#infoMahasiswa p:nth-child(1){
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 0rem;
+}
+
+
+
+
+
+
+

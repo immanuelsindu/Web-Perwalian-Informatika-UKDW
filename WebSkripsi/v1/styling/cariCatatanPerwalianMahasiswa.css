@@ -1,0 +1,318 @@
+@font-face {
+    font-family: poppins;
+    src: url("../font/Poppins-Regular.otf");
+}
+
+@font-face {
+    font-family: inter;
+    src: url("../font/Inter-Regular.ttf");
+}
+
+body{
+    margin: 0rem;
+    font-family: inter;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+
+
+#navbar{
+    width: 100%;
+    height: 4rem;
+    background-color: #E5E5CB;
+}
+
+#navbar p{
+    width: 500px;
+    margin: 0rem;
+    font-size: 1.1rem;
+    font-family: inter;
+    color: #3C2A21;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+#idPengguna{
+    width: 13rem;
+    float: right;
+}
+
+.btn.btn-secondary.dropdown-toggle{
+    background-color: #E5E5CB;
+    color:#3C2A21;
+    font-family: inter;
+    border: none;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    margin-left: 0.2rem;
+}
+
+
+/* batas navbar */
+
+@media (min-width: 1200px){
+    .container {
+        max-width: 1340px !important;
+    }
+}
+
+span.material-symbols-outlined.search{
+    position: absolute;
+    padding-top: 0.4rem;
+    padding-left: 0.3rem;
+    color:#3C2A21;
+}
+
+#inputCariMahasiswa{
+    width: 20rem;
+    height: 35px;
+    padding-left: 1.9rem !important;
+    border-radius: 0.3rem;
+}
+
+#judulCatatan p{
+    text-align: center;
+    font-weight: bold;
+    font-family: inter;
+    font-size: 2rem;
+    margin-top: 2.5rem;
+}
+
+.material-symbols-outlined.mr-1.pt-1{
+    color: #3C2A21;
+}
+
+.material-symbols-outlined.accCirlcle {
+    color: #3C2A21;
+    font-size: 3.2rem;
+}
+
+
+#opsiTambahNHistoryKiri{
+    width: 80% !important;
+    /* background-color: red; */
+    float: right;
+}
+
+.historyButtonTrue{
+    background-color: white;
+    border-radius: 0.4rem;
+    padding: 0.2rem 0.5rem;
+    border: none !important;
+    outline: none !important;
+    color: #3C2A21;
+    font-family: inter;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    cursor: pointer;
+}
+
+.historyButtonTrue:hover{
+    background-color: rgb(235, 235, 235);
+    border-radius: 0.4rem;
+    padding: 0.2rem 0.5rem;
+    border: none !important;
+    outline: none !important;
+    color: #3C2A21;
+    font-family: inter;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    cursor: pointer;
+    outline: none;
+}
+
+.historyButtonFalse{
+    background-color: #E5E5CB;
+    border-radius: 0.4rem;
+    padding: 0.2rem 0.5rem;
+    border: none !important;
+    color: #3C2A21;
+    outline: none;
+    font-family: inter;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    cursor: pointer;
+}
+.historyButtonFalse:focus{
+    background-color: #E5E5CB;
+    border-radius: 0.4rem;
+    padding: 0.2rem 0.5rem;
+    border: none !important;
+    color: #3C2A21;
+    outline: none;
+    font-family: inter;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    cursor: pointer;
+}
+
+
+#opsiTambahNHistoryKanan{
+    width: 80% !important;
+    /* background-color: red; */
+    clear: both;
+}
+
+
+#dataMahasiswa p {
+    font-size: 1.1rem;
+    font-family: inter;
+    font-weight: bold;
+}
+
+#tambahCatatan{
+    color: #3C2A21;
+    font-weight: bold;
+    font-family: inter;
+    text-decoration: none;
+}
+
+#alertPencarian{
+    font-size: 0.8rem;
+    font-family: inter;
+}
+
+#alertPencarian p{
+    margin-bottom: 0.2rem !important;
+} 
+
+.material-symbols-outlined.bullet{
+    font-size: inherit;
+}
+
+.material-symbols-outlined.bullet.align-middle:nth-child(1){
+    font-size: inherit;
+    color: red;
+}
+
+.material-symbols-outlined.bullet.align-middle:nth-child(3){
+    font-size: inherit;
+    color: blue;
+}
+
+.material-symbols-outlined.bullet.align-middle:nth-child(5){
+    font-size: inherit;
+    color: green;
+}
+
+
+.material-symbols-outlined.bullet.align-middle:nth-child(7){
+    font-size: inherit;
+    color: yellow;
+}
+.material-symbols-outlined.history{
+    font-size: 1.75rem;
+}
+
+.material-symbols-outlined.history:hover{
+    cursor: context-menu;
+}
+#breadcrumb{
+    font-size: 0.8rem;
+    font-family: inter;
+}
+
+
+#itemCatatanPerwalian{
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1.2rem 2rem 0.8rem;
+    width: 95%;
+    box-shadow: 7px 7px 37px -4px rgba(0, 0, 0, 0.25);
+}
+
+#infoCatatan p:nth-child(1){
+    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: inter;
+    margin-bottom: 0rem;
+}
+
+#infoCatatan p:nth-child(2){
+    font-size: 0.9rem;
+    font-weight: inter;
+    margin-bottom: 0rem;
+}
+
+#agendaPerwalian{
+    font-size: 0.9rem;
+    font-weight: inter;
+    text-align: justify;
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+
+}
+
+#iconEdit{
+    cursor: pointer;
+    margin-left: 0.3rem;
+}
+
+#panelHistory{
+    width: 100%;
+}
+
+#tahunCatatanPerwalian{
+    display: inline-block;
+    background-color: #E5E5CB;
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.4rem;
+    font-weight: bold;
+    font-family: inter;   
+}
+
+.material-symbols-outlined.itemHistory{
+    font-size: 1.5rem !important;
+    position: absolute;
+    padding: 0.1rem 0rem;
+    background-color: white;
+}
+
+#tanggalPerwalian p{
+    margin-left: 1.8rem;
+    margin-bottom: 0rem !important;
+    font-family: inter;
+}
+
+#tanggalPerwalian p:nth-child(1){
+    font-weight: bold;
+}
+
+#tanggalPerwalian p:nth-child(2){
+    font-size: 0.8rem;
+}
+#tahunCatatanPerwalian{
+    z-index: 1;
+    position: absolute;
+}
+
+#garis{
+    height: 50%;
+    border-left: 3px solid #E5E5CB;
+    /* z-index: 1; */
+    position: absolute;
+    margin-left: 1rem;
+}
+
+
+#test #itemHistoryBundle:nth-child(2){
+    /* z-index: -1; */
+    margin-top: 3rem;
+}
+
+#cardPreviewCatatan{
+    box-shadow: 7px 7px 37px -4px rgb(0 0 0 / 25%);
+    border: none;
+    border-radius: 0.5rem;
+}
+
+#cardPreviewCatatan .card-link{
+    color: #3C2A21;
+    text-decoration: underline;
+}

@@ -1,0 +1,777 @@
+@font-face {
+    font-family: poppins;
+    src: url("../font/Poppins-Regular.otf");
+}
+
+@font-face {
+    font-family: inter;
+    src: url("../font/Inter-Regular.ttf");
+}
+
+body {
+    margin: 0rem;
+    font-family: inter !important;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+}
+
+@media screen and (max-width: 575px) {
+
+    /* breakpoint navbar */
+    div#iconBeranda {
+        display: none;
+    }
+
+    div#navbar1 {
+        margin-top: 0.5rem;
+    }
+
+    div#navbar2 {
+        margin-bottom: 0.5rem;
+    }
+
+    div#idPengguna {
+        float: none;
+    }
+
+    div#navbar {
+        height: fit-content;
+    }
+
+    div#dataCatatan {
+        margin-left: 3rem;
+    }
+
+}
+
+@media screen and (max-width:992px) {
+
+    /* breakpoint navbar */
+    div#navbar {
+        height: fit-content !important;
+    }
+
+    div#agendaPerwalian {
+        /* display: none; */
+        background-color: red !important;
+        width: 100%;
+        height: 100px;
+        ;
+    }
+
+    div#kolomDaftarPesertaLainnya {
+        position: relative;
+    }
+}
+
+@media screen and (max-width:700px) {
+    div#buttonBatalSimpan {
+        margin: 0rem;
+    }
+
+}
+
+.paddingTop {
+    padding-top: 4rem;
+}
+
+.stickyNavbar {
+    position: sticky;
+    top: 0;
+    position: -webkit-sticky;
+    z-index: 2 !important;
+}
+
+.breadCrumb {
+    font-size: 0.8rem;
+    font-family: inter !important;
+}
+
+#navbar {
+    width: 100%;
+    height: 4rem;
+    background-color: #E5E5CB;
+}
+
+#navbar p {
+    /* width: 500px; */
+    margin: 0rem;
+    font-size: 1.2rem;
+    font-family: inter;
+    color: #3C2A21;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+#idPengguna {
+    float: right;
+}
+
+.btn.btn-secondary.dropdown-toggle {
+    background-color: #E5E5CB;
+    color: #3C2A21;
+    font-family: inter;
+    border: none;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    margin-left: 0.2rem;
+}
+
+/* batas navbar */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1340px !important;
+    }
+}
+
+.breadcrumb.bg-white.ml-5 {
+    font-size: 0.8rem;
+    font-family: inter;
+}
+
+#tambahCatatan {
+    width: 100%;
+}
+
+#judulCatatan p {
+    color: #0D0C1D !important;
+    text-align: center;
+    font-weight: bold;
+    font-family: inter;
+    font-size: 2rem;
+    /* margin-top: 2.5rem; */
+}
+
+#tambahCatatan div.col-4 {
+    width: 100%;
+    height: 100%;
+}
+
+#tambahCatatan .font-weight-bold {
+    color: #0D0C1D !important;
+    font-family: inter !important;
+}
+
+#inputKiri {
+    width: 85%;
+    height: 2.5rem;
+    border-radius: 0.6rem;
+    box-sizing: border-box;
+
+    border: 2px solid #878787;
+    font-size: 0.9rem;
+    padding: 0rem 0.5rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    outline: none;
+}
+
+#inputKiri:focus {
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#inputNamaOrangTua {
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 0.6rem;
+    box-sizing: border-box;
+
+    border: 2px solid #878787;
+    font-size: 0.9rem;
+    padding: 0rem 0.5rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    outline: none;
+}
+
+#inputNamaOrangTua:focus {
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/* inputan judul konsul mahasiswa */
+#inputJudulKonsul {
+    vertical-align: middle;
+    width: 85% !important;
+    height: 2.5rem;
+    border-radius: 0.6rem !important;
+    border: 2px solid #878787;
+    font-size: 0.9rem;
+    padding: 0rem 0rem 0rem 0.5rem;
+
+
+    /* box-sizing: border-box; */
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    outline: none;
+}
+
+#inputJudulKonsul:focus {
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+
+#dropdownMenuButton2:focus {
+
+    margin-top: -4px;
+    margin-left: 0rem;
+    border-radius: 0rem 0.6rem 0.6rem 0rem;
+    border: 2px solid #878787;
+    background-color: #E5E5CB;
+    border-left: none;
+    color: black;
+}
+
+#judulItemPerCatatan {
+    font-family: inter;
+    font-size: 1.2rem;
+    text-decoration: underline;
+    letter-spacing: 0rem;
+    color: #3C2A21;
+    font-weight: normal;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+
+#judulTambahMahasiswa {
+    font-weight: bold;
+    font-family: inter;
+}
+
+.inputCariMahasiswa {
+    width: 80% !important;
+    height: 2.5rem;
+    padding-left: 2.2rem;
+    font-size: 0.9rem;
+    border-radius: 0.6rem;
+    border: 2px solid #878787;
+    font-family: inter;
+    box-sizing: border-box;
+    outline: none;
+    transition: 0.3s all ease;
+}
+
+.inputCariMahasiswaFocus {
+    width: 90% !important;
+    height: 2.5rem;
+    padding-left: 2.2rem;
+    font-size: 0.9rem;
+    border-radius: 0.6rem 0.6rem 0rem 0rem;
+    border: 2px solid #878787;
+    border-bottom: 2px solid #c7c7c7;
+    font-family: inter;
+    box-sizing: border-box;
+    outline: none;
+    transition: 0.3s all ease;
+}
+
+#inputCariMahasiswa:focus {
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.material-symbols-outlined.search {
+    font-size: 1.7rem;
+    color: #878787;
+}
+
+#kolomTambahMahasiswa {
+    margin-top: 1rem;
+}
+
+#cariTambahMahasiswa span {
+    position: absolute;
+}
+
+#cariTambahMahasiswa p {
+    font-family: inter !important;
+}
+
+#kolomDaftarPesertaLainnya {
+    position: absolute;
+    overflow: auto;
+    font-family: inter;
+    font-size: 0.9rem;
+    width: 90%;
+    max-height: 12.5rem;
+    margin-top: 0.5rem;
+    border-radius: 0.6rem;
+    background-color: white;
+    border: 2px solid #878787;
+}
+
+#kolomDaftarPesertaLainnya:nth-child(3) {
+    border-radius: 0.625rem;
+    width: 86.5% !important;
+    max-height: 10rem;
+    margin-top: 1rem;
+    /* border-top: none; */
+}
+
+#hoverCariNamaMahasiswa {
+    position: absolute;
+    overflow: auto;
+    font-family: inter;
+    font-size: 0.9rem;
+    width: 80%;
+    max-height: 12.5rem;
+    margin-top: 0.5rem;
+    border-radius: 0.6rem;
+    background-color: white;
+    box-shadow: 7px 7px 36px -4px rgb(0 0 0 / 25%);
+}
+
+.material-symbols-outlined.delete {
+    font-size: 1.5rem !important;
+    cursor: pointer;
+}
+
+
+#listNamaPesertaLain {
+    line-height: 2rem;
+    color: #0D0C1D !important;
+}
+
+#listNamaPesertaLain li {
+    /* border-bottom: 1px solid rgb(184, 184, 184); */
+}
+
+#kolomDaftarPesertaLainnya {
+    width: fit-content;
+}
+
+
+.list-group-item {
+    border: none !important;
+}
+
+.list-group-item:hover {
+    background-color: #edeaea !important;
+}
+
+#inputanMultiline {
+    width: 80%;
+    /* background-color: red; */
+}
+
+.material-symbols-outlined.copy {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
+    color: #3C2A21;
+    font-size: 1.2rem;
+    vertical-align: middle;
+}
+
+.material-symbols-outlined.delete {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
+    /* color: #3C2A21; */
+    font-size: 1.2rem;
+    vertical-align: middle;
+}
+
+.material-symbols-outlined.archive {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
+    color: #3C2A21;
+    font-size: 1.2rem;
+    vertical-align: middle;
+}
+
+#hapusCatatan,
+#salinCatatan,
+#arsipCatatan {
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+    transition: 0.2s all ease-in-out;
+    background-color: #edeaea !important;
+}
+
+#hapusCatatan:hover,
+#salinCatatan:hover,
+#arsipCatatan:hover {
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+    transition: 0.2s all ease-in-out;
+    background-color: #c5c5c5 !important;
+}
+
+#kolomInputan textarea {
+    width: 100%;
+    height: 20rem;
+    border-radius: 0.6rem;
+    border: 3px solid #878787;
+    padding: 1.5rem 1rem 0.5rem;
+    font-family: inter;
+    resize: none;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#kolomInputan textarea:focus {
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#buttonBatal {
+    transition: 0.4s all ease;
+    padding: 0.5rem 1rem;
+    background-color: #E5E5CB;
+    border: none;
+    font-weight: bold;
+    border-radius: 0.6rem;
+    font-family: inter;
+    letter-spacing: 0.1rem;
+}
+
+#buttonBatal:hover {
+    cursor: pointer;
+    transition: 0.4s all ease;
+    padding: 0.5rem 1rem;
+    background-color: #c2c2a9;
+    border: none;
+    border-radius: 0.6rem;
+    font-family: inter;
+    letter-spacing: 0.1rem;
+}
+
+#buttonSimpan {
+    transition: 0.4s all ease;
+    padding: 0.5rem 1rem;
+    background-color: #3C2A21;
+    border: 3px solid #3C2A21 !important;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 0.6rem;
+    font-family: inter;
+    letter-spacing: 0.1rem;
+}
+
+#buttonSimpan:hover {
+    cursor: pointer;
+    transition: 0.4s all ease;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color: black;
+    border: 3px solid #3C2A21 !important;
+    border: none;
+    font-weight: bold;
+    border-radius: 0.6rem;
+    font-family: inter;
+    letter-spacing: 0.1rem;
+}
+
+#judulPresensi {
+    font-weight: bold;
+    font-family: inter;
+    color: #0D0C1D;
+    font-size: 1.2rem;
+}
+
+#presensiMahasiswa {
+    font-family: inter;
+}
+
+
+/* .btn{
+    padding: 0.2rem 1rem !important;
+} */
+
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
+
+.form-check-input {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+
+.slide-fade-enter-active {
+    transition: all 0.5s ease;
+}
+
+.slide-fade-leave-active {
+    transition: all 0.5s ease;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to
+
+/* .slide-fade-leave-active for <2.1.8 */
+    {
+    transform: translateX(10px);
+    opacity: 0;
+}
+
+#logoutUser {
+    color: #3C2A21;
+    text-decoration: none;
+}
+
+/* snackbar */
+#snackbar {
+    visibility: hidden;
+    width: fit-content;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+
+    border-radius: 0.625rem;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+.dropDownDosen {
+    font-weight: 600;
+    text-transform: capitalize;
+    font-family: inter;
+    font-size: 1rem;
+    letter-spacing: normal;
+}
+
+#overlay {
+    position: fixed;
+    /* display: none; */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#windowPreferensi {
+    font-family: inter;
+    width: 400px;
+    background: white;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 7px 7px 36px -4px rgba(0, 0, 0, 0.25);
+    border-radius: 0.625rem;
+    z-index: 2;
+    position: fixed;
+}
+
+.btn.batal {
+    background-color: #E5E5CB;
+    transition: 0.4s all ease;
+}
+
+.btn.batal:hover {
+    background-color: #c2c2a9;
+    transition: 0.4s all ease;
+}
+
+.btn.simpan {
+    background-color: #3C2A21;
+    color: white;
+    transition: 0.4s all ease;
+    border: 3px solid #3C2A21;
+}
+
+.btn.simpan:hover {
+    background-color: white;
+    color: black;
+    transition: 0.4s all ease;
+    border: 3px solid #3C2A21;
+}
+
+/* snackbar */
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 0.625rem;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#agendaPerwalian {
+    word-wrap: break-word;
+}
+
+
+#labelNamaDosen {
+    background-color: #d5d5be;
+    padding: 0rem 0.5rem;
+    border-radius: 0.3rem;
+}
+
+#labelNamaDosen #infoNamaDosen {
+    font-size: 1rem;
+}
+
+.myContainer {
+    margin-left: 10%;
+    margin-right: 9.5%;
+}
+
+
+input[type=text]:disabled {
+    background: #edebeb;
+    cursor: not-allowed;
+}
+
+#containerPresensi {
+    font-family: inter;
+    width: 100%;
+}
+
+#listPresensi {
+    border: 1px solid #edebeb;
+}

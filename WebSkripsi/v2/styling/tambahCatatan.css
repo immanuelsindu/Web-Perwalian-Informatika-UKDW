@@ -1,0 +1,415 @@
+@font-face {
+    font-family: poppins;
+    src: url("../font/Poppins-Regular.otf");
+}
+
+@font-face {
+    font-family: inter;
+    src: url("../font/Inter-Regular.ttf");
+}
+
+body{
+    margin: 0rem;
+    font-family: inter !important;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  @media screen and (max-width: 575px) {
+
+    /* breakpoint navbar */
+    div#iconBeranda {
+        display: none;
+    }
+
+    div#navbar1 {
+        margin-top: 0.5rem;
+    }
+
+    div#navbar2 {
+        margin-bottom: 0.5rem;
+    }
+  }
+
+  @media screen and (max-width:992px) {
+
+    /* breakpoint navbar */
+    div#navbar {
+        height: fit-content !important;
+    }
+}
+
+.paddingTop{
+    padding-top: 4rem;
+}
+.stickyNavbar{
+    position: sticky;
+    top: 0;
+    position: -webkit-sticky;
+    z-index: 2 !important;
+}
+
+#navbar{
+    width: 100%;
+    height: 4rem;
+    background-color: #E5E5CB;
+}
+
+#navbar p{
+    /* width: 500px; */
+    margin: 0rem;
+    font-size: 1.2rem;
+    font-family: inter;
+    color: #3C2A21;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+#idPengguna{
+    width: 13rem;
+    float: right;
+}
+
+.btn.btn-secondary.dropdown-toggle{
+    background-color: #E5E5CB;
+    color:#3C2A21;
+    font-family: inter;
+    border: none;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    margin-left: 0.2rem;
+}
+
+/* batas navbar */
+@media (min-width: 1200px){
+    .container {
+        max-width: 1340px !important;
+    }
+}
+.breadcrumb.bg-white.ml-5{
+    font-size: 0.8rem;
+    font-family: inter;
+}
+#tambahCatatan{
+    width: 100%;
+}
+
+#judulCatatan p{
+    color: #0D0C1D !important;
+    text-align: center;
+    font-weight: bold;
+    font-family: inter;
+    font-size: 2rem;
+    margin-top: 2.5rem;
+}
+
+#tambahCatatan div.col-4{
+    width: 100%;
+    height: 100%;
+}
+#tambahCatatan .font-weight-bold{
+    font-family: inter !important;
+    color: #0D0C1D !important;
+}
+
+#inputanMultiline{
+    width: 80%;
+}
+#inputKiri{
+    width: 85%;
+    height: 2.5rem;
+    border-radius: 0.6rem;
+    box-sizing: border-box;
+    
+    border: 2px solid #878787;
+    font-size: 0.9rem;
+    padding: 0rem 0.5rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    outline: none;
+}
+#inputKiri:focus{
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#inputKiriAngkatan{
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 0.6rem;
+    box-sizing: border-box;
+    
+    border: 2px solid #878787;
+    font-size: 0.9rem;
+    padding: 0rem 0.5rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    outline: none;
+}
+#inputKiriAngkatan:focus{
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+#opsiTipePerwalian{
+    color: #0D0C1D !important;
+    font-size: 1rem;
+}
+
+#inputNamaOrangTua{
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 0.6rem;
+    box-sizing: border-box;
+    
+    border: 2px solid #878787;
+    font-size: 0.9rem;
+    padding: 0rem 0.5rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    outline: none;
+}
+#inputNamaOrangTua:focus{
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#inputJudulKonsul{
+    width: 77% !important;
+    height: 2.5rem;
+    border-radius: 0.6rem 0rem 0rem 0.6rem !important;
+    border: 2px solid #878787;
+    border-right: none !important;
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
+    vertical-align: middle;
+    /* box-sizing: border-box; */
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    outline: none;
+}
+#inputJudulKonsul:focus{
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#inputJudulKonsulAngkatan{
+    width: 87% !important;
+    height: 2.5rem;
+    border-radius: 0.6rem 0rem 0rem 0.6rem !important;
+    border: 2px solid #878787;
+    border-right: none !important;
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
+    vertical-align: middle;
+    /* box-sizing: border-box; */
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    outline: none;
+}
+#inputJudulKonsulAngkatan:focus{
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#dropdownMenuButton2{
+    width: 10%;
+    height: 100%;
+    margin-left: 0rem;
+    border-radius: 0rem 0.6rem 0.6rem 0rem;
+    border:2px solid #878787 ;
+    border-left: none;
+    vertical-align: middle;
+}
+
+#dropdownMenuButton2:focus{
+
+    margin-top: -4px;
+    margin-left: 0rem;
+    border-radius: 0rem 0.6rem 0.6rem 0rem;
+    border:2px solid #878787 ;
+    background-color: #E5E5CB;
+    border-left: none;
+    color: black;
+}
+
+#dropdownMenuButtonAngkatan{
+    width: 13%;
+    height: 100%;
+    margin-left: 0rem;
+    border-radius: 0rem 0.6rem 0.6rem 0rem;
+    border:2px solid #878787 ;
+    border-left: none;
+    vertical-align: middle;
+}
+
+#dropdownMenuButtonAngkatan:focus{
+    margin-top: -4px;
+    margin-left: 0rem;
+    border-radius: 0rem 0.6rem 0.6rem 0rem;
+    border:2px solid #878787 ;
+    background-color: #E5E5CB;
+    border-left: none;
+    color: black;
+}
+
+
+#judulItemPerCatatan{
+    font-family: inter;
+    background-color: #E5E5CB;
+    color: #3C2A21;
+    padding: 0.5rem 0.4rem;
+    border-radius: 0.625rem;
+    font-weight: normal;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+
+#judulTambahMahasiswa{
+    font-weight: bold;
+    font-family: inter;
+}
+ 
+#inputCariMahasiswa{
+    width: 90% !important;
+    height: 2.5rem;
+    padding-left: 2.2rem;
+    font-size: 0.9rem;
+    border-radius: 0.6rem;
+    border: 2px solid #878787;
+    font-family: inter;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#inputCariMahasiswa:focus{
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.material-symbols-outlined.search{
+    font-size: 1.7rem;
+    color: #878787;
+}
+#cariTambahMahasiswa span{
+    position: absolute;
+}
+
+#kolomInputan textarea{
+    width: 100%;
+    height: 20rem;
+    border-radius: 0.6rem;
+    border:3px solid #878787;
+    padding: 0.5rem;
+    font-family: inter;
+    resize: none;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#kolomInputan textarea:focus{
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+#buttonBatalSimpan{
+    margin:0rem 9.3rem;
+}
+
+#buttonBatal{
+    transition: 0.4s all ease;
+    padding: 0.5rem 1rem;
+    background-color: #E5E5CB;
+    border: none;
+    font-weight: bold;
+    border-radius: 0.6rem;
+    font-family: inter;
+    letter-spacing: 0.1rem;
+}
+
+#buttonBatal:hover{
+    cursor: pointer;
+    transition: 0.4s all ease;
+    padding: 0.5rem 1rem;
+    background-color: #c2c2a9;
+    border: none;
+    border-radius: 0.6rem;
+    font-family: inter;
+    letter-spacing: 0.1rem;
+}
+
+#buttonSimpan{
+    transition: 0.4s all ease;
+    padding: 0.5rem 1rem;
+    background-color: #3C2A21;
+    border: 3px solid white !important;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 0.6rem;
+    font-family: inter;
+    letter-spacing: 0.1rem;
+}
+
+#buttonSimpan:hover{
+    cursor: pointer;
+    transition: 0.4s all ease;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color: black;
+    border: 3px solid #3C2A21 !important;
+    border: none;
+    font-weight: bold;
+    border-radius: 0.6rem;
+    font-family: inter;
+    letter-spacing: 0.1rem;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.form-check-input{
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+
+.slide-fade-enter-active {
+    transition: all 0.5s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all 0.5s ease;
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active for <2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+
+
+
+

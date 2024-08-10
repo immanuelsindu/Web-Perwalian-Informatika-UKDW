@@ -1,0 +1,220 @@
+@font-face {
+    font-family: poppins;
+    src: url("../font/Poppins-Regular.otf");
+}
+
+@font-face {
+    font-family: inter;
+    src: url("../font/Inter-Regular.ttf");
+}
+
+body {
+    margin: 0rem;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+}
+
+@media screen and (max-width: 575px) {
+
+    /* breakpoint navbar */
+    div#iconBeranda {
+        display: none;
+    }
+
+    div#navbar1 {
+        margin-top: 0.5rem;
+    }
+
+    div#navbar2 {
+        margin-bottom: 0.5rem;
+    }
+
+    div#idPengguna {
+        float: none;
+    }
+
+    div#navbar {
+        height: fit-content;
+    }
+
+    div#itemCatatan {
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media screen and (max-width:992px) {
+
+    /* breakpoint navbar */
+    div#navbar {
+        height: fit-content !important;
+    }
+}
+
+.paddingTop {
+    padding-top: 4rem;
+}
+
+.stickyNavbar {
+    position: sticky;
+    top: 0;
+    position: -webkit-sticky;
+    z-index: 2 !important;
+}
+
+.breadCrumb {
+    font-size: 0.8rem;
+    font-family: inter !important;
+}
+
+#navbar {
+    width: 100%;
+    height: 4rem;
+    background-color: #E5E5CB;
+}
+
+#navbar p {
+    /* width: 500px; */
+    margin: 0rem;
+    font-size: 1.2rem;
+    font-family: inter;
+    color: #3C2A21;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+#idPengguna {
+    float: right;
+}
+
+.btn.btn-secondary.dropdown-toggle {
+    background-color: #E5E5CB;
+    color: #3C2A21;
+    font-family: inter;
+    border: none;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    margin-left: 0.2rem;
+}
+
+/* batas navbar */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1340px !important;
+    }
+}
+
+
+.material-symbols-outlined.accCirlcle {
+    color: #3C2A21;
+    font-size: 3.2rem;
+}
+
+.breadcrumb.bg-white.ml-5 {
+    font-family: inter;
+    font-size: 0.8rem;
+}
+
+#judulYudisium p {
+    text-align: center;
+    font-weight: bold;
+    font-family: inter;
+    font-size: 2rem;
+    margin-top: 2.5rem;
+}
+
+#dataMahasiswa {
+    height: auto;
+    border-bottom: none;
+}
+
+#dataMahasiswa p {
+    font-size: 1.4rem;
+    font-family: inter;
+    font-weight: bold;
+}
+
+#aturanUmum {
+    line-height: 2rem;
+}
+
+#aturanUmum p {
+    /* background-color: red; */
+    font-weight: bold;
+    font-family: inter;
+    font-size: 1.2rem;
+}
+
+#aturanUmum p.pl-4 {
+    /* background-color: red; */
+    font-weight: bold;
+    font-family: inter;
+    font-size: 1.2rem;
+}
+
+#aturanUmum label {
+    font-weight: bold;
+    font-family: inter;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+#aturanUmum li {
+    font-size: 1.2rem;
+}
+
+.form-check-input {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.form-check-label {
+    margin-left: 0.5rem;
+}
+
+.col-11 p {
+    font-size: 1rem;
+    margin: 0rem;
+    font-weight: bold;
+}
+
+.col-11 p.pl-4 {
+    font-size: 1rem;
+    margin: 0rem;
+    font-weight: normal !important;
+}
+
+#logoutUser {
+    color: #3C2A21;
+    text-decoration: none;
+}
+
+.dropDownDosen {
+    font-weight: 600;
+    text-transform: capitalize;
+    font-family: inter;
+    font-size: 1rem;
+    letter-spacing: normal;
+}
+
+#agendaPerwalian {
+    word-wrap: break-word;
+}
+
+
+#labelNamaDosen {
+    background-color: #d5d5be;
+    padding: 0rem 0.5rem;
+    border-radius: 0.3rem;
+}
+
+#labelNamaDosen #infoNamaDosen {
+    font-size: 1rem;
+}

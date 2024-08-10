@@ -1,0 +1,268 @@
+@font-face {
+    font-family: poppins;
+    src: url("../font/Poppins-Regular.otf");
+}
+
+@font-face {
+    font-family: inter;
+    src: url("../font/Inter-Regular.ttf");
+}
+
+body {
+    margin: 0rem;
+}
+
+.breadCrumb {
+    font-size: 0.8rem;
+    font-family: inter !important;
+}
+
+#navbar {
+    width: 100%;
+    height: 4rem;
+    background-color: #E5E5CB;
+}
+
+#navbar p {
+    width: 500px;
+    margin: 0rem;
+    font-size: 1.2rem;
+    font-family: inter;
+    color: #3C2A21;
+    font-weight: bold;
+
+    margin-left: 1rem;
+}
+
+#loginPanel {
+    width: 45%;
+    /* height: 25rem; */
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+    border-radius: 1rem;
+    box-shadow: 7px 7px 37px -4px rgba(0, 0, 0, 0.25);
+}
+
+#garis {
+    width: 10%;
+    margin-left: 2rem;
+    border-top: 2px solid #3C2A21;
+}
+
+#loginPanelKiri {
+    float: left;
+}
+
+#loginPanelKiri img {
+    width: 90%;
+}
+
+#loginPanelKanan {
+    width: 80%;
+    float: left;
+}
+
+#loginPanelKanan p:nth-child(2) {
+    font-family: inter;
+    font-size: 0.8rem;
+    font-weight: 100;
+    color: #878787;
+}
+
+#inputId {
+    width: 100%;
+    height: 2.3rem;
+    padding-left: 1.6rem;
+    background-color: #fafafa;
+    border-radius: 0.3rem;
+    border: 1.5px solid #969696;
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.bi.bi-person-fill {
+    color: #969696;
+    position: absolute;
+}
+
+.bi.bi-lock-fill {
+    color: #969696;
+    position: absolute;
+}
+
+#btnLogin {
+    /* margin-top: 1rem; */
+    background-color: #3C2A21;
+    color: white;
+    width: 8rem;
+    height: 2rem;
+    font-family: inter;
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+    border-radius: 0.3rem;
+    border: 2px solid #3C2A21;
+    transition: 0.4s all ease;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#btnLogin:hover {
+    /* margin-top: 1rem; */
+    background-color: white;
+    color: #3C2A21;
+    border: 2px solid #3C2A21;
+    width: 8rem;
+    height: 2rem;
+    font-family: inter;
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+    border-radius: 0.3rem;
+    transition: 0.4s all ease;
+    cursor: pointer;
+}
+
+.material-symbols-outlined.person,
+.material-symbols-outlined.lock {
+    position: absolute;
+    color: #969696;
+    line-height: inherit;
+    font-size: 1.3rem;
+    padding-left: 0.1rem;
+    padding-top: 0.2rem;
+}
+
+#loginSSO p {
+    text-align: center;
+    font-size: 0.8rem !important;
+    color: #969696;
+    font-weight: normal !important;
+}
+
+#btnLoginSSO {
+    background-color: white;
+    width: 6rem;
+    height: 2rem;
+    border-radius: 0.3rem;
+    border-color: black;
+}
+
+#btnLoginSSO:hover {
+    cursor: pointer;
+}
+
+.judulWelcome {
+    font-family: inter;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#judulWeb {
+    font-family: inter;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+#logoutUser {
+    color: #3C2A21;
+    text-decoration: none;
+}
+
+.dropDownDosen {
+    font-weight: 600;
+    text-transform: capitalize;
+    font-family: inter;
+    font-size: 1rem;
+    letter-spacing: normal;
+}
+
+/* snackbar */
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+#snackbar {
+    visibility: hidden;
+    width: fit-content;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+
+    border-radius: 0.625rem;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#agendaPerwalian {
+    word-wrap: break-word;
+}
+
+
+#labelNamaDosen {
+    background-color: #d5d5be;
+    padding: 0rem 0.5rem;
+    border-radius: 0.3rem;
+}
+
+#labelNamaDosen #infoNamaDosen {
+    font-size: 1rem;
+}

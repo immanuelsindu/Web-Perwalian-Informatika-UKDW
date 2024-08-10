@@ -1,0 +1,727 @@
+@font-face {
+    font-family: poppins;
+    src: url("../font/Poppins-Regular.otf");
+}
+
+@font-face {
+    font-family: inter;
+    src: url("../font/Inter-Regular.ttf");
+}
+
+body {
+    margin: 0rem;
+    font-family: inter !important;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+}
+
+@media screen and (max-width: 575px) {
+
+    /* breakpoint navbar */
+    div#iconBeranda {
+        display: none;
+    }
+
+    div#navbar1 {
+        margin-top: 0.5rem;
+    }
+
+    div#navbar2 {
+        margin-bottom: 0.5rem;
+    }
+
+    div#idPengguna {
+        float: none;
+    }
+
+    div#navbar {
+        height: fit-content;
+    }
+
+    /* div#itemCatatanPerwalian{
+        margin-bottom: 2rem;
+    } */
+}
+
+@media screen and (max-width:992px) {
+
+    /* breakpoint navbar */
+    div#navbar {
+        height: fit-content !important;
+    }
+
+    div#opsiTambahNHistoryKiri {
+        float: none;
+    }
+}
+
+.paddingTop {
+    padding-top: 4rem;
+}
+
+.stickyNavbar {
+    position: sticky;
+    top: 0;
+    position: -webkit-sticky;
+    z-index: 2 !important;
+}
+
+
+#navbar {
+    width: 100%;
+    height: 4rem;
+    background-color: #E5E5CB;
+}
+
+#navbar p {
+    /* width: 500px; */
+    margin: 0rem;
+    font-size: 1.2rem;
+    font-family: inter;
+    color: #3C2A21;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+#idPengguna {
+    float: right;
+}
+
+.breadCrumb {
+    font-size: 0.8rem;
+    font-family: inter !important;
+}
+
+.btn {
+    background-color: #efefef;
+}
+
+.btn:hover {}
+
+.btn.btn-secondary.dropdown-toggle {
+    background-color: #E5E5CB;
+    color: #3C2A21;
+    font-family: inter;
+    border: none;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    margin-left: 0.2rem;
+}
+
+
+/* batas navbar */
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 85vw !important;
+    }
+}
+
+span.material-symbols-outlined.search {
+    position: absolute;
+    padding-top: 0.4rem;
+    padding-left: 0.3rem;
+    color: #878787;
+}
+
+#inputCariMahasiswa {
+    width: 20rem;
+    height: 35px;
+    padding-left: 1.9rem !important;
+    border-radius: 0.6rem;
+    border: 2px solid #878787;
+    font-size: 0.8rem;
+}
+
+#inputCariMahasiswa:focus {
+    outline: none;
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 3px 3px #E5E5CB;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+
+
+#judulCatatan p {
+    color: #0D0C1D !important;
+    text-align: center;
+    font-weight: bold;
+    font-family: inter;
+    font-size: 2rem;
+    margin-top: 2.5rem;
+}
+
+.material-symbols-outlined.mr-1.pt-1 {
+    color: #3C2A21;
+}
+
+.material-symbols-outlined.accCirlcle {
+    color: #3C2A21;
+    font-size: 3.2rem;
+}
+
+
+#opsiTambahNHistoryKiri {
+    width: 80% !important;
+    /* background-color: red; */
+    float: right;
+}
+
+.historyButtonTrue {
+    background-color: white;
+    border-radius: 0.4rem;
+    padding: 0.4rem 0.5rem;
+    border: none !important;
+    outline: none !important;
+    color: #3C2A21;
+    font-family: inter;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    cursor: pointer;
+}
+
+.historyButtonTrue:hover {
+    background-color: rgb(235, 235, 235);
+    border-radius: 0.4rem;
+    padding: 0.4rem 0.5rem;
+    border: none !important;
+    outline: none !important;
+    color: #3C2A21;
+    font-family: inter;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    cursor: pointer;
+    outline: none;
+}
+
+.historyButtonFalse {
+    background-color: #E5E5CB;
+    border-radius: 0.4rem;
+    padding: 0.4rem 0.5rem;
+    border: none !important;
+    color: #3C2A21;
+    outline: none;
+    font-family: inter;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    cursor: pointer;
+}
+
+.historyButtonFalse:focus {
+    background-color: #E5E5CB;
+    border-radius: 0.4rem;
+    padding: 0.4rem 0.5rem;
+    border: none !important;
+    color: #3C2A21;
+    outline: none;
+    font-family: inter;
+    font-weight: bold;
+    transition: 0.4s all ease;
+    cursor: pointer;
+}
+
+
+#opsiTambahNHistoryKanan {
+    width: 80% !important;
+    /* background-color: red; */
+    clear: both;
+}
+
+
+#dataMahasiswa p {
+    color: #0D0C1D !important;
+    font-size: 1.2rem;
+    font-family: inter;
+    font-weight: bold;
+}
+
+#tambahCatatan {
+    color: #3C2A21;
+    font-weight: bold;
+    font-family: inter;
+    text-decoration: none;
+}
+
+#alertPencarian {
+    color: #0D0C1D !important;
+    font-size: 0.8rem;
+    font-family: inter;
+}
+
+#alertPencarian p {
+    margin-bottom: 0.2rem !important;
+}
+
+.material-symbols-outlined.bullet {
+    font-size: inherit;
+}
+
+.mahasiswa {
+    font-size: inherit;
+    color: #DC3545;
+}
+
+.orangTuaWali {
+    font-size: inherit;
+    color: #007BFF;
+}
+
+.orangTuaWaliDanMahasiswa {
+    font-size: inherit;
+    color: #28A745;
+}
+
+#test {
+    width: 90%;
+}
+
+#garisMahasiswa {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    /* position: absolute; */
+    display: block;
+    border-bottom: 5px solid #DC3545;
+    border-radius: 0.6rem;
+    margin-bottom: 0.5rem;
+    margin-top: -0.2rem;
+}
+
+#garisOrangTuaWali {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    /* position: absolute; */
+    display: block;
+    border-bottom: 5px solid #007BFF;
+    border-radius: 0.6rem;
+    margin-bottom: 0.5rem;
+    margin-top: -0.2rem;
+}
+
+#garisOrangTuaWaliMahasiswa {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    /* position: absolute; */
+    display: block;
+    border-bottom: 5px solid #28A745;
+    border-radius: 0.6rem;
+    margin-bottom: 0.5rem;
+    margin-top: -0.2rem;
+}
+
+/* ///////////////////////////// */
+
+.garisMahasiswa {
+    width: 15%;
+    display: block;
+    border-radius: 0.6rem;
+    margin-top: rem;
+    border-bottom: 5px solid #DC3545;
+}
+
+.garisOrangTuaWali {
+    width: 15%;
+    display: block;
+    border-radius: 0.6rem;
+    margin-top: rem;
+    border-bottom: 5px solid #007BFF;
+}
+
+.garisOrangTuaWaliDanMahasiswa {
+    width: 15%;
+    display: block;
+    border-radius: 0.6rem;
+    margin-top: rem;
+    border-bottom: 5px solid #28A745;
+}
+
+.material-symbols-outlined.history {
+    font-size: 1.75rem;
+}
+
+.material-symbols-outlined.history:hover {
+    cursor: context-menu;
+}
+
+#breadcrumb {
+    font-size: 0.8rem;
+    font-family: inter;
+}
+
+.judulCatatanHistoris {
+    cursor: pointer;
+}
+
+#itemCatatanPerwalian {
+    width: 23rem !important;
+    height: fit-content;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1.2rem 2rem 0.8rem;
+    box-shadow: 7px 7px 37px -4px rgba(0, 0, 0, 0.25);
+}
+
+#infoCatatan {
+    font-family: inter;
+}
+
+#infoCatatan p:nth-child(1) {
+    font-weight: bold;
+    font-size: 1.2rem;
+    font-weight: inter;
+    margin-bottom: 0rem;
+}
+
+#infoCatatan p:nth-child(2) {
+    font-size: 0.9rem;
+    font-weight: inter;
+    margin-bottom: 0rem;
+}
+
+#agendaPerwalian {
+    color: #0D0C1D !important;
+    font-size: 1rem;
+    font-family: inter !important;
+    text-align: justify;
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+}
+
+#agendaPerwalian p {
+    word-wrap: break-word;
+}
+
+#iconDelete {
+    color: #3C2A21;
+    cursor: pointer;
+    margin-left: 0.3rem;
+}
+
+#panelHistory {
+    width: 100%;
+}
+
+#tahunCatatanPerwalian {
+    display: inline-block;
+    background-color: #E5E5CB;
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.4rem;
+    font-weight: bold;
+    font-family: inter;
+}
+
+.iconHistory {
+    width: 50px;
+    height: 30px;
+    padding-left: 1.2rem;
+}
+
+.material-symbols-outlined.history {
+    font-size: 24px !important;
+    margin-right: 0.4rem;
+}
+
+.material-symbols-outlined.itemHistory {
+    font-size: 1.8rem !important;
+    position: absolute;
+    background-color: white;
+    vertical-align: middle;
+}
+
+#tanggalPerwalian p {
+    margin-left: 1.3rem;
+    margin-bottom: 0rem !important;
+    font-family: inter;
+    font-size: 1rem !important;
+}
+
+#tanggalPerwalian p:nth-child(1) {
+    font-weight: bold;
+}
+
+#tanggalPerwalian p:nth-child(2) {
+    font-size: 1rem;
+}
+
+#tahunCatatanPerwalian {
+    z-index: 1;
+    position: absolute;
+}
+
+#garis {
+    width: 1px;
+    height: 100%;
+    border-left: 3px solid #E5E5CB;
+    /* z-index: 1; */
+    position: absolute;
+    margin-left: 1rem;
+}
+
+#itemHistoryBundle:nth-child(1) {
+    /* z-index: -1; */
+    margin-top: 3rem;
+}
+
+
+
+#cardPreviewCatatan {
+    box-shadow: 7px 7px 37px -4px rgb(0 0 0 / 25%);
+    border: none;
+    border-radius: 0.5rem;
+    font-family: inter;
+}
+
+#cardPreviewCatatan h5 {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+#cardPreviewCatatan h6 {
+    font-size: 1rem;
+}
+
+#cardPreviewCatatan p {
+    font-size: 1rem;
+}
+
+#cardPreviewCatatan u {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+p#suggestText {
+    text-align: center;
+    font-size: 1.2rem !important;
+    margin: 0;
+    padding: 2rem 0rem;
+}
+
+#mySticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    transition: 0.4s ease-in-out;
+}
+
+.paddingTop {
+    padding-top: 6rem;
+}
+
+#cardPreviewCatatan .card-link {
+    color: #3C2A21;
+    text-decoration: underline;
+}
+
+#overlay {
+    position: fixed;
+    /* display: none; */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#windowPreferensi {
+    font-family: inter;
+    width: 400px;
+    background: white;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 7px 7px 36px -4px rgba(0, 0, 0, 0.25);
+    border-radius: 0.625rem;
+    z-index: 2;
+    position: fixed;
+}
+
+.listFilter {
+    list-style-type: none;
+}
+
+.listFilter li:nth-child(odd) {
+    background-color: #E5E5CB;
+    border-radius: 0.125rem;
+    padding: 0.2rem;
+    padding: 0.2rem 0.2rem 0.2rem 0.8rem !important;
+}
+
+.listFilter li:nth-child(even) {
+    background-color: white;
+    border-radius: 0.125rem;
+    padding: 0.2rem 0.2rem 0.2rem 0.8rem !important;
+}
+
+.form-check-input {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-left: 0rem !important;
+}
+
+.btn.batal {
+    background-color: #E5E5CB;
+    transition: 0.4s all ease;
+}
+
+.btn.batal:hover {
+    background-color: #c2c2a9;
+    transition: 0.4s all ease;
+}
+
+.btn.simpan {
+    background-color: #3C2A21;
+    color: white;
+    transition: 0.4s all ease;
+    border: 3px solid #3C2A21;
+}
+
+.btn.simpan:hover {
+    background-color: white;
+    color: black;
+    transition: 0.4s all ease;
+    border: 3px solid #3C2A21;
+}
+
+#buttonEdit {
+    border-radius: 0.3rem 0rem 0rem 0.3rem;
+}
+
+#buttonArsip {
+    border-radius: 0rem 0.3rem 0.3rem 0rem;
+    background-color: #eceff3;
+}
+
+#buttonArsip:hover {
+    border-radius: 0rem 0.3rem 0.3rem 0rem;
+    background-color: #b8bbbe;
+}
+
+#buttonEdit,
+#buttonArsip {
+    font-family: inter;
+    width: 100%;
+    border: none;
+    font-weight: 550;
+}
+
+/* snackbar */
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 0.625rem;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+
+/* transisi vue preferensi */
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
+
+#logoutUser {
+    color: #3C2A21;
+    text-decoration: none;
+}
+
+.dropDownDosen {
+    font-weight: 600;
+    text-transform: capitalize;
+    font-family: inter;
+    font-size: 1rem;
+    letter-spacing: normal;
+}
+
+#agendaPerwalian {
+    word-wrap: break-word;
+}
+
+
+#labelNamaDosen {
+    background-color: #d5d5be;
+    padding: 0rem 0.5rem;
+    border-radius: 0.3rem;
+}
+
+#labelNamaDosen #infoNamaDosen {
+    font-size: 1rem;
+}
