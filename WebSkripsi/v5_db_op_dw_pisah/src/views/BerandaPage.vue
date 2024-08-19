@@ -958,7 +958,6 @@ window.$ = window.jQuery = $;
 import BreadcrumbModule from '@/views/BreadcrumbModule.vue';
 import debounce from 'lodash.debounce';
 import Cookies from 'js-cookie';
-
 import Header from "@/components/header/Header.vue"
 
 export default {
