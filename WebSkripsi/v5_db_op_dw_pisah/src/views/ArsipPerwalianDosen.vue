@@ -7,51 +7,7 @@
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
         </head>
 
-        <div class="row align-items-center ml-0 stickyNavbar"  id="navbar">
-            <div id="navbar1" class="col-lg-8 mt-lg-0 col-sm-12 mt-sm-3">
-                <div class="d-flex">
-                    <div class="ml-3" id="iconBeranda">
-                        <router-link to="/">
-                            <span class="material-symbols-outlined" style="color: #3c2a21">
-                                home
-                              </span>
-                        </router-link>
-                    </div>
-                    
-                    <div id="judulWeb">
-                        <p class="ml-2">Program Studi Informatika UKDW</p>
-                    </div>
-                </div>
-            </div>
-    
-            <div id="navbar2" class="col-lg-4 col-sm-12">
-                <div id="idPengguna" class="w-100">
-                    <div class="">
-                        <div class="d-flex justify-content-end col-12 p-0">
-                            <div id="labelNamaDosen" class="d-flex align-items-center mr-3">
-                                <p class="m-0 text-center">
-                                    <v-icon class="mr-2 " size="small">
-                                        mdi-account
-                                    </v-icon>
-                                </p>
-                                <p id="infoNamaDosen" class="m-0">
-                                    {{ this.namaDosen }}
-                                </p>
-                            </div>
-
-                            <v-btn class="dropDownDosen" color="#E5E5CB" flat active theme="light"
-                                @click="this.logoutDosen()">
-                                <v-icon size="default">
-                                    mdi-logout
-                                </v-icon>
-                                <v-tooltip activator="parent" content-class="bg-grey-darken-1" location="bottom">Logout
-                                </v-tooltip>
-                            </v-btn>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Header :namaDosen="this.namaDosen" @click="this.logoutDosen()" />
     
         <!-- Content -->
         <div id="content" class="container-fluid px-0">
@@ -396,373 +352,374 @@
     </div>
 </template>
 <script>
-import BreadcrumbModule from './BreadcrumbModule.vue';
+import BreadcrumbModule from '@/views/BreadcrumbModule.vue';
+import Header from "@/components/header/Header.vue"
 import axios from 'axios'
 
 export default {
-    name: "ArsipPerwalianDosen",
-    components: {
-        BreadcrumbModule
+  name: "ArsipPerwalianDosen",
+  components: {
+    BreadcrumbModule, Header
+  },
+  data() {
+    return {
+      indexHapusCatatan: 0,
+      inputanJudulCatatan: "",
+      filter: "mahasiswa",
+      //////////////////////////////////////////////////////////
+      tahunArsip: 0,
+      kodeDosen: "",
+      listTahunArsip: [],
+      listCatatanArsip: [],
+      pesanError: "",
+      tahunCatatan: 0,
+      listTipeCatatan: [
+        "Mahasiswa",
+        "Orang Tua / Wali",
+        "Orang Tua / Wali dan Mahasiswa",
+        "Grup Angkatan"
+      ],
+      tipeCatatan: "Mahasiswa",
+      pesanWarningArsip: "",
+      pesanWarningHapus: "",
+      pesanSnackBar: "",
+      showWarningArsip: false,
+      idArsip: 0,
+      showWarningHapus: false,
+      idHapus: 0,
+      relasiCatatanHapus: {
+        judul: "kosong",
+        tambah_peserta: 0
+      },
+      namaDosen: localStorage.getItem("namaDosen")
+    }
+  },
+  created() {
+    this.scrollTop();
+    this.initData()
+  },
+  methods: {
+    async initData() {
+      this.kodeDosen = localStorage.getItem("kodeDosen")
+      this.getTahunCatatanArsip()
     },
-    data() {
-        return {
-            indexHapusCatatan: 0,
-            inputanJudulCatatan: "",
-            filter: "mahasiswa",
-            //////////////////////////////////////////////////////////
-            tahunArsip: 0,
-            kodeDosen: "",
-            listTahunArsip: [],
-            listCatatanArsip: [],
-            pesanError: "",
-            tahunCatatan: 0,
-            listTipeCatatan: [
-                "Mahasiswa",
-                "Orang Tua / Wali",
-                "Orang Tua / Wali dan Mahasiswa",
-                "Grup Angkatan"
-            ],
-            tipeCatatan: "Mahasiswa",
-            pesanWarningArsip: "",
-            pesanWarningHapus: "",
-            pesanSnackBar: "",
-            showWarningArsip: false,
-            idArsip: 0,
-            showWarningHapus: false,
-            idHapus: 0,
-            relasiCatatanHapus : {
-                judul: "kosong",
-                tambah_peserta: 0
-            },
-            namaDosen: localStorage.getItem("namaDosen")
+    async getTahunCatatanArsip() {
+      try {
+        const response = await axios.get(process.env.VUE_APP_API_OPERASIONAL
+          + `/getTahunCatatanArsipPerwalianDosen/`, {
+          params: {
+            kode_dosen: this.kodeDosen,
+          },
+        });
+
+        if (response.data.error === false) {
+          this.listTahunArsip = response.data.response.list_tahun_catatan_arsip;
+
+          //get tahun terbaru catatan arsip
+          const tahunTerbaruArsip = this.listTahunArsip.length - 1
+          this.tahunArsip = this.listTahunArsip[tahunTerbaruArsip]
+        } else {
+          this.listTahunArsip = [new Date().getFullYear()];
+          this.tahunArsip = new Date().getFullYear()
         }
+      } catch (error) {
+        console.error("Terjadi kesalahan saat mengambil data:", error);
+        this.listTahunArsip = [new Date().getFullYear()];
+        this.tahunArsip = new Date().getFullYear()
+
+      }
     },
-    created() {
-        this.scrollTop();
-        this.initData()
+    scrollTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth" // Animasi smooth scrolling
+      });
     },
-    methods: {
-        async initData() {
-            this.kodeDosen = localStorage.getItem("kodeDosen")
-            this.getTahunCatatanArsip()
-        },
-        async getTahunCatatanArsip() {
-            try {
-                const response = await axios.get(process.env.VUE_APP_API_OPERASIONAL
- + `/getTahunCatatanArsipPerwalianDosen/`, {
-                    params: {
-                        kode_dosen: this.kodeDosen,
-                    },
-                });
+    snackbar() {
+      //show snackbar
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    },
+    limitAgenda(fullString) {
+      if (fullString.length > 150) {
+        let slicedString = fullString.slice(0, 150);
+        return slicedString;
+      } else {
+        return fullString
+      }
+    },
+    async filteredCatatanArsip() {
+      try {
+        const response = await axios.get(process.env.VUE_APP_API_OPERASIONAL
+          + `/filteredCatatanPerwalianDosenArsip/`, {
+          params: {
+            kode_dosen: this.kodeDosen,
+            filter_tipe_catatan: this.filter,
+            tahun_catatan: this.tahunArsip,
+          },
+        });
 
-                if (response.data.error === false) {
-                    this.listTahunArsip = response.data.response.list_tahun_catatan_arsip;
+        if (response.data.error === false) {
+          this.listCatatanArsip = response.data.response.list_catatan_perwalian_dosen_arsip;
+          this.pesanError = "Berhasil menemukan " + this.listCatatanArsip.length + " data"
 
-                    //get tahun terbaru catatan arsip
-                    const tahunTerbaruArsip = this.listTahunArsip.length - 1
-                    this.tahunArsip = this.listTahunArsip[tahunTerbaruArsip]
-                } else {
-                    this.listTahunArsip = [new Date().getFullYear()];
-                    this.tahunArsip = new Date().getFullYear()
-                }
-            } catch (error) {
-                console.error("Terjadi kesalahan saat mengambil data:", error);
-                this.listTahunArsip = [new Date().getFullYear()];
-                this.tahunArsip = new Date().getFullYear()
+          //simpan ke local untuk fitur pencarian agar tidak get listCatatanArsip lagi dari awal (ambil api lagi)
+          localStorage.setItem("listCatatanArsip", JSON.stringify(this.listCatatanArsip))
 
-            }
-        },
-        scrollTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth" // Animasi smooth scrolling
-            });
-        },
-        snackbar() {
-            //show snackbar
-            var x = document.getElementById("snackbar");
-            x.className = "show";
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-        },
-        limitAgenda(fullString) {
-            if (fullString.length > 150) {
-                let slicedString = fullString.slice(0, 150);
-                return slicedString;
-            } else {
-                return fullString
-            }
-        },
-        async filteredCatatanArsip() {
-            try {
-                const response = await axios.get(process.env.VUE_APP_API_OPERASIONAL
- + `/filteredCatatanPerwalianDosenArsip/`, {
-                    params: {
-                        kode_dosen: this.kodeDosen,
-                        filter_tipe_catatan: this.filter,
-                        tahun_catatan: this.tahunArsip,
-                    },
-                });
+        } else {
+          this.listCatatanArsip = [];
+        }
+      } catch (error) {
+        this.pesanError = "Berhasil menemukan " + 0 + " data"
+        console.error("Terjadi kesalahan saat mengambil data:", error);
+        this.listCatatanArsip = [];
+      }
+    },
+    convertTimestamp(timestamp) {
+      const date = new Date(timestamp);
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      const formattedDate = date.toLocaleDateString('id-ID', options);
+      return formattedDate;
+    },
+    async showPopUpHapus(catatan) {
+      this.showWarningHapus = true
+      this.idHapus = catatan.id_catatan_perwalian_dosen // ambil id nya untuk di hapus
 
-                if (response.data.error === false) {
-                    this.listCatatanArsip = response.data.response.list_catatan_perwalian_dosen_arsip;
-                    this.pesanError = "Berhasil menemukan " + this.listCatatanArsip.length + " data"
+      if (catatan.tambah_peserta.length != 0) {
+        // mengisi dengan objek dari catatan yang dipilih
+        this.relasiCatatanHapus = {
+          judul: catatan.judul,
+          tambah_peserta: catatan.tambah_peserta
+        }
+        this.pesanWarningHapus = "Catatan ini memiliki relasi dengan catatan lain, menghapus catatan ini berarti menghapus secara permanen semua catatan yang berelasi dengan catatan ini"
+      } else {
+        this.relasiCatatanHapus = {
+          judul: "kosong",
+          tambah_peserta: []
+        }
+        this.pesanWarningHapus = "Catatan ini akan dihapus secara permanen dan tidak bisa dikembalikan"
+      }
+    },
+    hapusCatatanTidak() {
+      this.showWarningHapus = false
+    },
+    async hapusCatatanYa() {
+      if (this.relasiCatatanHapus.tambah_peserta != null) {
+        for (let i = 0; i < this.relasiCatatanHapus.tambah_peserta.length; i++) {
+          const paramObject = {
+            id_catatan_perwalian_dosen: this.relasiCatatanHapus.tambah_peserta[i].id_catatan_perwalian_dosen
+          }
+          await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/deleteCatatanPerwalianDosen/`, paramObject);
+        }
 
-                    //simpan ke local untuk fitur pencarian agar tidak get listCatatanArsip lagi dari awal (ambil api lagi)
-                    localStorage.setItem("listCatatanArsip", JSON.stringify(this.listCatatanArsip))
+        setTimeout(() => {
+          this.showWarningHapus = false
+          this.pesanSnackBar = "Berhasil menghapus catatan"
+          this.snackbar()
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }, 200);
 
-                } else {
-                    this.listCatatanArsip = [];
-                }
-            } catch (error) {
-                this.pesanError = "Berhasil menemukan " + 0 + " data"
-                console.error("Terjadi kesalahan saat mengambil data:", error);
-                this.listCatatanArsip = [];
-            }
-        },
-        convertTimestamp(timestamp) {
-            const date = new Date(timestamp);
-            const options = { day: 'numeric', month: 'long', year: 'numeric' };
-            const formattedDate = date.toLocaleDateString('id-ID', options);
-            return formattedDate;
-        },
-        async showPopUpHapus(catatan) {
-            this.showWarningHapus = true
-            this.idHapus = catatan.id_catatan_perwalian_dosen // ambil id nya untuk di hapus
-
-            if(catatan.tambah_peserta.length != 0){
-                // mengisi dengan objek dari catatan yang dipilih
-                this.relasiCatatanHapus = {
-                    judul: catatan.judul,
-                    tambah_peserta: catatan.tambah_peserta
-                }
-                this.pesanWarningHapus = "Catatan ini memiliki relasi dengan catatan lain, menghapus catatan ini berarti menghapus secara permanen semua catatan yang berelasi dengan catatan ini"
-            }else{
-                this.relasiCatatanHapus = {
-                    judul: "kosong",
-                    tambah_peserta: []
-                }
-                this.pesanWarningHapus = "Catatan ini akan dihapus secara permanen dan tidak bisa dikembalikan"
-            }
-        },
-        hapusCatatanTidak() {
+      } else {
+        const paramObject = {
+          id_catatan_perwalian_dosen: this.idHapus,
+        }
+        const response = await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/deleteCatatanPerwalianDosen/`, paramObject);
+        if (response.data.error === false) {
+          setTimeout(() => {
             this.showWarningHapus = false
-        },
-        async hapusCatatanYa() {
-            if (this.relasiCatatanHapus.tambah_peserta != null) {
-                for (let i = 0; i < this.relasiCatatanHapus.tambah_peserta.length; i++) {
-                    const paramObject = {
-                        id_catatan_perwalian_dosen: this.relasiCatatanHapus.tambah_peserta[i].id_catatan_perwalian_dosen
-                    }
-                    await axios.put(process.env.VUE_APP_API_OPERASIONAL+ `/deleteCatatanPerwalianDosen/`, paramObject);
-                }
-
-                setTimeout(() => {
-                    this.showWarningHapus = false
-                    this.pesanSnackBar = "Berhasil menghapus catatan"
-                    this.snackbar()
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000);
-                }, 200);
-
-            } else {
-                const paramObject = {
-                    id_catatan_perwalian_dosen: this.idHapus,
-                }
-                const response = await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/deleteCatatanPerwalianDosen/`, paramObject);
-                if (response.data.error === false) {
-                    setTimeout(() => {
-                        this.showWarningHapus = false
-                        this.pesanSnackBar = "Berhasil menghapus catatan"
-                        this.snackbar()
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                    }, 200);
-                } else {
-                    this.pesanSnackBar = "Gagal menghapus catatan"
-                    this.snackbar()
-                }
-            }
-        },
-        getYear() {
-            let date = new Date();
-            let year = date.getYear();
-            return year
-        },
-        async showPopUpArsip(catatan) {
-            console.log(catatan);
-            this.relasiCatatanHapus = []
-            this.showWarningArsip = true
-            this.idArsip = catatan // isi item catatan dulu
-
-            // cek jika sebuah catatan tidak ada tambah_pesertanya
-            if(catatan.tambah_peserta.length != 0 ){
-                // mengisi dengan objek dari catatan yang dipilih
-                this.relasiCatatanHapus = {
-                    judul: catatan.judul,
-                    tambah_peserta: catatan.tambah_peserta
-                }
-
-                this.pesanWarningArsip = "Catatan ini memiliki relasi dengan catatan lain, mengarsipkan catatan ini berarti mengarsipkan semua catatan yang berelasi dengan catatan ini"
-            }else{
-                this.relasiCatatanHapus = {
-                    judul: "kosong",
-                    tambah_peserta: []
-                }
-                this.pesanWarningArsip = "Setelah Anda memulihkan catatan, Anda dapat mengakses catatan tersebut di halaman \"Daftar Catatan Perwalian Dosen\""
-            }
-        },
-        arsipCatatanTidak() {
-            this.showWarningArsip = false
-        },
-        async arsipCatatanYa() {
-            if (this.relasiCatatanHapus.tambah_peserta.length != 0) {
-                console.log("masuk sini a");
-                for (let i = 0; i < this.relasiCatatanHapus.tambah_peserta.length; i++) {
-                    const paramObject = {
-                        id_catatan_perwalian_dosen: this.relasiCatatanHapus.tambah_peserta[i].id_catatan_perwalian_dosen,
-                        is_arsip: false,
-                        filter_arsip: null
-                    }
-                    await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/updateIsArsipCatatanPerwalianDosen/`, paramObject);
-                }
-
-                setTimeout(() => {
-                    this.showWarningArsip = false
-                    this.pesanSnackBar = "Berhasil memulihkan catatan"
-                    this.snackbar()
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000);
-                }, 200);
-            } else {
-                console.log("masuk sini b");
-                try {
-                    const paramObject = {
-                        id_catatan_perwalian_dosen: this.idArsip.id_catatan_perwalian_dosen,
-                        is_arsip: false,
-                        filter_arsip: null
-                    }
-                    const response = await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/updateIsArsipCatatanPerwalianDosen/`, paramObject);
-
-                    if (response.data.error === false) {
-                        setTimeout(() => {
-                            this.showWarningArsip = false
-                            this.pesanSnackBar = "Berhasil memulihkan catatan"
-                            this.snackbar()
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 2000);
-                        }, 200);
-
-                    } else {
-                        this.pesanSnackBar = "Gagal memulihkan catatan"
-                        this.snackbar()
-                    }
-                } catch (error) {
-                    console.error("Terjadi kesalahan saat mengambil data:", error);
-                }
-            }
-        },
-        logoutDosen() {
-            localStorage.clear();
-            this.$router.push("/login")
+            this.pesanSnackBar = "Berhasil menghapus catatan"
+            this.snackbar()
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }, 200);
+        } else {
+          this.pesanSnackBar = "Gagal menghapus catatan"
+          this.snackbar()
         }
+      }
     },
-    mounted() {
-        import('bootstrap');
-        import('bootstrap/dist/css/bootstrap.min.css');
-
-        // mounted untuk bagian script src
-        //slim.min.js
-        const script1 = document.createElement("script");
-        script1.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
-        script1.integrity =
-            "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj";
-        script1.crossOrigin = "anonymous";
-        document.head.appendChild(script1);
-
-        //popper.min.js
-        // const script2 = document.createElement("script");
-        // script2.src = "https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js";
-        // script2.integrity = "sha384-hSM2mzKd06KfNmOz6mK6+sfuLdYVjI1MKOpnE+O+hNEZmZ+zQp8hJz3uPL2twNJX";
-        // script2.crossOrigin = "anonymous";
-        // document.head.appendChild(script2);
-
-        //bundle.min.js
-        const script3 = document.createElement("script");
-        script3.src = "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js";
-        script3.integrity = "sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx";
-        script3.crossOrigin = "anonymous";
-        document.head.appendChild(script3);
-
+    getYear() {
+      let date = new Date();
+      let year = date.getYear();
+      return year
     },
-    watch: {
-        inputanJudulCatatan: {
-            handler: async function (baru, lama) {
-                this.pesanError = "Sedang mencari catatan ... "
-                //ambil data dari local storage
-                let dataLocal = localStorage.getItem("listCatatanArsip")
-                let tempListCatatanArsip = JSON.parse(dataLocal)
+    async showPopUpArsip(catatan) {
+      console.log(catatan);
+      this.relasiCatatanHapus = []
+      this.showWarningArsip = true
+      this.idArsip = catatan // isi item catatan dulu
 
-                //get kata kunci pencarian
-                const kataKunciPencarian = baru.toLowerCase().trim();
-                // console.log(kataKunciPencarian);
+      // cek jika sebuah catatan tidak ada tambah_pesertanya
+      if (catatan.tambah_peserta.length != 0) {
+        // mengisi dengan objek dari catatan yang dipilih
+        this.relasiCatatanHapus = {
+          judul: catatan.judul,
+          tambah_peserta: catatan.tambah_peserta
+        }
 
-                let hasilFilter = ""
-                if (tempListCatatanArsip != null) {
-                    // //lakukan filtering catatan berdasarkan kata kunci 
-                    hasilFilter = await tempListCatatanArsip.filter(catatan =>
-                        catatan.judul.toLowerCase().includes(kataKunciPencarian) ||
-                        catatan.agenda_perwalian.toLowerCase().includes(kataKunciPencarian)
-                    );
-                }
-
-
-                if (hasilFilter.length > 0) { //filter ketemu
-                    this.listCatatanArsip = hasilFilter
-                    this.pesanError = "Berhasil menemukan " + hasilFilter.length + " data"
-                } else { // filter tidak ketemu 
-                    this.listCatatanArsip = []
-                    this.pesanError = "Berhasil menemukan " + 0 + " data"
-                }
-
-            }
-        },
-        tipeCatatan: {
-            immediate: true,
-            handler: function (baru, lama) {
-                switch (this.tipeCatatan) {
-                    case "Mahasiswa":
-                        this.filter = "mahasiswa"
-                        break;
-                    case "Orang Tua / Wali":
-                        this.filter = "orang-tua-wali"
-                        break;
-                    case "Orang Tua / Wali dan Mahasiswa":
-                        this.filter = "orang-tua-wali-dan-mahasiswa"
-                        break;
-                    case "Grup Angkatan":
-                        this.filter = "grup-angkatan"
-                        break;
-                    default:
-                        break;
-                }
-
-                this.filteredCatatanArsip()
-            },
-            deep: true
-        },
-        tahunArsip: {
-            immediate: true,
-            handler: function (baru, lama) {
-                this.filteredCatatanArsip()
-            },
-            deep: true
-        },
-
+        this.pesanWarningArsip = "Catatan ini memiliki relasi dengan catatan lain, mengarsipkan catatan ini berarti mengarsipkan semua catatan yang berelasi dengan catatan ini"
+      } else {
+        this.relasiCatatanHapus = {
+          judul: "kosong",
+          tambah_peserta: []
+        }
+        this.pesanWarningArsip = "Setelah Anda memulihkan catatan, Anda dapat mengakses catatan tersebut di halaman \"Daftar Catatan Perwalian Dosen\""
+      }
     },
+    arsipCatatanTidak() {
+      this.showWarningArsip = false
+    },
+    async arsipCatatanYa() {
+      if (this.relasiCatatanHapus.tambah_peserta.length != 0) {
+        console.log("masuk sini a");
+        for (let i = 0; i < this.relasiCatatanHapus.tambah_peserta.length; i++) {
+          const paramObject = {
+            id_catatan_perwalian_dosen: this.relasiCatatanHapus.tambah_peserta[i].id_catatan_perwalian_dosen,
+            is_arsip: false,
+            filter_arsip: null
+          }
+          await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/updateIsArsipCatatanPerwalianDosen/`, paramObject);
+        }
+
+        setTimeout(() => {
+          this.showWarningArsip = false
+          this.pesanSnackBar = "Berhasil memulihkan catatan"
+          this.snackbar()
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }, 200);
+      } else {
+        console.log("masuk sini b");
+        try {
+          const paramObject = {
+            id_catatan_perwalian_dosen: this.idArsip.id_catatan_perwalian_dosen,
+            is_arsip: false,
+            filter_arsip: null
+          }
+          const response = await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/updateIsArsipCatatanPerwalianDosen/`, paramObject);
+
+          if (response.data.error === false) {
+            setTimeout(() => {
+              this.showWarningArsip = false
+              this.pesanSnackBar = "Berhasil memulihkan catatan"
+              this.snackbar()
+              setTimeout(() => {
+                window.location.reload();
+              }, 2000);
+            }, 200);
+
+          } else {
+            this.pesanSnackBar = "Gagal memulihkan catatan"
+            this.snackbar()
+          }
+        } catch (error) {
+          console.error("Terjadi kesalahan saat mengambil data:", error);
+        }
+      }
+    },
+    logoutDosen() {
+      localStorage.clear();
+      this.$router.push("/login")
+    }
+  },
+  mounted() {
+    import('bootstrap');
+    import('bootstrap/dist/css/bootstrap.min.css');
+
+    // mounted untuk bagian script src
+    //slim.min.js
+    const script1 = document.createElement("script");
+    script1.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
+    script1.integrity =
+      "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj";
+    script1.crossOrigin = "anonymous";
+    document.head.appendChild(script1);
+
+    //popper.min.js
+    // const script2 = document.createElement("script");
+    // script2.src = "https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js";
+    // script2.integrity = "sha384-hSM2mzKd06KfNmOz6mK6+sfuLdYVjI1MKOpnE+O+hNEZmZ+zQp8hJz3uPL2twNJX";
+    // script2.crossOrigin = "anonymous";
+    // document.head.appendChild(script2);
+
+    //bundle.min.js
+    const script3 = document.createElement("script");
+    script3.src = "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js";
+    script3.integrity = "sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx";
+    script3.crossOrigin = "anonymous";
+    document.head.appendChild(script3);
+
+  },
+  watch: {
+    inputanJudulCatatan: {
+      handler: async function (baru, lama) {
+        this.pesanError = "Sedang mencari catatan ... "
+        //ambil data dari local storage
+        let dataLocal = localStorage.getItem("listCatatanArsip")
+        let tempListCatatanArsip = JSON.parse(dataLocal)
+
+        //get kata kunci pencarian
+        const kataKunciPencarian = baru.toLowerCase().trim();
+        // console.log(kataKunciPencarian);
+
+        let hasilFilter = ""
+        if (tempListCatatanArsip != null) {
+          // //lakukan filtering catatan berdasarkan kata kunci 
+          hasilFilter = await tempListCatatanArsip.filter(catatan =>
+            catatan.judul.toLowerCase().includes(kataKunciPencarian) ||
+            catatan.agenda_perwalian.toLowerCase().includes(kataKunciPencarian)
+          );
+        }
+
+
+        if (hasilFilter.length > 0) { //filter ketemu
+          this.listCatatanArsip = hasilFilter
+          this.pesanError = "Berhasil menemukan " + hasilFilter.length + " data"
+        } else { // filter tidak ketemu 
+          this.listCatatanArsip = []
+          this.pesanError = "Berhasil menemukan " + 0 + " data"
+        }
+
+      }
+    },
+    tipeCatatan: {
+      immediate: true,
+      handler: function (baru, lama) {
+        switch (this.tipeCatatan) {
+          case "Mahasiswa":
+            this.filter = "mahasiswa"
+            break;
+          case "Orang Tua / Wali":
+            this.filter = "orang-tua-wali"
+            break;
+          case "Orang Tua / Wali dan Mahasiswa":
+            this.filter = "orang-tua-wali-dan-mahasiswa"
+            break;
+          case "Grup Angkatan":
+            this.filter = "grup-angkatan"
+            break;
+          default:
+            break;
+        }
+
+        this.filteredCatatanArsip()
+      },
+      deep: true
+    },
+    tahunArsip: {
+      immediate: true,
+      handler: function (baru, lama) {
+        this.filteredCatatanArsip()
+      },
+      deep: true
+    },
+
+  },
 
 }
 </script>

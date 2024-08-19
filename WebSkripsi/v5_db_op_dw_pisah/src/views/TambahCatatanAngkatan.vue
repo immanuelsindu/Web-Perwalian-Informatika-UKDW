@@ -8,51 +8,7 @@
         </head>
 
          <!-- Navbar -->
-        <div class="row align-items-center ml-0 stickyNavbar"  id="navbar">
-            <div id="navbar1" class="col-lg-8 mt-lg-0 col-sm-12 mt-sm-3">
-                <div class="d-flex">
-                    <div class="ml-3" id="iconBeranda">
-                        <router-link to="/">
-                            <span class="material-symbols-outlined" style="color: #3c2a21">
-                                home
-                              </span>
-                        </router-link>
-                    </div>
-                    
-                    <div id="judulWeb">
-                        <p class="ml-2">Program Studi Informatika UKDW</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="navbar2" class="col-lg-4 col-sm-12">
-                <div id="idPengguna" class="w-100">
-                    <div class="">
-                        <div class="d-flex justify-content-end col-12 p-0">
-                            <div id="labelNamaDosen" class="d-flex align-items-center mr-3">
-                                <p class="m-0 text-center">
-                                    <v-icon class="mr-2 " size="small">
-                                        mdi-account
-                                    </v-icon>
-                                </p>
-                                <p id="infoNamaDosen" class="m-0">
-                                    {{ this.namaDosen }}
-                                </p>
-                            </div>
-
-                            <v-btn class="dropDownDosen" color="#E5E5CB" flat active theme="light"
-                                @click="this.logoutDosen()">
-                                <v-icon size="default">
-                                    mdi-logout
-                                </v-icon>
-                                <v-tooltip activator="parent" content-class="bg-grey-darken-1" location="bottom">Logout
-                                </v-tooltip>
-                            </v-btn>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+         <Header :namaDosen="this.namaDosen" @click="this.logoutDosen()" />
 
         <!-- Content -->
         <div id="content" class="container-fluid px-0">
@@ -220,211 +176,212 @@
 </template>
 
 <script>
-import BreadcrumbModule from './BreadcrumbModule.vue';
+import BreadcrumbModule from '@/views/BreadcrumbModule.vue';
+import Header from "@/components/header/Header.vue"
 import axios from 'axios'
 
 export default {
-    name: "TambahCatatanAngkatan",
-    components: {
-        BreadcrumbModule
+  name: "TambahCatatanAngkatan",
+  components: {
+    BreadcrumbModule, Header
+  },
+  data() {
+    return {
+      idCatatan: null,
+      tipe: "grup-angkatan", //temp
+      nim: null,
+      nama: null,
+      waktu: null,
+      namaOrangTua: null,
+      agendaPerwalian: null,
+      tambahPeserta: null,
+      tahunAngkatan: null,
+      waktuAwal: null,
+      waktuAkhir: null, //temp
+      //////////////////////////////////////////////
+      listItemJudul: [
+        "Catatan Perwalian Pra-Registrasi",
+        "Catatan Perwalian Pra-UTS",
+        "Catatan Perwalian Pra-UAS"
+      ],
+      listPresensi: [],
+      pesanSnackBar: [],
+      judul: null,
+      namaDosen: localStorage.getItem("namaDosen")
+    }
+  },
+  created() {
+    this.scrollTop()
+    this.initData()
+  },
+  methods: {
+    initData() {
+      this.kodeDosen = localStorage.getItem("kodeDosen")
+
+      this.waktu = this.getTanggalSekarang()
+      this.waktuAwal = this.getWaktuSekarang()
+      this.tahunAngkatan = this.$route.params.id
+      this.getMahasiswaPerwalianByTahun()
     },
-    data() {
-        return {
-            idCatatan: null,
-            tipe: "grup-angkatan", //temp
-            nim: null,
-            nama: null,
-            waktu: null,
-            namaOrangTua: null,
-            agendaPerwalian: null,
-            tambahPeserta: null,
-            tahunAngkatan: null,
-            waktuAwal: null,
-            waktuAkhir: null, //temp
-            //////////////////////////////////////////////
-            listItemJudul: [
-                "Catatan Perwalian Pra-Registrasi",
-                "Catatan Perwalian Pra-UTS",
-                "Catatan Perwalian Pra-UAS"
-            ],
-            listPresensi: [],
-            pesanSnackBar: [],
-            judul: null,
-            namaDosen: localStorage.getItem("namaDosen")
+    presensiHadir(index) {
+      var myIndex = index - 1;
+      this.listPresensi[myIndex].status = "Hadir";
+    },
+    presensiAbsen(index) {
+      var myIndex = index - 1;
+      this.listPresensi[myIndex].status = "Absen";
+    },
+    scrollTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth" // Animasi smooth scrolling
+      }
+      )
+    },
+    getTanggalSekarang() {
+      const months = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+      ];
+
+      const currentDate = new Date();
+      const day = currentDate.getDate();
+      const month = currentDate.getMonth();
+      const year = currentDate.getFullYear();
+
+      const formattedDate = day + ' ' + months[month] + ' ' + year;
+
+      return formattedDate;
+    },
+    getWaktuSekarang() {
+      const now = new Date();
+      const jam = now.getHours().toString().padStart(2, '0');
+      const menit = now.getMinutes().toString().padStart(2, '0');
+      const detik = now.getSeconds().toString().padStart(2, '0');
+
+      return `${jam}:${menit}:${detik}`;
+    },
+    isFieldKosong() { // true jika ada field yang kosong
+      return (
+        this.judul == null ||
+        this.agendaPerwalian == null
+      )
+    },
+    async simpan() {
+      this.tombolTidakAktif = true
+      this.waktuAkhir = this.getWaktuSekarang()
+
+      if (!this.isFieldKosong()) { //mengecek apakah ada field yang kosong 
+        const paramObject = {
+          kode_dosen: this.kodeDosen,
+          judul: this.judul,
+          tipe: "grup-angkatan",
+          nim: null,
+          nama: null,
+          nama_orang_tua: null,
+          agenda_perwalian: this.agendaPerwalian,
+          tambah_peserta: [],  // data objek 
+          waktu_awal: this.waktuAwal,
+          waktu_akhir: this.waktuAkhir,
+          data_presensi_mahasiswa: this.listPresensi,  // data objek 
+          tahun_angkatan: this.tahunAngkatan,
+
         }
-    },
-    created() {
-        this.scrollTop()
-        this.initData()
-    },
-    methods: {
-        initData() {
-            this.kodeDosen = localStorage.getItem("kodeDosen")
 
-            this.waktu = this.getTanggalSekarang()
-            this.waktuAwal = this.getWaktuSekarang()
-            this.tahunAngkatan = this.$route.params.id
-            this.getMahasiswaPerwalianByTahun()
-        },
-        presensiHadir(index) {
-            var myIndex = index - 1;
-            this.listPresensi[myIndex].status = "Hadir";
-        },
-        presensiAbsen(index) {
-            var myIndex = index - 1;
-            this.listPresensi[myIndex].status = "Absen";
-        },
-        scrollTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth" // Animasi smooth scrolling
-            }
-            )
-        },
-        getTanggalSekarang() {
-            const months = [
-                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-            ];
+        console.log(paramObject);
 
-            const currentDate = new Date();
-            const day = currentDate.getDate();
-            const month = currentDate.getMonth();
-            const year = currentDate.getFullYear();
+        //insert catatan grup angkatan
+        try {
+          const response = await axios.post(process.env.VUE_APP_API_OPERASIONAL + `/tambahCatatanPerwalianDosen/`, paramObject);
 
-            const formattedDate = day + ' ' + months[month] + ' ' + year;
+          if (response.data.success) {
+            this.pesanSnackBar = "Berhasil menambahkan catatan"
+            this.snackbar()
 
-            return formattedDate;
-        },
-        getWaktuSekarang() {
-            const now = new Date();
-            const jam = now.getHours().toString().padStart(2, '0');
-            const menit = now.getMinutes().toString().padStart(2, '0');
-            const detik = now.getSeconds().toString().padStart(2, '0');
+            const waktuTunggu = 2000;
+            setTimeout(() => {
+              this.$router.push({ name: "DaftarCatatanPerwalianAngkatan", params: { id: this.$route.params.id } })
+            }, waktuTunggu);
+          } else {
+            this.pesanSnackBar = "Gagal menambahkan data"
+            this.snackbar()
 
-            return `${jam}:${menit}:${detik}`;
-        },
-        isFieldKosong() { // true jika ada field yang kosong
-            return (
-                this.judul == null ||
-                this.agendaPerwalian == null
-            )
-        },
-        async simpan() {
-            this.tombolTidakAktif = true
-            this.waktuAkhir = this.getWaktuSekarang()
+            console.error("Data gagal ditambahkan ", error);
+          }
 
-            if (!this.isFieldKosong()) { //mengecek apakah ada field yang kosong 
-                const paramObject = {
-                    kode_dosen: this.kodeDosen,
-                    judul: this.judul,
-                    tipe: "grup-angkatan",
-                    nim: null,
-                    nama: null,
-                    nama_orang_tua: null,
-                    agenda_perwalian: this.agendaPerwalian,
-                    tambah_peserta: [],  // data objek 
-                    waktu_awal: this.waktuAwal,
-                    waktu_akhir: this.waktuAkhir,
-                    data_presensi_mahasiswa: this.listPresensi,  // data objek 
-                    tahun_angkatan: this.tahunAngkatan,
-
-                }
-
-                console.log(paramObject);
-
-                //insert catatan grup angkatan
-                try {
-                    const response = await axios.post(process.env.VUE_APP_API_OPERASIONAL + `/tambahCatatanPerwalianDosen/`, paramObject);
-
-                    if (response.data.success) {
-                        this.pesanSnackBar = "Berhasil menambahkan catatan"
-                        this.snackbar()
-
-                        const waktuTunggu = 2000;
-                        setTimeout(() => {
-                            this.$router.push({ name: "DaftarCatatanPerwalianAngkatan", params: { id: this.$route.params.id } })
-                        }, waktuTunggu);
-                    } else {
-                        this.pesanSnackBar = "Gagal menambahkan data"
-                        this.snackbar()
-
-                        console.error("Data gagal ditambahkan ", error);
-                    }
-
-                } catch (error) {
-                    console.error("Terjadi kesalahan saat menambah data:", error);
-                    this.pesanSnackBar = "Gagal menambahkan data"
-                    this.snackbar()
-                }
-            } else {
-                this.pesanSnackBar = "Pastikan semua kolom sudah terisi"
-                this.snackbar()
-            }
-
-        },
-        batal() {
-            this.$router.back()
-        },
-        async getMahasiswaPerwalianByTahun() {
-            try {
-                const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/mahasiswaPerwalianPerTahun/`, {
-                    params: {
-                        kode_dosen: this.kodeDosen,
-                        tahun_angkatan: this.$route.params.id,
-                    },
-                });
-
-                if (response.data.error === false) {
-                    this.listPresensi = response.data.response.list_mahasiswa;
-                    //tambahkan keyvalue untuk status presensi mahasiswa
-                    this.listPresensi.forEach((mahasiswa) => {
-                        mahasiswa.status = "Belum Presensi";
-                    });
-                } else {
-                    this.listPresensi = [];
-                }
-            } catch (error) {
-                console.error("Terjadi kesalahan saat mengambil data:", error);
-                this.listPresensi = [];
-            }
-        },
-        snackbar() {
-            var x = document.getElementById("snackbar");
-            x.className = "show";
-            setTimeout(function () {
-                x.className = x.className.replace("show", "");
-            }, 3000);
-        },
-        logoutDosen() {
-            localStorage.clear();
-            this.$router.push("/login")
+        } catch (error) {
+          console.error("Terjadi kesalahan saat menambah data:", error);
+          this.pesanSnackBar = "Gagal menambahkan data"
+          this.snackbar()
         }
-    },
-    mounted() {
-        // mounted untuk bagian script src
-        //slim.min.js
-        const script1 = document.createElement("script");
-        script1.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
-        script1.integrity =
-            "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj";
-        script1.crossOrigin = "anonymous";
-        document.head.appendChild(script1);
+      } else {
+        this.pesanSnackBar = "Pastikan semua kolom sudah terisi"
+        this.snackbar()
+      }
 
-        //popper.min.js
-        const script2 = document.createElement("script");
-        script2.src = "https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js";
-        script2.integrity = "sha384-hSM2mzKd06KfNmOz6mK6+sfuLdYVjI1MKOpnE+O+hNEZmZ+zQp8hJz3uPL2twNJX";
-        script2.crossOrigin = "anonymous";
-        document.head.appendChild(script2);
-
-        //bundle.min.js
-        const script3 = document.createElement("script");
-        script3.src = "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js";
-        script3.integrity = "sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx";
-        script3.crossOrigin = "anonymous";
-        document.head.appendChild(script3);
     },
+    batal() {
+      this.$router.back()
+    },
+    async getMahasiswaPerwalianByTahun() {
+      try {
+        const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/mahasiswaPerwalianPerTahun/`, {
+          params: {
+            kode_dosen: this.kodeDosen,
+            tahun_angkatan: this.$route.params.id,
+          },
+        });
+
+        if (response.data.error === false) {
+          this.listPresensi = response.data.response.list_mahasiswa;
+          //tambahkan keyvalue untuk status presensi mahasiswa
+          this.listPresensi.forEach((mahasiswa) => {
+            mahasiswa.status = "Belum Presensi";
+          });
+        } else {
+          this.listPresensi = [];
+        }
+      } catch (error) {
+        console.error("Terjadi kesalahan saat mengambil data:", error);
+        this.listPresensi = [];
+      }
+    },
+    snackbar() {
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function () {
+        x.className = x.className.replace("show", "");
+      }, 3000);
+    },
+    logoutDosen() {
+      localStorage.clear();
+      this.$router.push("/login")
+    }
+  },
+  mounted() {
+    // mounted untuk bagian script src
+    //slim.min.js
+    const script1 = document.createElement("script");
+    script1.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
+    script1.integrity =
+      "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj";
+    script1.crossOrigin = "anonymous";
+    document.head.appendChild(script1);
+
+    //popper.min.js
+    const script2 = document.createElement("script");
+    script2.src = "https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js";
+    script2.integrity = "sha384-hSM2mzKd06KfNmOz6mK6+sfuLdYVjI1MKOpnE+O+hNEZmZ+zQp8hJz3uPL2twNJX";
+    script2.crossOrigin = "anonymous";
+    document.head.appendChild(script2);
+
+    //bundle.min.js
+    const script3 = document.createElement("script");
+    script3.src = "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js";
+    script3.integrity = "sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx";
+    script3.crossOrigin = "anonymous";
+    document.head.appendChild(script3);
+  },
 
 
 }

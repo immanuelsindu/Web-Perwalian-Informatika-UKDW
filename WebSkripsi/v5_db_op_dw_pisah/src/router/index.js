@@ -1,33 +1,33 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-import LoginPage from "@/components/LoginPage.vue";
-import BerandaPageVue from "@/components/BerandaPage.vue";
-import DetailMahasiswa from "@/components/DetailMahasiswa.vue";
-import DetailAngkatan from "@/components/DetailAngkatan.vue";
-import DetailYudisium from "@/components/DetailYudisium.vue";
-import ProfilMahasiswa from "@/components/ProfilMahasiswa.vue";
-import ArsipDosen from "@/components/ArsipDosen.vue";
-import TambahCatatanPerwalian from "@/components/TambahCatatanPerwalian.vue";
-import TambahCatatanAngkatan from "@/components/TambahCatatanAngkatan.vue";
-import TambahCatatanDosen from "@/components/TambahCatatanDosen.vue";
-import TambahCatatanMahasiswa from "@/components/TambahCatatanMahasiswa.vue";
-import ArsipPerwalianDosen from "@/components/ArsipPerwalianDosen.vue";
-import ArsipPerwalianMahasiswa from "@/components/ArsipPerwalianMahasiswa.vue";
-import ArsipPerwalianGrupAngkatan from "@/components/ArsipPerwalianGrupAngkatan.vue";
-import EditCatatanGrupAngkatan from "@/components/EditCatatanGrupAngkatan.vue";
-import EditCatatanKhusus from "@/components/EditCatatanKhusus.vue";
-import EditCatatanMahasiswa from "@/components/EditCatatanMahasiswa.vue";
-import EditCatatanOrangTuaWali from "@/components/EditCatatanOrangTuaWali.vue";
-import EditCatatanOrangTuaWaliDanMahasiswa from "@/components/EditCatatanOrangTuaWaliDanMahasiswa.vue";
-import EditCatatanRefleksiDosen from "@/components/EditCatatanRefleksiDosen.vue";
-import DaftarCatatanDosen from "@/components/DaftarCatatanDosen.vue";
-import DaftarCatatanPerwalianDosen from "@/components/DaftarCatatanPerwalianDosen.vue";
-import DaftarCatatanPerwalianAngkatan from "@/components/DaftarCatatanPerwalianAngkatan.vue";
-import DaftarCatatanPerwalianMahasiswa from "@/components/DaftarCatatanPerwalianMahasiswa.vue";
-import store from "@/store/index"
+import LoginPage from "@/views/LoginPage.vue";
+import BerandaPageVue from "@/views/BerandaPage.vue";
+import DetailMahasiswa from "@/views/DetailMahasiswa.vue";
+import DetailAngkatan from "@/views/DetailAngkatan.vue";
+import DetailYudisium from "@/views/DetailYudisium.vue";
+import ProfilMahasiswa from "@/views/ProfilMahasiswa.vue";
+import ArsipDosen from "@/views/ArsipDosen.vue";
+import TambahCatatanPerwalian from "@/views/TambahCatatanPerwalian.vue";
+import TambahCatatanAngkatan from "@/views/TambahCatatanAngkatan.vue";
+import TambahCatatanDosen from "@/views/TambahCatatanDosen.vue";
+import TambahCatatanMahasiswa from "@/views/TambahCatatanMahasiswa.vue";
+import ArsipPerwalianDosen from "@/views/ArsipPerwalianDosen.vue";
+import ArsipPerwalianMahasiswa from "@/views/ArsipPerwalianMahasiswa.vue";
+import ArsipPerwalianGrupAngkatan from "@/views/ArsipPerwalianGrupAngkatan.vue";
+import EditCatatanGrupAngkatan from "@/views/EditCatatanGrupAngkatan.vue";
+import EditCatatanKhusus from "@/views/EditCatatanKhusus.vue";
+import EditCatatanMahasiswa from "@/views/EditCatatanMahasiswa.vue";
+import EditCatatanOrangTuaWali from "@/views/EditCatatanOrangTuaWali.vue";
+import EditCatatanOrangTuaWaliDanMahasiswa from "@/views/EditCatatanOrangTuaWaliDanMahasiswa.vue";
+import EditCatatanRefleksiDosen from "@/views/EditCatatanRefleksiDosen.vue";
+import DaftarCatatanDosen from "@/views/DaftarCatatanDosen.vue";
+import DaftarCatatanPerwalianDosen from "@/views/DaftarCatatanPerwalianDosen.vue";
+import DaftarCatatanPerwalianAngkatan from "@/views/DaftarCatatanPerwalianAngkatan.vue";
+import DaftarCatatanPerwalianMahasiswa from "@/views/DaftarCatatanPerwalianMahasiswa.vue";
+import PageNotFoundVue from "@/views/PageNotFound.vue";
 
+import store from "@/store/index"
 import Cookies from "js-cookie";
-import PageNotFoundVue from "@/components/PageNotFound.vue";
 
 // =============== Awal Routes =================
 

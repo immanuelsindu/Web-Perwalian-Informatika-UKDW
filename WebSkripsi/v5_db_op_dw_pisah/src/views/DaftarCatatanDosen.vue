@@ -8,51 +8,7 @@
         </head>
 
          <!-- Navbar -->
-        <div class="row align-items-center ml-0 stickyNavbar"  id="navbar">
-            <div id="navbar1" class="col-lg-8 mt-lg-0 col-sm-12 mt-sm-3">
-                <div class="d-flex">
-                    <div class="ml-3" id="iconBeranda">
-                        <router-link to="/">
-                            <span class="material-symbols-outlined" style="color:#3C2A21">
-                                home
-                            </span>
-                        </router-link>
-                    </div>
-                    
-                    <div id="judulWeb">
-                        <p class="ml-2">Program Studi Informatika UKDW</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="navbar2" class="col-lg-4 col-sm-12">
-                <div id="idPengguna" class="w-100">
-                    <div class="">
-                        <div class="d-flex justify-content-end col-12 p-0">
-                            <div id="labelNamaDosen" class="d-flex align-items-center mr-3">
-                                <p class="m-0 text-center">
-                                    <v-icon class="mr-2 " size="small">
-                                        mdi-account
-                                    </v-icon>
-                                </p>
-                                <p id="infoNamaDosen" class="m-0">
-                                    {{ this.namaDosen }}
-                                </p>
-                            </div>
-
-                            <v-btn class="dropDownDosen" color="#E5E5CB" flat active theme="light"
-                                @click="this.logoutDosen()">
-                                <v-icon size="default">
-                                    mdi-logout
-                                </v-icon>
-                                <v-tooltip activator="parent" content-class="bg-grey-darken-1" location="bottom">Logout
-                                </v-tooltip>
-                            </v-btn>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+         <Header :namaDosen="this.namaDosen" @click="this.logoutDosen()" />
 
         <!-- Content -->
         <div id="content" class="container-fluid px-0">
@@ -355,291 +311,292 @@
 </template>
 
 <script>
-import BreadcrumbModule from './BreadcrumbModule.vue';
+import BreadcrumbModule from '@/views/BreadcrumbModule.vue';
+import Header from "@/components/header/Header.vue"
 import axios from 'axios'
 
 export default {
-    name: "DaftarCatatanDosen",
-    components: {
-        BreadcrumbModule
+  name: "DaftarCatatanDosen",
+  components: {
+    BreadcrumbModule, Header
+  },
+  data() {
+    return {
+      showPopUpFilter: false,
+      isOn2: false,
+      default: true,
+      indexHapusCatatan: "",
+      inputanCariCatatanDosen: "",
+      handlerBatal: false,
+      handlerSimpan: false,
+      handlerValueFilter: true,
+      handlerValueSort: true,
+      tempValueFilter: "Semua Tipe",
+      tempValueSort: "Paling Baru",
+      listSort: [
+        "Paling Baru",
+        "Paling Lama",
+      ],
+      listFilters: [
+        "Semua Tipe",
+        "Refleksi Dosen",
+        "Khusus"
+      ],
+      ///////////////////////////////////////////////////////////////////
+      listCatatanDosen: [],
+      kodeDosen: 0,
+      pesanError: "",
+      pesanSnackBar: "",
+      valueSort: "Paling Baru",
+      valueFilter: "Semua Tipe",
+      idHapus: 0,
+      idArsip: 0,
+      showWarningHapus: false,
+      showWarningArsip: false,
+      currentPage: 1, // halaman sekarang 
+      itemsPerPage: 12, //jumlah catatan per halaman 
+      namaDosen: localStorage.getItem("namaDosen")
+    }
+  },
+  created() {
+    this.scrollTop();
+    this.initData();
+  },
+  methods: {
+    initData() {
+      this.kodeDosen = localStorage.getItem("kodeDosen")
+      this.getFilteredCatatanDosen()
     },
-    data() {
-        return {
-            showPopUpFilter: false,
-            isOn2: false,
-            default: true,
-            indexHapusCatatan: "",
-            inputanCariCatatanDosen: "",
-            handlerBatal: false,
-            handlerSimpan: false,
-            handlerValueFilter: true,
-            handlerValueSort: true,
-            tempValueFilter: "Semua Tipe",
-            tempValueSort: "Paling Baru",
-            listSort: [
-                "Paling Baru",
-                "Paling Lama",
-            ],
-            listFilters: [
-                "Semua Tipe",
-                "Refleksi Dosen",
-                "Khusus"
-            ],
-            ///////////////////////////////////////////////////////////////////
-            listCatatanDosen: [],
-            kodeDosen: 0,
-            pesanError: "",
-            pesanSnackBar: "",
-            valueSort: "Paling Baru",
-            valueFilter: "Semua Tipe",
-            idHapus: 0,
-            idArsip: 0,
-            showWarningHapus: false,
-            showWarningArsip: false,
-            currentPage: 1, // halaman sekarang 
-            itemsPerPage: 12, //jumlah catatan per halaman 
-            namaDosen: localStorage.getItem("namaDosen")
+    async getFilteredCatatanDosen() {
+      try {
+        const response = await axios.get(process.env.VUE_APP_API_OPERASIONAL
+          + `/filteredCatatanDosen/`, {
+          params: {
+            kode_dosen: this.kodeDosen,
+            sort_waktu: this.valueSort,
+            filter_tipe_catatan: this.valueFilter,
+          },
+        });
+
+        if (response.data.error === false) {
+          this.listCatatanDosen = response.data.response.list_catatan_dosen;
+          this.pesanError = "Berhasil menemukan " + this.listCatatanDosen.length + " data"
+
+          //untuk watch pencarian 
+          return this.listCatatanDosen
+        } else {
+          this.listCatatanDosen = [];
+          this.pesanError = "Tidak ada catatan perwalian"
         }
+      } catch (error) {
+        console.error("Terjadi kesalahan saat mengambil data:", error);
+        this.listCatatanDosen = [];
+        this.pesanError = "Tidak ada catatan perwalian"
+      }
     },
-    created() {
-        this.scrollTop();
-        this.initData();
+    batal() {
+      this.showPopUpFilter = false;
+      this.handlerBatal = true
     },
-    methods: {
-        initData() {
-            this.kodeDosen = localStorage.getItem("kodeDosen")
-            this.getFilteredCatatanDosen()
-        },
-        async getFilteredCatatanDosen() {
-            try {
-                const response = await axios.get(process.env.VUE_APP_API_OPERASIONAL
- + `/filteredCatatanDosen/`, {
-                    params: {
-                        kode_dosen: this.kodeDosen,
-                        sort_waktu: this.valueSort,
-                        filter_tipe_catatan: this.valueFilter,
-                    },
-                });
-
-                if (response.data.error === false) {
-                    this.listCatatanDosen = response.data.response.list_catatan_dosen;
-                    this.pesanError = "Berhasil menemukan " + this.listCatatanDosen.length + " data"
-
-                    //untuk watch pencarian 
-                    return this.listCatatanDosen
-                } else {
-                    this.listCatatanDosen = [];
-                    this.pesanError = "Tidak ada catatan perwalian"
-                }
-            } catch (error) {
-                console.error("Terjadi kesalahan saat mengambil data:", error);
-                this.listCatatanDosen = [];
-                this.pesanError = "Tidak ada catatan perwalian"
-            }
-        },
-        batal() {
-            this.showPopUpFilter = false;
-            this.handlerBatal = true
-        },
-        simpan() {
-            this.getFilteredCatatanDosen()
-            this.showPopUpFilter = false;
-        },
-        scrollTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth" // Animasi smooth scrolling
-            });
-        },
-        limitAgenda(fullString) {
-            if (fullString.length > 150) {
-                let slicedString = fullString.slice(0, 150);
-                return slicedString;
-            } else {
-                return fullString
-            }
-        },
-        convertTimestamp(timestamp) {
-            const date = new Date(timestamp);
-            const options = { day: 'numeric', month: 'long', year: 'numeric' };
-            const formattedDate = date.toLocaleDateString('id-ID', options);
-            return formattedDate;
-        },
-        convertToWIB(waktu) {
-            const [jam, menit] = waktu.split(':');
-            return `${jam}:${menit} WIB`;
-        },
-        showPopUpHapus(id) {
-            this.showWarningHapus = true
-            this.idHapus = id
-        },
-        hapusCatatanTidak() {
-            this.showWarningHapus = false;
-        },
-        async hapusCatatanYa() {
-            try {
-                const paramObject = {
-                    id_catatan_dosen: this.idHapus
-                }
-                const response = await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/deleteCatatanDosen/`, paramObject);
-
-                if (response.data.error === false) {
-                    this.showWarningHapus = false
-
-                    setTimeout(() => {
-                        this.pesanSnackBar = "Catatan berhasil dihapus"
-                        this.snackbar()
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                    }, 200);
-
-                } else {
-                    console.log("Gagal hapus data");
-                }
-            } catch (error) {
-                console.error("Terjadi kesalahan saat mengambil data:", error);
-                this.listMahasiswaPerwalianFiltered = [];
-            }
-        },
-        showPopUpArsip(id) {
-            this.showWarningArsip = true
-            this.idArsip = id
-        },
-        arsipCatatanTidak() {
-            this.showWarningArsip = false
-        },
-        async arsipCatatanYa() {
-            //melakukan arsip catatan perwalian menjadi true
-            try {
-                const paramObject = {
-                    id_catatan_dosen: this.idArsip,
-                    is_arsip: true,
-                    filter_arsip: "current_time"
-                }
-                const response = await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/updateIsArsipCatatanDosen/`, paramObject);
-
-                if (response.data.error === false) {
-                    this.showWarningArsip = false
-                    setTimeout(() => {
-                        this.pesanSnackBar = "Berhasil mengarsipkan catatan"
-                        this.snackbar()
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                    }, 200);
-                } else {
-                    this.listMahasiswaPerwalianFiltered = [];
-                }
-            } catch (error) {
-                console.error("Terjadi kesalahan saat mengambil data:", error);
-            }
-        },
-        snackbar() {
-            //show snackbar
-            var x = document.getElementById("snackbar");
-            x.className = "show";
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-        },
-        showPopUpPreferensi() {
-            this.showPopUpFilter = true;
-        },
-        changePage(newPage) {
-            this.currentPage = newPage;
-        },
-        logoutDosen() {
-            localStorage.clear();
-            this.$router.push("/login")
+    simpan() {
+      this.getFilteredCatatanDosen()
+      this.showPopUpFilter = false;
+    },
+    scrollTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth" // Animasi smooth scrolling
+      });
+    },
+    limitAgenda(fullString) {
+      if (fullString.length > 150) {
+        let slicedString = fullString.slice(0, 150);
+        return slicedString;
+      } else {
+        return fullString
+      }
+    },
+    convertTimestamp(timestamp) {
+      const date = new Date(timestamp);
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      const formattedDate = date.toLocaleDateString('id-ID', options);
+      return formattedDate;
+    },
+    convertToWIB(waktu) {
+      const [jam, menit] = waktu.split(':');
+      return `${jam}:${menit} WIB`;
+    },
+    showPopUpHapus(id) {
+      this.showWarningHapus = true
+      this.idHapus = id
+    },
+    hapusCatatanTidak() {
+      this.showWarningHapus = false;
+    },
+    async hapusCatatanYa() {
+      try {
+        const paramObject = {
+          id_catatan_dosen: this.idHapus
         }
+        const response = await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/deleteCatatanDosen/`, paramObject);
+
+        if (response.data.error === false) {
+          this.showWarningHapus = false
+
+          setTimeout(() => {
+            this.pesanSnackBar = "Catatan berhasil dihapus"
+            this.snackbar()
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }, 200);
+
+        } else {
+          console.log("Gagal hapus data");
+        }
+      } catch (error) {
+        console.error("Terjadi kesalahan saat mengambil data:", error);
+        this.listMahasiswaPerwalianFiltered = [];
+      }
     },
-    updated() {
-        this.scrollTop();
+    showPopUpArsip(id) {
+      this.showWarningArsip = true
+      this.idArsip = id
     },
-    mounted() {
-        const script1 = document.createElement("script");
-        script1.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
-        script1.integrity =
-            "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj";
-        script1.crossOrigin = "anonymous";
-        document.head.appendChild(script1);
-
-        // // popper.min.js
-        // const script2 = document.createElement("script");
-        // script2.src ="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js";
-        // script2.integrity = "sha384-hSM2mzKd06KfNmOz6mK6+sfuLdYVjI1MKOpnE+O+hNEZmZ+zQp8hJz3uPL2twNJX";
-        // script2.crossOrigin = "anonymous";
-        // document.head.appendChild(script2);
-
-        //bundle.min.js
-        const script3 = document.createElement("script");
-        script3.src = "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js";
-        script3.integrity = "sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx";
-        script3.crossOrigin = "anonymous";
-        document.head.appendChild(script3);
+    arsipCatatanTidak() {
+      this.showWarningArsip = false
     },
-    computed: {
-        getListCatatanLength() {
-            let hasil = Math.ceil(this.listCatatanDosen.length / 12);
-            return hasil;
-        },
-        paginatedItems() {
-            this.scrollTop()
-            const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-            const endIndex = startIndex + this.itemsPerPage;
-            return this.listCatatanDosen.slice(startIndex, endIndex);
-        },
+    async arsipCatatanYa() {
+      //melakukan arsip catatan perwalian menjadi true
+      try {
+        const paramObject = {
+          id_catatan_dosen: this.idArsip,
+          is_arsip: true,
+          filter_arsip: "current_time"
+        }
+        const response = await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/updateIsArsipCatatanDosen/`, paramObject);
+
+        if (response.data.error === false) {
+          this.showWarningArsip = false
+          setTimeout(() => {
+            this.pesanSnackBar = "Berhasil mengarsipkan catatan"
+            this.snackbar()
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }, 200);
+        } else {
+          this.listMahasiswaPerwalianFiltered = [];
+        }
+      } catch (error) {
+        console.error("Terjadi kesalahan saat mengambil data:", error);
+      }
     },
-    watch: {
-        inputanCariCatatanDosen: {
-            handler: async function (judul) {
-                this.pesanError = "Sedang mencari catatan ... "
-                //ambil data dari local storage
-                let tempListCatatanDosen = await this.getFilteredCatatanDosen()
-
-                //get kata kunci pencarian
-                const kataKunciPencarian = judul.toLowerCase().trim();
-
-                let hasilFilter = undefined
-                // //lakukan filtering catatan berdasarkan kata kunci 
-                if (tempListCatatanDosen != undefined) {
-                    hasilFilter = tempListCatatanDosen.filter(catatan =>
-                        catatan.judul.toLowerCase().includes(kataKunciPencarian) ||
-                        catatan.agenda_perwalian.toLowerCase().includes(kataKunciPencarian)
-                    );
-                } else {
-                    hasilFilter = []
-                }
-
-                if (hasilFilter.length > 0) { //filter ketemu
-                    this.listCatatanDosen = hasilFilter
-                    this.pesanError = "Berhasil menemukan " + hasilFilter.length + " data"
-                } else { // filter tidak ketemu 
-                    // this.listCatatanPerwalianDosen = tempListCatatanDosen
-                    this.listCatatanDosen = []
-                    this.pesanError = "Catatan yang dicari tidak ditemukan"
-                }
-            }
-        },
-        handlerBatal: {
-            handler: function (baru, lama2) {
-                if (this.handlerBatal) {
-                    this.valueFilter = this.tempValueFilter
-                    this.valueSort = this.tempValueSort
-
-                    this.handlerBatal = false
-                }
-            }
-        },
-        handlerSimpan: {
-            handler: function (baru, lama) {
-                if (this.handlerSimpan == baru) {
-                    this.handlerValueFilter = true
-                    this.tempValueFilter = this.valueFilter
-                    this.tempValueSort = this.valueSort
-                }
-            }
-        },
+    snackbar() {
+      //show snackbar
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
     },
+    showPopUpPreferensi() {
+      this.showPopUpFilter = true;
+    },
+    changePage(newPage) {
+      this.currentPage = newPage;
+    },
+    logoutDosen() {
+      localStorage.clear();
+      this.$router.push("/login")
+    }
+  },
+  updated() {
+    this.scrollTop();
+  },
+  mounted() {
+    const script1 = document.createElement("script");
+    script1.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
+    script1.integrity =
+      "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj";
+    script1.crossOrigin = "anonymous";
+    document.head.appendChild(script1);
+
+    // // popper.min.js
+    // const script2 = document.createElement("script");
+    // script2.src ="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js";
+    // script2.integrity = "sha384-hSM2mzKd06KfNmOz6mK6+sfuLdYVjI1MKOpnE+O+hNEZmZ+zQp8hJz3uPL2twNJX";
+    // script2.crossOrigin = "anonymous";
+    // document.head.appendChild(script2);
+
+    //bundle.min.js
+    const script3 = document.createElement("script");
+    script3.src = "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js";
+    script3.integrity = "sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx";
+    script3.crossOrigin = "anonymous";
+    document.head.appendChild(script3);
+  },
+  computed: {
+    getListCatatanLength() {
+      let hasil = Math.ceil(this.listCatatanDosen.length / 12);
+      return hasil;
+    },
+    paginatedItems() {
+      this.scrollTop()
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.listCatatanDosen.slice(startIndex, endIndex);
+    },
+  },
+  watch: {
+    inputanCariCatatanDosen: {
+      handler: async function (judul) {
+        this.pesanError = "Sedang mencari catatan ... "
+        //ambil data dari local storage
+        let tempListCatatanDosen = await this.getFilteredCatatanDosen()
+
+        //get kata kunci pencarian
+        const kataKunciPencarian = judul.toLowerCase().trim();
+
+        let hasilFilter = undefined
+        // //lakukan filtering catatan berdasarkan kata kunci 
+        if (tempListCatatanDosen != undefined) {
+          hasilFilter = tempListCatatanDosen.filter(catatan =>
+            catatan.judul.toLowerCase().includes(kataKunciPencarian) ||
+            catatan.agenda_perwalian.toLowerCase().includes(kataKunciPencarian)
+          );
+        } else {
+          hasilFilter = []
+        }
+
+        if (hasilFilter.length > 0) { //filter ketemu
+          this.listCatatanDosen = hasilFilter
+          this.pesanError = "Berhasil menemukan " + hasilFilter.length + " data"
+        } else { // filter tidak ketemu 
+          // this.listCatatanPerwalianDosen = tempListCatatanDosen
+          this.listCatatanDosen = []
+          this.pesanError = "Catatan yang dicari tidak ditemukan"
+        }
+      }
+    },
+    handlerBatal: {
+      handler: function (baru, lama2) {
+        if (this.handlerBatal) {
+          this.valueFilter = this.tempValueFilter
+          this.valueSort = this.tempValueSort
+
+          this.handlerBatal = false
+        }
+      }
+    },
+    handlerSimpan: {
+      handler: function (baru, lama) {
+        if (this.handlerSimpan == baru) {
+          this.handlerValueFilter = true
+          this.tempValueFilter = this.valueFilter
+          this.tempValueSort = this.valueSort
+        }
+      }
+    },
+  },
 }
 </script>
 

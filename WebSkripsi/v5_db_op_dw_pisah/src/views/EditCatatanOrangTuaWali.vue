@@ -1,226 +1,183 @@
 <template lang="">
-    <div>
-        <head> 
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-        </head>
+<div>
 
-        <!-- Navbar -->
-        <div class="row align-items-center ml-0 stickyNavbar"  id="navbar">
-            <div id="navbar1" class="col-lg-8 mt-lg-0 col-sm-12 mt-sm-3">
-                <div class="d-flex">
-                    <div class="ml-3" id="iconBeranda">
-                        <router-link to="/">
-                            <span class="material-symbols-outlined" style="color: #3c2a21">
-                                home
-                              </span>
-                        </router-link>
-                    </div>
-                    
-                    <div id="judulWeb">
-                        <p class="ml-2">Program Studi Informatika UKDW</p>
-                    </div>
-                </div>
-            </div>
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    </head>
 
-            <div id="navbar2" class="col-lg-4 col-sm-12">
-                <div id="idPengguna" class="w-100">
-                    <div class="">
-                        <div class="d-flex justify-content-end col-12 p-0">
-                            <div id="labelNamaDosen" class="d-flex align-items-center mr-3">
-                                <p class="m-0 text-center">
-                                    <v-icon class="mr-2 " size="small">
-                                        mdi-account
-                                    </v-icon>
-                                </p>
-                                <p id="infoNamaDosen" class="m-0">
-                                    {{ this.namaDosen }}
-                                </p>
-                            </div>
+    <!-- Navbar -->
+    <Header :namaDosen="this.namaDosen" @click="this.logoutDosen()" />
 
-                            <v-btn class="dropDownDosen" color="#E5E5CB" flat active theme="light"
-                                @click="this.logoutDosen()">
-                                <v-icon size="default">
-                                    mdi-logout
-                                </v-icon>
-                                <v-tooltip activator="parent" content-class="bg-grey-darken-1" location="bottom">Logout
-                                </v-tooltip>
-                            </v-btn>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Content -->
+    <div id="content" class="container-fluid px-0">
+        <div class="col-12 mt-4 mb-4">
+            <BreadcrumbModule class="m-0 ml-5 breadCrumb"></BreadcrumbModule>
         </div>
 
-        <!-- Content -->
-        <div id="content" class="container-fluid px-0">
-            <div class="col-12 mt-4 mb-4">
-                <BreadcrumbModule class="m-0 ml-5 breadCrumb"></BreadcrumbModule>
-            </div>
-        
-            <div class="d-flex flex-column">
-                <div class="container-fluid px-0 mt-4 pt-2">
-                    <div id="judulCatatan" class="mb-5">
-                        <p>Edit Catatan Orang Tua / Wali dan Mahasiswa</p>
-                    </div>
-            
-                    <div id="tambahCatatan" class="myContainer d-flex">
-    
-                    
-                        <!-- bagian isi waktu nama judul -->
-                        <div class="col-lg-4 col-md-9 col-sm-9">
-                            <div class="row">
-                                <div class="col-12 mt-2 pl-0 mb-2">
-                                    <p id="judulItemPerCatatan" class="mb-0">Data Catatan</p>
-                                </div>
-            
-                                <div class="col-12 mb-3 pl-2 mt-2">
-                                    <div class="row">
-                                        <div class="col-2 align-self-center pl-2">
-                                            <span class="font-weight-bold ">Waktu</span>
-                                        </div>
-                                        <div class="col-9">
-                                            <input id="inputKiri" type="text" readonly disabled class="myformControl" v-model="waktu">
-                                        </div>
+        <div class="d-flex flex-column">
+            <div class="container-fluid px-0 mt-4 pt-2">
+                <div id="judulCatatan" class="mb-5">
+                    <p>Edit Catatan Orang Tua / Wali</p>
+                </div>
+
+                <div id="tambahCatatan" class="myContainer d-flex">
+                    <!-- bagian isi waktu nama judul -->
+                    <div class="col-lg-4 col-md-9 col-sm-9">
+                        <div class="row">
+                            <div class="col-12 mt-2 pl-0 mb-2">
+                                <p id="judulItemPerCatatan" class="mb-0">Data Catatan</p>
+                            </div>
+
+                            <div class="col-12 mb-3 pl-2 mt-2">
+                                <div class="row">
+                                    <div class="col-2 align-self-center pl-2">
+                                        <span class="font-weight-bold ">Waktu</span>
                                     </div>
-                                </div>
-            
-                                <div class="col-12 mb-3 pl-2">
-                                    <div class="row">
-                                        <div class="col-2 align-self-center pl-2">
-                                            <span class="font-weight-bold">Nama</span>
-                                        </div>
-                                        <div class="col-9 align-self-center">          
-                                            <input id="inputKiri" readonly disabled type="text" v-model="nama">
-                                        </div>
+                                    <div class="col-9">
+                                        <input id="inputKiri" type="text" readonly disabled class="myformControl" v-model="waktu">
                                     </div>
-                                </div>
-            
-                                <div class="col-12 mb-4 pl-2">
-                                    <div class="row">
-                                        <div class="col-2 align-self-center pl-2">
-                                            <span class="mr-4 font-weight-bold">Judul</span>
-                                        </div>
-                                        <div class="col-9">
-                                            <input id="inputJudulKonsul" type="text" class="dropdown-toggle" v-model="judul">
-                                        </div>
-                                    </div>
-                                </div>
-    
-                                <!-- bagian nama orang tua wali -->
-                                <div class="col-12 mb-3 mt-1 pl-2">
-                                    <div class="row">
-                                        <div class="col-12 pl-2 mb-2 align-self-center">
-                                            <span class="font-weight-bold">Nama Orang Tua / Wali</span>
-                                        </div>
-                                        <div class="col-9 pl-2 align-self-center">          
-                                            <input id="inputKiri" type="text" v-model="namaOrangTua" placeholder="Nama orang tua / wali">
-                                        </div>
-                                    </div>
-                                </div>
-    
-                                <!-- bagian tambah peserta -->
-                                <div class="col-lg-12 col-md-9 col-sm-9 mb-sm-2 pl-0" id="cariTambahMahasiswa">
-                                    <div class="pt-1">
-                                        <p class="mb-0">
-                                            <b>Tambah Peserta (Mahasiswa)</b>
-                                        </p>
-                                    </div>
-                                    
-                                    
-                                    <div id="kolomTambahMahasiswa" class="d-flex align-items-center">
-                                        <span class="material-symbols-outlined search ml-2">
-                                            search
-                                            </span>
-                                        <input class="inputCariMahasiswa" type="text" placeholder="Cari nama mahasiswa" v-model="inputanNamaMahasiswa" v-bind:class="{inputCariMahasiswaFocus:showSuggestionList}">
-                                    </div>
-    
-                                    <Transition>
-                                        <div v-if="this.listCariNamaMahasiswa.length > 0 && this.inputanNamaMahasiswa != ''" id="hoverCariNamaMahasiswa">
-                                            <div id="listNamaPesertaLain" class="py-1 px-0">
-                                                <ol class="pr-4">
-                                                    <li v-for="(mahasiswa,index) in this.listCariNamaMahasiswa" :key="index">
-                                                        <div class="row">
-                                                            <div class="col-10">
-                                                                <p class="mb-0">{{mahasiswa.nama}} {{mahasiswa.nim}}</p>
-                                                            </div>
-    
-                                                            <div class="col-2 px-0 d-flex align-items-center">
-                                                                <span class="material-symbols-outlined delete text-success" @click="addPeserta(mahasiswa.nim, mahasiswa.nama)">
-                                                                    add_box
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ol>
-                                            </div>
-                                        </div>
-                                        <div v-else-if="this.listCariNamaMahasiswa.length == 0 && this.inputanNamaMahasiswa != ''" id="hoverCariNamaMahasiswa">
-                                            <div id="listNamaPesertaLain" class="py-1 px-0 text-center">
-                                                <ol class="list-group">
-                                                    <li class="list-group-item">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <p class="mb-0">Nama mahasiswa tidak ditemukan</p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ol>
-                                            </div>
-                                        </div>
-                                    </Transition>
                                 </div>
                             </div>
-                        </div>
-    
-                        
-    
-                        <!-- bagian tipe perwalian -->
-                        <div class="col-lg-3 col-md-8 col-sm-9 mb-sm-2 px-0">
-                            <transition>
-                                <div v-if="this.listMahasiswaPesertaLainnya.length > 0 ">
-                                    <div class="mt-2">
-                                        <p id="judulItemPerCatatan">Daftar Peserta Lainnya</p>
+
+                            <div class="col-12 mb-3 pl-2">
+                                <div class="row">
+                                    <div class="col-2 align-self-center pl-2">
+                                        <span class="font-weight-bold">Nama</span>
                                     </div>
-    
-                                    <div id="kolomDaftarPesertaLainnya">
-                                        <div id="listNamaPesertaLain" class="py-2 pl-0 pr-3">
-                                           <ol class="mb-0">
-                                                <TransitionGroup>
-                                                    <li v-for="(mahasiswa, index) in this.listMahasiswaPesertaLainnya" :key="index">
-                                                        <div class="d-flex">
-                                                            <div class="col px-0 d-inline d-flex">
-                                                                <p class="mb-0">
-                                                                    {{mahasiswa.nama}} / {{mahasiswa.nim}}
-                                                                </p>
-                                                                <div v-if="'is_head' in mahasiswa" class="col-1 px-0 ml-2 d-inline d-flex align-items-center">
-                                                                    <v-icon class="text-dark" size="default">
-                                                                        mdi-crown
-                                                                    </v-icon>
-                                                                    <v-tooltip activator="parent" content-class="bg-grey-darken-1" location="bottom">Penggagas
-                                                                        perwalian</v-tooltip>
-                                                                </div>
-                                                            </div>
-                                                            <div v-if="mahasiswa.id_catatan_perwalian_dosen == 0" class="col-1 px-0 d-flex align-items-center">
-                                                                <span class="pl-1 material-symbols-outlined delete text-danger" @click="
-                                                                            deletePeserta(index)">
-                                                                    delete</span>
-                                                            </div>
+                                    <div class="col-9 align-self-center">
+                                        <input id="inputKiri" readonly disabled  type="text" v-model="nama">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mb-4 pl-2">
+                                <div class="row">
+                                    <div class="col-2 align-self-center pl-2">
+                                        <span class="mr-4 font-weight-bold">Judul</span>
+                                    </div>
+                                    <div class="col-9">
+                                        <input id="inputJudulKonsul" type="text" class="dropdown-toggle" v-model="judul">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- bagian nama orang tua wali -->
+                            <div class="col-12 mb-3 mt-1 pl-2">
+                                <div class="row">
+                                    <div class="col-12 pl-2 mb-2 align-self-center">
+                                        <span class="font-weight-bold">Nama Orang Tua / Wali</span>
+                                    </div>
+                                    <div class="col-9 pl-2 align-self-center">
+                                        <input id="inputKiri" type="text" v-model="namaOrangTua" placeholder="Nama orang tua / wali">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- bagian tambah peserta -->
+                            <div class="col-lg-12 col-md-9 col-sm-9 mb-sm-4 pl-0" id="cariTambahMahasiswa">
+                                <div class="pt-1">
+                                    <p class="mb-0">
+                                        <b>Tambah Peserta (Mahasiswa)</b>
+                                    </p>
+                                </div>
+
+                                <div id="kolomTambahMahasiswa" class="d-flex align-items-center">
+                                    <span class="material-symbols-outlined search ml-2">
+                                        search
+                                    </span>
+                                    <input class="inputCariMahasiswa" type="text" placeholder="Cari nama mahasiswa" v-model="inputanNamaMahasiswa" v-bind:class="{inputCariMahasiswaFocus:showSuggestionList}">
+                                </div>
+
+                                <Transition>
+                                    <div v-if="this.listCariNamaMahasiswa.length > 0 && this.inputanNamaMahasiswa != ''" id="hoverCariNamaMahasiswa">
+                                        <div id="listNamaPesertaLain" class="py-1 px-0">
+                                            <ol class=" list-group">
+                                                <li v-for="(mahasiswa,index) in this.listCariNamaMahasiswa" :key="index" class="list-group-item py-1">
+                                                    <div class="row">
+                                                        <div class="col-10">
+                                                            <p class="mb-0">{{mahasiswa.nama}} {{mahasiswa.nim}}</p>
                                                         </div>
-                                                    </li>
-                                                </TransitionGroup>
+
+                                                        <div class="col-2 px-0 d-flex align-items-center">
+                                                            <span class="material-symbols-outlined delete text-success" @click="addPeserta(mahasiswa.nim, mahasiswa.nama)">
+                                                                add_box
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </li>
                                             </ol>
                                         </div>
                                     </div>
-                                </div> 
-                            </transition> 
+                                    <div v-else-if="this.listCariNamaMahasiswa.length == 0 && this.inputanNamaMahasiswa != ''" id="hoverCariNamaMahasiswa">
+                                        <div id="listNamaPesertaLain" class="py-1 px-0 text-center">
+                                            <ol class="list-group">
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <p class="mb-0">Nama mahasiswa tidak ditemukan</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </Transition>
+                            </div>
+
+                           
+
                         </div>
+
+                    </div>
+
+                    
+
+                    <!-- bagian daftar peserta lainnya -->
+                    <div class="col-lg-3 col-md-8 col-sm-9 mb-sm-4 px-0">
+                        <transition>
+                            <div v-if="this.listMahasiswaPesertaLainnya.length > 0 ">
+                                <div class="mt-2">
+                                    <p id="judulItemPerCatatan">Daftar Peserta Lainnya</p>
+                                </div>
+
+                                <div id="kolomDaftarPesertaLainnya">
+                                    <div id="listNamaPesertaLain" class="py-2 pl-0 pr-3">
+                                        <ol class="mb-0">
+                                            <TransitionGroup>
+                                                <li v-for="(mahasiswa, index) in this.listMahasiswaPesertaLainnya" :key="index">
+                                                    <div class="d-flex">
+                                                        <div class="col px-0 d-inline d-flex">
+                                                            <p class="mb-0">
+                                                                {{mahasiswa.nama}} / {{mahasiswa.nim}}
+                                                            </p>
+                                                            <div v-if="'is_head' in mahasiswa" class="col-1 px-0 ml-2 d-inline d-flex align-items-center">
+                                                                <v-icon class="text-dark" size="default">
+                                                                    mdi-crown
+                                                                </v-icon>
+                                                                <v-tooltip activator="parent" content-class="bg-grey-darken-1" location="bottom">Penggagas
+                                                                    perwalian</v-tooltip>
+                                                            </div>
+                                                        </div>
+                                                        <div v-if="mahasiswa.id_catatan_perwalian_dosen == 0" class="col-1 px-0 d-flex align-items-center">
+                                                            <span class="pl-1 material-symbols-outlined delete text-danger" @click="
+                                                                        deletePeserta(index)">
+                                                                delete</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </TransitionGroup>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </transition>
                     </div>
                 </div>
             </div>
-            
 
             <div class="d-flex flex-column">
                 <div class="myContainer mb-2">
@@ -229,7 +186,7 @@
                             <p class="text-right m-0">
                                 <span class="material-symbols-outlined delete text-danger">
                                     delete
-                                    </span>
+                                </span>
                                 Hapus Catatan
                             </p>
                         </div>
@@ -238,7 +195,7 @@
                             <p class="text-right m-0">
                                 <span class="material-symbols-outlined archive text-success">
                                     archive
-                                    </span>
+                                </span>
                                 Arsipkan Catatan
                             </p>
                         </div>
@@ -247,7 +204,7 @@
                             <p class="text-right m-0">
                                 <span class="material-symbols-outlined copy text-primary">
                                     content_copy
-                                    </span>
+                                </span>
                                 Salin Catatan
                             </p>
                         </div>
@@ -259,25 +216,25 @@
                         <div id="kolomInputan">
                             <textarea name="agendaPerwalian" id="agendaPerwalian" cols="160" rows="10" v-model="agendaPerwalian"></textarea>
                         </div>
-            
+
                         <div id="buttonBatalSimpan" class="mt-3">
                             <div class="row justify-content-between">
                                 <div class="col-xl-6 col-sm-6">
-                                    <v-btn id="buttonBatal" type="submit" @click="this.batal()" >Batal</v-btn>
+                                    <v-btn id="buttonBatal" type="submit" @click="this.batal()">Batal</v-btn>
                                 </div>
-            
+
                                 <div class="col-xl-6 col-sm-6 d-flex justify-content-end mb-5">
-                                    <v-btn id="buttonSimpan" :disabled="this.tombolTidakAktif" type="submit" @click="this.simpan()" >Simpan</v-btn>
+                                    <v-btn id="buttonSimpan" :disabled="this.tombolTidakAktif" type="submit" @click="this.simpan()">Simpan</v-btn>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-         
+        </div>
 
-            <!-- overlay hapus arsipkan catatan -->
-           <Transition>
+        <!-- overlay hapus arsipkan catatan -->
+        <Transition>
             <div id="overlay" v-if="this.showWarningHapus" class="d-flex justify-content-center align-items-center">
                 <div id="windowPreferensi">
                     <div id="contentPreferensi" class="p-4">
@@ -328,32 +285,31 @@
             <p class="m-0">{{ this.pesanSnackBar }}</p>
         </div>
 
-        </div>
     </div>
+</div>
 </template>
 
 <script>
-import axios from "axios";
 import BreadcrumbModule from "./BreadcrumbModule.vue";
+import Header from "@/components/header/Header.vue"
+import axios from "axios";
 
 export default {
-  name: "EditCatatanOrangTuaWaliDanMahasiswa",
+  name: "EditCatatanOrangTuaWali",
   components: {
-    BreadcrumbModule,
+    BreadcrumbModule, Header
   },
   data() {
     return {
-      inputanNimMhs: "",
-      data: "",
       waktu: "",
       waktuAwal: "",
       waktuAkhir: "",
       nama: "",
       judul: "",
-      namaOrangTua: "",
       tambahPeserta: "",
       agendaPerwalian: "",
-      /////////////////////////////////////////////////////////////////
+      namaOrangTua: "",
+      /////////////////////////////////////////////////////////
       kodeDosen: "",
       idCatatanPerwalianDosen: 0,
       listCariNamaMahasiswa: [],
@@ -392,6 +348,7 @@ export default {
         if (response.data.error === false) {
           this.data =
             response.data.response.list_catatan_dosen_perwalian_dosen[0];
+          console.log(this.data);
         } else {
           this.data = [];
         }
@@ -407,6 +364,7 @@ export default {
       this.nama = this.data.nama;
       this.judul = this.data.judul;
       this.agendaPerwalian = this.data.agenda_perwalian;
+      this.namaOrangTua = this.data.nama_orang_tua;
 
       if (this.data != null) {
         if (this.data.nama_orang_tua == "") {
@@ -428,34 +386,6 @@ export default {
       setTimeout(function () {
         x.className = x.className.replace("show", "");
       }, 3000);
-    },
-    getWaktuSekarangTime() {
-      const waktu = new Date();
-
-      // Mengambil nilai jam, menit, dan detik dari objek Date
-      const jam = waktu.getHours();
-      const menit = waktu.getMinutes();
-      const detik = waktu.getSeconds();
-
-      // Mengonversi nilai jam ke format 2 digit (misalnya: 10 menjadi "10")
-      const jamDalamFormat = jam.toString().padStart(2, "0");
-      const menitDalamFormat = menit.toString().padStart(2, "0");
-      const detikDalamFormat = detik.toString().padStart(2, "0");
-
-      // Menggabungkan nilai jam, menit, dan detik ke dalam format "10:00:00"
-      const waktuSekarangWIB = `${jamDalamFormat}:${menitDalamFormat}:${detikDalamFormat}`;
-
-      return waktuSekarangWIB;
-    },
-    convertToWIB(waktu) {
-      const [jam, menit] = waktu.split(":");
-      return `${jam}:${menit} WIB`;
-    },
-    convertTimestamp(timestamp) {
-      const date = new Date(timestamp);
-      const options = { day: "numeric", month: "long", year: "numeric" };
-      const formattedDate = date.toLocaleDateString("id-ID", options);
-      return formattedDate;
     },
     addPeserta(nim, nama) {
       if (this.nim != nim) {
@@ -482,13 +412,6 @@ export default {
         this.snackbar();
       }
     },
-    isMahasiswaExists(nim) {
-      return (
-        this.listMahasiswaPesertaLainnya.find(
-          (mahasiswa) => mahasiswa.nim === nim
-        ) !== undefined
-      );
-    },
     deletePeserta(index) {
       this.listMahasiswaPesertaLainnya.splice(index, 1);
     },
@@ -506,23 +429,16 @@ export default {
         behavior: "smooth", // Animasi smooth scrolling
       });
     },
-    isMahasiswaExists(nim) {
-      return (
-        this.listMahasiswaPesertaLainnya.find(
-          (mahasiswa) => mahasiswa.nim === nim
-        ) !== undefined
-      );
-    },
     async simpan() {
       this.tombolTidakAktif = true;
       this.waktuAkhir = this.getWaktuSekarangTime();
       if (!this.isFieldKosong()) {
         const paramObject = {
           judul: this.judul,
-          tipe: "orang-tua-wali-dan-mahasiswa",
+          tipe: "orang-tua-wali",
           nim: this.nim,
           nama: this.nama,
-          nama_orang_tua: "", // sengaja dibuat kosong agar nama orang tua peserta lainnya tidak berubah
+          nama_orang_tua: "", //sengaja dibuat kosong agar nama orang tua peserta lainnya tidak berubah
           agenda_perwalian: this.agendaPerwalian,
           tambah_peserta: this.listMahasiswaPesertaLainnya,
           waktu: this.getWaktuSekarangDatabase(),
@@ -576,7 +492,7 @@ export default {
                 let tempParamObject = {
                   kode_dosen: this.kodeDosen,
                   judul: this.judul,
-                  tipe: "orang-tua-wali-dan-mahasiswa",
+                  tipe: "orang-tua-wali",
                   nim: this.listMahasiswaPesertaLainnya[i].nim,
                   nama: this.listMahasiswaPesertaLainnya[i].nama,
                   nama_orang_tua: "", //nama orang tua mahasiswa memang kosong, karena catatan tipe mahasiswa tidak ada kolom nama orang tua
@@ -676,10 +592,8 @@ export default {
       //return true kalau fieldnya kosong
       return this.judul == "" && this.agendaPerwalian == "";
     },
-    batal() {
-      this.$router.back();
-    },
     getTanggalSekarang() {
+      //10 Januari 2023 => untuk ditampilkan ke layar
       const months = [
         "Januari",
         "Februari",
@@ -705,6 +619,7 @@ export default {
       return formattedDate;
     },
     getWaktuSekarang() {
+      //10:00 WIB => untuk ditampilkan ke layar
       const currentDate = new Date();
       const hours = currentDate.getHours().toString().padStart(2, "0");
       const minutes = currentDate.getMinutes().toString().padStart(2, "0");
@@ -730,6 +645,28 @@ export default {
 
       return waktuSekarang;
     },
+    getWaktuSekarangTime() {
+      //10:00:00 => untuk insert ke table
+      const waktu = new Date();
+
+      // Mengambil nilai jam, menit, dan detik dari objek Date
+      const jam = waktu.getHours();
+      const menit = waktu.getMinutes();
+      const detik = waktu.getSeconds();
+
+      // Mengonversi nilai jam ke format 2 digit (misalnya: 10 menjadi "10")
+      const jamDalamFormat = jam.toString().padStart(2, "0");
+      const menitDalamFormat = menit.toString().padStart(2, "0");
+      const detikDalamFormat = detik.toString().padStart(2, "0");
+
+      // Menggabungkan nilai jam, menit, dan detik ke dalam format "10:00:00"
+      const waktuSekarangWIB = `${jamDalamFormat}:${menitDalamFormat}:${detikDalamFormat}`;
+
+      return waktuSekarangWIB;
+    },
+    batal() {
+      this.$router.back();
+    },
     async cariNamaMahasiswa() {
       try {
         const response = await axios.get(
@@ -752,9 +689,26 @@ export default {
         this.listCariNamaMahasiswa = [];
       }
     },
-    logoutDosen() {
-      localStorage.clear();
-      this.$router.push("/login");
+    isMahasiswaExists(nim) {
+      return (
+        this.listMahasiswaPesertaLainnya.find(
+          (mahasiswa) => mahasiswa.nim === nim
+        ) !== undefined
+      );
+    },
+    convertToWIB(waktu) {
+      const [jam, menit] = waktu.split(":");
+      return `${jam}:${menit} WIB`;
+    },
+    convertTimestamp(timestamp) {
+      const date = new Date(timestamp);
+      const options = {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      };
+      const formattedDate = date.toLocaleDateString("id-ID", options);
+      return formattedDate;
     },
     showPopUpHapus(id) {
       this.showWarningHapus = true;
@@ -782,7 +736,9 @@ export default {
             setTimeout(() => {
               this.$router.push({
                 name: "DaftarCatatanPerwalianMahasiswa",
-                params: { id: this.nim },
+                params: {
+                  id: this.nim,
+                },
               });
             }, 2000);
           }, 200);
@@ -875,7 +831,9 @@ export default {
             setTimeout(() => {
               this.$router.push({
                 name: "DaftarCatatanPerwalianMahasiswa",
-                params: { id: this.nim },
+                params: {
+                  id: this.nim,
+                },
               });
             }, 2000);
           }, 200);
@@ -897,6 +855,22 @@ export default {
 
       this.pesanSnackBar = "Catatan disalin ke clipboard";
       this.snackbar();
+    },
+  },
+  computed: {
+    filteredList() {
+      if (this.inputanNimMhs != "") {
+        return this.listMahasiswa.filter((Mahasiswa) => {
+          return Mahasiswa.nim
+            .toLowerCase()
+            .includes(this.inputanNimMhs.toLowerCase());
+        });
+      }
+      return [];
+    },
+    logoutDosen() {
+      localStorage.clear();
+      this.$router.push("/login");
     },
   },
   mounted() {

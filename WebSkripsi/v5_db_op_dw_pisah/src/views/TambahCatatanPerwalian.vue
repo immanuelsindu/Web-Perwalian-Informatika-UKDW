@@ -8,51 +8,7 @@
         </head>
 
         <!-- Navbar -->
-        <div class="row align-items-center ml-0 stickyNavbar"  id="navbar">
-            <div id="navbar1" class="col-lg-8 mt-lg-0 col-sm-12 mt-sm-3">
-                <div class="d-flex">
-                    <div class="ml-3" id="iconBeranda">
-                        <router-link to="/">
-                            <span class="material-symbols-outlined" style="color: #3c2a21">
-                                home
-                              </span>
-                        </router-link>
-                    </div>
-                    
-                    <div id="judulWeb" class="m-0">
-                        <p class="ml-2">Program Studi Informatika UKDW</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="navbar2" class="col-lg-4 col-sm-12">
-                <div id="idPengguna" class="w-100">
-                    <div class="">
-                        <div class="d-flex justify-content-end col-12 p-0">
-                            <div id="labelNamaDosen" class="d-flex align-items-center mr-3">
-                                <p class="m-0 text-center">
-                                    <v-icon class="mr-2 " size="small">
-                                        mdi-account
-                                    </v-icon>
-                                </p>
-                                <p id="infoNamaDosen" class="m-0">
-                                    {{ this.namaDosen }}
-                                </p>
-                            </div>
-
-                            <v-btn class="dropDownDosen" color="#E5E5CB" flat active theme="light"
-                                @click="this.logoutDosen()">
-                                <v-icon size="default">
-                                    mdi-logout
-                                </v-icon>
-                                <v-tooltip activator="parent" content-class="bg-grey-darken-1" location="bottom">Logout
-                                </v-tooltip>
-                            </v-btn>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Header :namaDosen="this.namaDosen" @click="this.logoutDosen()" />
 
         <!-- Content -->
         <div id="content" class="container-fluid px-0">
@@ -410,494 +366,495 @@
 </template>
 
 <script>
-import BreadcrumbModule from './BreadcrumbModule.vue';
+import BreadcrumbModule from '@/views/BreadcrumbModule.vue';
+import Header from "@/components/header/Header.vue"
 import axios from 'axios'
 
 export default {
-    name: "TambahCatatanPerwalian",
-    components: {
-        BreadcrumbModule
-    },
-    data() {
-        return {
-            //variabel untuk tambah catatan 
-            nim: null,
-            waktu: null,
-            namaOrangTua: null,
-            agendaPerwalian: null,
-            waktuAwal: null,
-            waktuAkhir: null,
-            //variabel untuk DOMS
-            textNama: "Nama",
-            peserta: "Mahasiswa",
-            labelKolomNama: "Nama",
-            myPlaceholder: "Masukan nama atau NIM mahasiswa",
-            myValueJudul: null,
-            hasil: null,
-            listDaftarPesertaLainnya: [],
-            /////////////////////////////////////////////
-            kodeDosen: null,
-            inputanCariNama: "",
-            listCariMahasiswa: [],
-            nimMahasiswa: null,
-            namaMahasiswa: null,
-            inputanPeserta: null,
-            listDaftarPesertaLainnya: [],
-            wadahPesertaLainnya: [],
-            pesanSnackBar: null,
-            listTahunAngkatanPerwalianDosen: [],
-            listPresensi: [],
-            isReadonly: true,
-            tombolTidakAktif: false,
-            isCariNamaNotFound: false,
-            tipe: "mahasiswa",
-            tahunAngkatan: null,
-            listSaranJudul: [
-                "Catatan Perwalian Pra-Registrasi",
-                "Catatan Perwalian Pra-UTS",
-                "Catatan Perwalian Pra-UAS"
-            ],
-            judul: null,
-            namaDosen: localStorage.getItem("namaDosen"),
-            btnHadirSemuaColor : "success",
-            pesanBtnHadirSemua : "Buat 'Hadir' Semua Mahasiswa"
+  name: "TambahCatatanPerwalian",
+  components: {
+    BreadcrumbModule, Header
+  },
+  data() {
+    return {
+      //variabel untuk tambah catatan 
+      nim: null,
+      waktu: null,
+      namaOrangTua: null,
+      agendaPerwalian: null,
+      waktuAwal: null,
+      waktuAkhir: null,
+      //variabel untuk DOMS
+      textNama: "Nama",
+      peserta: "Mahasiswa",
+      labelKolomNama: "Nama",
+      myPlaceholder: "Masukan nama atau NIM mahasiswa",
+      myValueJudul: null,
+      hasil: null,
+      listDaftarPesertaLainnya: [],
+      /////////////////////////////////////////////
+      kodeDosen: null,
+      inputanCariNama: "",
+      listCariMahasiswa: [],
+      nimMahasiswa: null,
+      namaMahasiswa: null,
+      inputanPeserta: null,
+      listDaftarPesertaLainnya: [],
+      wadahPesertaLainnya: [],
+      pesanSnackBar: null,
+      listTahunAngkatanPerwalianDosen: [],
+      listPresensi: [],
+      isReadonly: true,
+      tombolTidakAktif: false,
+      isCariNamaNotFound: false,
+      tipe: "mahasiswa",
+      tahunAngkatan: null,
+      listSaranJudul: [
+        "Catatan Perwalian Pra-Registrasi",
+        "Catatan Perwalian Pra-UTS",
+        "Catatan Perwalian Pra-UAS"
+      ],
+      judul: null,
+      namaDosen: localStorage.getItem("namaDosen"),
+      btnHadirSemuaColor: "success",
+      pesanBtnHadirSemua: "Buat 'Hadir' Semua Mahasiswa"
 
+    }
+  },
+  created() {
+    this.scrollTop();
+    this.initData()
+  },
+  methods: {
+    async initData() {
+      this.waktuAwal = this.getWaktuSekarang();
+      this.waktu = this.getTanggalSekarang();
+
+      this.kodeDosen = localStorage.getItem("kodeDosen")
+
+      try {
+        const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/angkatanMahasiswaPerwalian/`, {
+          params: {
+            kode_dosen: this.kodeDosen,
+          },
+        });
+
+        if (response.data.error === false) {
+          this.listTahunAngkatanPerwalianDosen = response.data.response.tahun_angkatan;
+        } else {
+          this.listTahunAngkatanPerwalianDosen = [];
         }
+      } catch (error) {
+        console.error("Terjadi kesalahan saat mengambil data:", error);
+        this.listTahunAngkatanPerwalianDosen = [];
+      }
     },
-    created() {
-        this.scrollTop();
-        this.initData()
+    async searchNamaMahasiswa() {
+      try {
+        const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/searchMahasiswa/`, {
+          params: {
+            kode_dosen: this.kodeDosen,
+            inputan: this.inputanCariNama.toLowerCase()
+          },
+        });
+
+        if (response.data.error === false) {
+          this.listCariMahasiswa = response.data.response.list_mahasiswa;
+        } else {
+          this.listCariMahasiswa = [];
+        }
+      } catch (error) {
+        this.listCariMahasiswa = [];
+      }
     },
-    methods: {
-        async initData() {
-            this.waktuAwal = this.getWaktuSekarang();
-            this.waktu = this.getTanggalSekarang();
+    async searchPesertaLainnya() {
+      try {
+        const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/searchMahasiswa/`, {
+          params: {
+            kode_dosen: this.kodeDosen,
+            inputan: this.inputanPeserta.toLowerCase()
+          },
+        });
 
-            this.kodeDosen = localStorage.getItem("kodeDosen")
+        if (response.data.error === false) {
+          this.listDaftarPesertaLainnya = response.data.response.list_mahasiswa;
+        } else {
+          this.listDaftarPesertaLainnya = [];
+        }
+      } catch (error) {
+        // console.error("Terjadi kesalahan saat mengambil data:", error);
+        this.listDaftarPesertaLainnya = [];
+      }
+    },
+    addPesertaKeWadahPesertaLainnya(mahasiswa) {
+      let checkExists = this.isMahasiswaExits(mahasiswa.nim)
+
+      switch (checkExists) {
+        case "push":
+          if (this.wadahPesertaLainnya.length < 5) {
+            const objectMahasiswa = {
+              nama: mahasiswa.nama,
+              nim: mahasiswa.nim,
+              id_catatan_perwalian_dosen: 0
+            }
+            this.wadahPesertaLainnya.push(objectMahasiswa);
+            break;
+          } else {
+            this.pesanSnackBar = "Maksimal peserta lain hanya 5 orang"
+            this.snackbar()
+            break;
+          }
+        case "mahasiswa-sudah-ada":
+          this.pesanSnackBar = "Mahasiswa tersebut sudah ada di daftar peserta lainnya"
+          this.snackbar()
+          break;
+        case "mahasiswa-input":
+          this.pesanSnackBar = "Tidak bisa menambahkan mahasiswa yang sedang dalam perwalian"
+          this.snackbar()
+          break;
+      }
+    },
+    isMahasiswaExits(inputNim) {
+      let checkExists = this.wadahPesertaLainnya.some(mahasiswa => mahasiswa.nim === inputNim);
+      let hasilCode = ""
+      if (inputNim !== this.nimMahasiswa) {  //cek apakah nim peserta lain merupakan mahasiswa yang sedang melakukan perwalian
+        if (!checkExists) { // cek apakah nim peserta lain sudah ada di wadahPesertaLainnya
+          hasilCode = "push"
+        } else {
+          hasilCode = "mahasiswa-sudah-ada"
+        }
+      } else {
+        hasilCode = 'mahasiswa-input'
+      }
+      console.log(hasilCode);
+      return hasilCode
+    },
+    deletePesertaLain(index) {
+      console.log(index);
+      this.wadahPesertaLainnya.splice(index, 1);
+    },
+    async getMahasiswaPerwalianByTahun() {
+      try {
+        const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/mahasiswaPerwalianPerTahun/`, {
+          params: {
+            kode_dosen: this.kodeDosen,
+            tahun_angkatan: this.tahunAngkatan,
+          },
+        });
+
+        if (response.data.error === false) {
+          this.listPresensi = response.data.response.list_mahasiswa;
+        } else {
+          this.listPresensi = [];
+        }
+      } catch (error) {
+        console.error("Terjadi kesalahan saat mengambil data:", error);
+        this.listPresensi = [];
+      }
+    },
+    async simpan() {
+      if (!this.isFieldKosong()) { //mengecek apakah ada field yang kosong 
+        let tempWadah = [] //untuk temp wadah peserta lainnya
+        this.tombolTidakAktif = true
+        this.waktuAkhir = this.getWaktuSekarang()
+
+        const paramObject = {
+          kode_dosen: this.kodeDosen,
+          judul: this.judul,
+          tipe: this.tipe,
+          nim: this.nimMahasiswa,
+          nama: this.namaMahasiswa,
+          nama_orang_tua: this.namaOrangTua,
+          agenda_perwalian: this.agendaPerwalian,
+          tambah_peserta: this.wadahPesertaLainnya,  // data objek 
+          waktu_awal: this.waktuAwal,
+          waktu_akhir: this.waktuAkhir,
+          data_presensi_mahasiswa: this.listPresensi,  // data objek 
+          tahun_angkatan: this.tahunAngkatan,
+        }
+
+        //insert catatan baru mahasiswa peserta lainnya
+        if (this.wadahPesertaLainnya.length > 0) {
+          for (let i = 0; i < this.wadahPesertaLainnya.length; i++) {
+            const tempParamObject = paramObject
+            tempParamObject.nim = this.wadahPesertaLainnya[i].nim
+            tempParamObject.nama = this.wadahPesertaLainnya[i].nama
+            tempParamObject.nama_orang_tua = null //sementara orang tua peserta lainnya kosong
+            tempParamObject.tambah_peserta = []
 
             try {
-                const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/angkatanMahasiswaPerwalian/`, {
-                    params: {
-                        kode_dosen: this.kodeDosen,
-                    },
-                });
-
-                if (response.data.error === false) {
-                    this.listTahunAngkatanPerwalianDosen = response.data.response.tahun_angkatan;
-                } else {
-                    this.listTahunAngkatanPerwalianDosen = [];
-                }
+              const response = await axios.post(process.env.VUE_APP_API_OPERASIONAL + `/tambahCatatanPerwalianDosen/`, tempParamObject);
+              if (response.data.success) {
+                //menambahkan id_catatan_perwalian_dosen dari catatan yang baru saja dibuat
+                this.wadahPesertaLainnya[i].id_catatan_perwalian_dosen = response.data.id_catatan_perwalian_dosen
+              }
             } catch (error) {
-                console.error("Terjadi kesalahan saat mengambil data:", error);
-                this.listTahunAngkatanPerwalianDosen = [];
+              console.error("Terjadi kesalahan saat menambah data peserta lainnya", error);
             }
-        },
-        async searchNamaMahasiswa() {
-            try {
-                const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/searchMahasiswa/`, {
-                    params: {
-                        kode_dosen: this.kodeDosen,
-                        inputan: this.inputanCariNama.toLowerCase()
-                    },
-                });
+          }
 
-                if (response.data.error === false) {
-                    this.listCariMahasiswa = response.data.response.list_mahasiswa;
-                } else {
-                    this.listCariMahasiswa = [];
-                }
-            } catch (error) {
-                this.listCariMahasiswa = [];
-            }
-        },
-        async searchPesertaLainnya() {
-            try {
-                const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/searchMahasiswa/`, {
-                    params: {
-                        kode_dosen: this.kodeDosen,
-                        inputan: this.inputanPeserta.toLowerCase()
-                    },
-                });
+          //melakukan tambah informasi id catatan YBS kedalam this.wadahPesertaLainnya
+          let indexTerakhir = this.wadahPesertaLainnya.length - 1 // index terakhir this.wadahPesertaLainnya
+          const objectMahasiswaYBS = {
+            nama: this.namaMahasiswa,
+            nim: this.nimMahasiswa,
+            id_catatan_perwalian_dosen: this.wadahPesertaLainnya[indexTerakhir].id_catatan_perwalian_dosen + 1,
+            is_head: true, //flag kalau mahasiswa YBS adalah mahasiswa yang ajak teman"nya perwalian bersama
+          }
 
-                if (response.data.error === false) {
-                    this.listDaftarPesertaLainnya = response.data.response.list_mahasiswa;
-                } else {
-                    this.listDaftarPesertaLainnya = [];
-                }
-            } catch (error) {
-                // console.error("Terjadi kesalahan saat mengambil data:", error);
-                this.listDaftarPesertaLainnya = [];
-            }
-        },
-        addPesertaKeWadahPesertaLainnya(mahasiswa) {
-            let checkExists = this.isMahasiswaExits(mahasiswa.nim)
+          //buat variable baru untuk wadahPesertaLainnya (karena jika ditambah langsung ke this.wadahPesertaLainnya, akan update di ui websitenya)
+          tempWadah = []
+          for (let i = 0; i < this.wadahPesertaLainnya.length; i++) {
+            tempWadah.push(this.wadahPesertaLainnya[i])
+          }
+          // push objek mahasisw YBS ke indekx 0
+          tempWadah.unshift(objectMahasiswaYBS);
 
-            switch (checkExists) {
-                case "push":
-                    if (this.wadahPesertaLainnya.length < 5) {
-                        const objectMahasiswa = {
-                            nama: mahasiswa.nama,
-                            nim: mahasiswa.nim,
-                            id_catatan_perwalian_dosen: 0
-                        }
-                        this.wadahPesertaLainnya.push(objectMahasiswa);
-                        break;
-                    } else {
-                        this.pesanSnackBar = "Maksimal peserta lain hanya 5 orang"
-                        this.snackbar()
-                        break;
-                    }
-                case "mahasiswa-sudah-ada":
-                    this.pesanSnackBar = "Mahasiswa tersebut sudah ada di daftar peserta lainnya"
-                    this.snackbar()
-                    break;
-                case "mahasiswa-input":
-                    this.pesanSnackBar = "Tidak bisa menambahkan mahasiswa yang sedang dalam perwalian"
-                    this.snackbar()
-                    break;
-            }
-        },
-        isMahasiswaExits(inputNim) {
-            let checkExists = this.wadahPesertaLainnya.some(mahasiswa => mahasiswa.nim === inputNim);
-            let hasilCode = ""
-            if (inputNim !== this.nimMahasiswa) {  //cek apakah nim peserta lain merupakan mahasiswa yang sedang melakukan perwalian
-                if (!checkExists) { // cek apakah nim peserta lain sudah ada di wadahPesertaLainnya
-                    hasilCode = "push"
-                } else {
-                    hasilCode = "mahasiswa-sudah-ada"
-                }
-            } else {
-                hasilCode = 'mahasiswa-input'
-            }
-            console.log(hasilCode);
-            return hasilCode
-        },
-        deletePesertaLain(index) {
-            console.log(index);
-            this.wadahPesertaLainnya.splice(index, 1);
-        },
-        async getMahasiswaPerwalianByTahun() {
-            try {
-                const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/mahasiswaPerwalianPerTahun/`, {
-                    params: {
-                        kode_dosen: this.kodeDosen,
-                        tahun_angkatan: this.tahunAngkatan,
-                    },
-                });
+          //ubah ke nilai awal mahasiswa ybs
+          paramObject.nim = this.nimMahasiswa
+          paramObject.nama = this.namaMahasiswa
+          paramObject.nama_orang_tua = this.namaOrangTua //sementara orang tua peserta lainnya kosong
+          paramObject.tambah_peserta = tempWadah // re assign nilai wadahPesertaLainnya dengan nilai yang baru (karena ada id catatan yang baru)
+        }
 
-                if (response.data.error === false) {
-                    this.listPresensi = response.data.response.list_mahasiswa;
-                } else {
-                    this.listPresensi = [];
-                }
-            } catch (error) {
-                console.error("Terjadi kesalahan saat mengambil data:", error);
-                this.listPresensi = [];
-            }
-        },
-        async simpan() {
-            if (!this.isFieldKosong()) { //mengecek apakah ada field yang kosong 
-                let tempWadah = [] //untuk temp wadah peserta lainnya
-                this.tombolTidakAktif = true
-                this.waktuAkhir = this.getWaktuSekarang()
+        //insert catatan baru mahasiswa ybs perwalian (juga untuk tipe perwalian grup angkatan)
+        //=== Tambah Catatan YBS ====
+        try {
+          const response = await axios.post(process.env.VUE_APP_API_OPERASIONAL + `/tambahCatatanPerwalianDosen/`, paramObject);
 
-                const paramObject = {
-                    kode_dosen: this.kodeDosen,
-                    judul: this.judul,
-                    tipe: this.tipe,
-                    nim: this.nimMahasiswa,
-                    nama: this.namaMahasiswa,
-                    nama_orang_tua: this.namaOrangTua,
-                    agenda_perwalian: this.agendaPerwalian,
-                    tambah_peserta: this.wadahPesertaLainnya,  // data objek 
-                    waktu_awal: this.waktuAwal,
-                    waktu_akhir: this.waktuAkhir,
-                    data_presensi_mahasiswa: this.listPresensi,  // data objek 
-                    tahun_angkatan: this.tahunAngkatan,
-                }
-
-                //insert catatan baru mahasiswa peserta lainnya
-                if (this.wadahPesertaLainnya.length > 0) {
-                    for (let i = 0; i < this.wadahPesertaLainnya.length; i++) {
-                        const tempParamObject = paramObject
-                        tempParamObject.nim = this.wadahPesertaLainnya[i].nim
-                        tempParamObject.nama = this.wadahPesertaLainnya[i].nama
-                        tempParamObject.nama_orang_tua = null //sementara orang tua peserta lainnya kosong
-                        tempParamObject.tambah_peserta = []
-
-                        try {
-                            const response = await axios.post(process.env.VUE_APP_API_OPERASIONAL + `/tambahCatatanPerwalianDosen/`, tempParamObject);
-                            if (response.data.success) {
-                                //menambahkan id_catatan_perwalian_dosen dari catatan yang baru saja dibuat
-                                this.wadahPesertaLainnya[i].id_catatan_perwalian_dosen = response.data.id_catatan_perwalian_dosen
-                            }
-                        } catch (error) {
-                            console.error("Terjadi kesalahan saat menambah data peserta lainnya", error);
-                        }
-                    }
-
-                    //melakukan tambah informasi id catatan YBS kedalam this.wadahPesertaLainnya
-                    let indexTerakhir = this.wadahPesertaLainnya.length - 1 // index terakhir this.wadahPesertaLainnya
-                    const objectMahasiswaYBS = {
-                        nama: this.namaMahasiswa,
-                        nim: this.nimMahasiswa,
-                        id_catatan_perwalian_dosen: this.wadahPesertaLainnya[indexTerakhir].id_catatan_perwalian_dosen + 1,
-                        is_head: true, //flag kalau mahasiswa YBS adalah mahasiswa yang ajak teman"nya perwalian bersama
-                    }
-
-                    //buat variable baru untuk wadahPesertaLainnya (karena jika ditambah langsung ke this.wadahPesertaLainnya, akan update di ui websitenya)
-                    tempWadah = []
-                    for (let i = 0; i < this.wadahPesertaLainnya.length; i++) {
-                        tempWadah.push(this.wadahPesertaLainnya[i])
-                    }
-                    // push objek mahasisw YBS ke indekx 0
-                    tempWadah.unshift(objectMahasiswaYBS);
-
-                    //ubah ke nilai awal mahasiswa ybs
-                    paramObject.nim = this.nimMahasiswa
-                    paramObject.nama = this.namaMahasiswa
-                    paramObject.nama_orang_tua = this.namaOrangTua //sementara orang tua peserta lainnya kosong
-                    paramObject.tambah_peserta = tempWadah // re assign nilai wadahPesertaLainnya dengan nilai yang baru (karena ada id catatan yang baru)
-                }
-
-                //insert catatan baru mahasiswa ybs perwalian (juga untuk tipe perwalian grup angkatan)
-                //=== Tambah Catatan YBS ====
+          if (response.data.success) {
+            //update tambah_peserta di catatan mahasiswa bersangkutan
+            if (tempWadah != null) {
+              for (let i = 0; i < tempWadah.length; i++) {
                 try {
-                    const response = await axios.post(process.env.VUE_APP_API_OPERASIONAL + `/tambahCatatanPerwalianDosen/`, paramObject);
-
-                    if (response.data.success) {
-                        //update tambah_peserta di catatan mahasiswa bersangkutan
-                        if (tempWadah != null) {
-                            for (let i = 0; i < tempWadah.length; i++) {
-                                try {
-                                    let paramObject = {
-                                        tambah_peserta: tempWadah,
-                                        id_catatan_perwalian_dosen: tempWadah[i].id_catatan_perwalian_dosen,
-                                    }
-                                    await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/updateTambahPesertaCatatan/`, paramObject);
-
-                                } catch (error) {
-                                    console.error("Terjadi kesalahan saat mengambil data:", error);
-                                }
-                            }
-                        }
-
-                        this.pesanSnackBar = "Berhasil menambahkan catatan"
-                        this.snackbar()
-
-                        const waktuTunggu = 2000;
-                        setTimeout(() => {
-                            this.$router.push("/daftar-catatan-perwalian-dosen");
-                        }, waktuTunggu);
-                    } else {
-                        this.pesanSnackBar = "Gagal menambahkan data"
-                        this.snackbar()
-
-                        console.error("Data gagal ditambahkan ", error);
-                    }
+                  let paramObject = {
+                    tambah_peserta: tempWadah,
+                    id_catatan_perwalian_dosen: tempWadah[i].id_catatan_perwalian_dosen,
+                  }
+                  await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/updateTambahPesertaCatatan/`, paramObject);
 
                 } catch (error) {
-                    console.error("Terjadi kesalahan saat menambah data:", error);
-                    this.pesanSnackBar = "Gagal menambahkan data"
-                    this.snackbar()
+                  console.error("Terjadi kesalahan saat mengambil data:", error);
                 }
-            } else {
-                this.pesanSnackBar = "Pastikan semua kolom sudah terisi"
-                this.snackbar()
+              }
             }
-        },
-        isFieldKosong() { // true jika ada field yang kosong
-            if (this.tipe == 'grup-angkatan') {
-                return(
-                    this.judul == null ||
-                    this.agendaPerwalian == null ||
-                    this.tahunAngkatan == null 
-                )
-            } else if (this.tipe == 'orang-tua' || this.tipe == 'orang-tua-wali-dan-mahasiswa') {
-                return(
-                    this.judul == null ||
-                    this.nimMahasiswa == null ||
-                    this.namaMahasiswa == null || 
-                    this.namaOrangTua == null ||
-                    this.agendaPerwalian == null
-                )
-            }
-            else {
-                return(
-                    this.judul == null ||
-                    this.nimMahasiswa == null ||
-                    this.namaMahasiswa == null ||
-                    this.agendaPerwalian == null
-                )
-            }
-        },
-        snackbar() {
-            var x = document.getElementById("snackbar");
-            x.className = "show";
-            setTimeout(function () {
-                x.className = x.className.replace("show", "");
-            }, 3000);
-        },
-        deleteInputanPeserta() {
-            this.inputanPeserta = ""
-        },
-        scrollPage() {
-            // Hitung tinggi halaman
-            const pageHeight = document.documentElement.scrollHeight;
 
-            // Hitung tinggi scroll yang diinginkan (20% dari tinggi halaman)
-            const scrollHeight = pageHeight * 0.3;
+            this.pesanSnackBar = "Berhasil menambahkan catatan"
+            this.snackbar()
 
-            // Scroll ke bawah dengan animasi
-            window.scrollTo({
-                top: scrollHeight,
-                behavior: 'smooth'
-            });
-        },
-        scrollTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth" // Animasi smooth scrolling
-            })
-        },
-        batal() {
-            this.$router.back()
-        },
-        getTanggalSekarang() {
-            const months = [
-                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-            ];
+            const waktuTunggu = 2000;
+            setTimeout(() => {
+              this.$router.push("/daftar-catatan-perwalian-dosen");
+            }, waktuTunggu);
+          } else {
+            this.pesanSnackBar = "Gagal menambahkan data"
+            this.snackbar()
 
-            const currentDate = new Date();
-            const day = currentDate.getDate();
-            const month = currentDate.getMonth();
-            const year = currentDate.getFullYear();
+            console.error("Data gagal ditambahkan ", error);
+          }
 
-            const formattedDate = day + ' ' + months[month] + ' ' + year;
-
-            return formattedDate;
-        },
-        getWaktuSekarang() {
-            const now = new Date();
-            const jam = now.getHours().toString().padStart(2, '0');
-            const menit = now.getMinutes().toString().padStart(2, '0');
-            const detik = now.getSeconds().toString().padStart(2, '0');
-
-            return `${jam}:${menit}:${detik}`;
-        },
-        selectedIndex(item) {
-            this.inputanCariNama = item.nama + " / " + item.nim
-            this.nimMahasiswa = item.nim
-            this.namaMahasiswa = item.nama
-        },
-        logoutDosen() {
-            localStorage.clear();
-            this.$router.push("/login")
-        },
-        btnUbahWarna(){
-            switch (this.btnHadirSemuaColor) {
-                case "success":
-                    this.btnHadirSemuaColor = "blue-grey-lighten-2"
-                    this.pesanBtnHadirSemua = "Buat 'Belum Presensi' Semua Mahasiswa"
-
-                    //ubah semua mahasiswa menjadi hadir
-                    this.listPresensi.forEach((mahasiswa) => {
-                        mahasiswa.status = "Hadir";
-                    });
-                    break;
-                case "blue-grey-lighten-2":
-                    this.btnHadirSemuaColor = "success"
-                    this.pesanBtnHadirSemua = "Buat 'Hadir' Semua Mahasiswa"
-                    //ubah semua mahasiswa menjadi Belum Presensi
-                    this.listPresensi.forEach((mahasiswa) => {
-                        mahasiswa.status = "Belum Presensi";
-                    });
-
-                    break;
-            }
-            this.btnHadirSemuaColor
+        } catch (error) {
+          console.error("Terjadi kesalahan saat menambah data:", error);
+          this.pesanSnackBar = "Gagal menambahkan data"
+          this.snackbar()
         }
-
-    }, mounted() {
-        import('bootstrap');
-        import('bootstrap/dist/css/bootstrap.min.css');
-
-        // mounted untuk bagian script src
-        //slim.min.js
-        const script1 = document.createElement("script");
-        script1.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
-        script1.integrity =
-            "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj";
-        script1.crossOrigin = "anonymous";
-        document.head.appendChild(script1);
-
-        //popper.min.js
-        const script2 = document.createElement("script");
-        script2.src = "https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js";
-        script2.integrity = "sha384-hSM2mzKd06KfNmOz6mK6+sfuLdYVjI1MKOpnE+O+hNEZmZ+zQp8hJz3uPL2twNJX";
-        script2.crossOrigin = "anonymous";
-        document.head.appendChild(script2);
-
-        //bundle.min.js
-        const script3 = document.createElement("script");
-        script3.src = "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js";
-        script3.integrity = "sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx";
-        script3.crossOrigin = "anonymous";
-        document.head.appendChild(script3);
+      } else {
+        this.pesanSnackBar = "Pastikan semua kolom sudah terisi"
+        this.snackbar()
+      }
     },
-    watch: {
-        tahunAngkatan: {
-            handler: async function (newVal) {
-                this.getMahasiswaPerwalianByTahun()
-            }
-        },
-        inputanCariNama: {
-            handler: async function (newVal) {
-                if (newVal != '') {
-                    this.searchNamaMahasiswa()
-                } else {
-                    this.listCariMahasiswa = [];
-                }
-            }
-        },
-        inputanPeserta: {
-            handler: async function (newVal) {
-                if (newVal != '') {
-                    this.searchPesertaLainnya()
-                } else {
-                    this.listDaftarPesertaLainnya = [];
-                }
-
-            }
-        },
-        nimMahasiswa: {
-            handler: async function (newVal) {
-                if (this.nimMahasiswa == "") {
-                    this.isReadonly = true
-                    //tambah cursor not-allowed ketika nim mahasiswa belum di isi
-                    const divInputanPesertaLainnya = document.querySelector("#inputCariMahasiswa");
-                    divInputanPesertaLainnya.classList.add("readonlyInput");
-                    divInputanPesertaLainnya.setAttribute('title', 'Mulailah dengan memilih nama mahasiswa, sebelum menambahkan peserta lainnya');
-                } else {
-                    this.isReadonly = false
-                    //hapus cursor not-allower ketika nim mahasiswa sudah di isi
-                    const divInputanPesertaLainnya = document.querySelector("#inputCariMahasiswa");
-                    divInputanPesertaLainnya.classList.remove("readonlyInput");
-                    divInputanPesertaLainnya.removeAttribute('title');
-                }
-            }
-        }
+    isFieldKosong() { // true jika ada field yang kosong
+      if (this.tipe == 'grup-angkatan') {
+        return (
+          this.judul == null ||
+          this.agendaPerwalian == null ||
+          this.tahunAngkatan == null
+        )
+      } else if (this.tipe == 'orang-tua' || this.tipe == 'orang-tua-wali-dan-mahasiswa') {
+        return (
+          this.judul == null ||
+          this.nimMahasiswa == null ||
+          this.namaMahasiswa == null ||
+          this.namaOrangTua == null ||
+          this.agendaPerwalian == null
+        )
+      }
+      else {
+        return (
+          this.judul == null ||
+          this.nimMahasiswa == null ||
+          this.namaMahasiswa == null ||
+          this.agendaPerwalian == null
+        )
+      }
     },
-    computed: {
-        handlingInputCariNama() {
-            if (!this.inputanCariNama.includes("/") && this.listCariMahasiswa.length == 0 && this.inputanCariNama != '') {
-                return true
-            } else {
-                return false
-            }
-        }
+    snackbar() {
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function () {
+        x.className = x.className.replace("show", "");
+      }, 3000);
+    },
+    deleteInputanPeserta() {
+      this.inputanPeserta = ""
+    },
+    scrollPage() {
+      // Hitung tinggi halaman
+      const pageHeight = document.documentElement.scrollHeight;
+
+      // Hitung tinggi scroll yang diinginkan (20% dari tinggi halaman)
+      const scrollHeight = pageHeight * 0.3;
+
+      // Scroll ke bawah dengan animasi
+      window.scrollTo({
+        top: scrollHeight,
+        behavior: 'smooth'
+      });
+    },
+    scrollTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth" // Animasi smooth scrolling
+      })
+    },
+    batal() {
+      this.$router.back()
+    },
+    getTanggalSekarang() {
+      const months = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+      ];
+
+      const currentDate = new Date();
+      const day = currentDate.getDate();
+      const month = currentDate.getMonth();
+      const year = currentDate.getFullYear();
+
+      const formattedDate = day + ' ' + months[month] + ' ' + year;
+
+      return formattedDate;
+    },
+    getWaktuSekarang() {
+      const now = new Date();
+      const jam = now.getHours().toString().padStart(2, '0');
+      const menit = now.getMinutes().toString().padStart(2, '0');
+      const detik = now.getSeconds().toString().padStart(2, '0');
+
+      return `${jam}:${menit}:${detik}`;
+    },
+    selectedIndex(item) {
+      this.inputanCariNama = item.nama + " / " + item.nim
+      this.nimMahasiswa = item.nim
+      this.namaMahasiswa = item.nama
+    },
+    logoutDosen() {
+      localStorage.clear();
+      this.$router.push("/login")
+    },
+    btnUbahWarna() {
+      switch (this.btnHadirSemuaColor) {
+        case "success":
+          this.btnHadirSemuaColor = "blue-grey-lighten-2"
+          this.pesanBtnHadirSemua = "Buat 'Belum Presensi' Semua Mahasiswa"
+
+          //ubah semua mahasiswa menjadi hadir
+          this.listPresensi.forEach((mahasiswa) => {
+            mahasiswa.status = "Hadir";
+          });
+          break;
+        case "blue-grey-lighten-2":
+          this.btnHadirSemuaColor = "success"
+          this.pesanBtnHadirSemua = "Buat 'Hadir' Semua Mahasiswa"
+          //ubah semua mahasiswa menjadi Belum Presensi
+          this.listPresensi.forEach((mahasiswa) => {
+            mahasiswa.status = "Belum Presensi";
+          });
+
+          break;
+      }
+      this.btnHadirSemuaColor
     }
+
+  }, mounted() {
+    import('bootstrap');
+    import('bootstrap/dist/css/bootstrap.min.css');
+
+    // mounted untuk bagian script src
+    //slim.min.js
+    const script1 = document.createElement("script");
+    script1.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
+    script1.integrity =
+      "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj";
+    script1.crossOrigin = "anonymous";
+    document.head.appendChild(script1);
+
+    //popper.min.js
+    const script2 = document.createElement("script");
+    script2.src = "https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js";
+    script2.integrity = "sha384-hSM2mzKd06KfNmOz6mK6+sfuLdYVjI1MKOpnE+O+hNEZmZ+zQp8hJz3uPL2twNJX";
+    script2.crossOrigin = "anonymous";
+    document.head.appendChild(script2);
+
+    //bundle.min.js
+    const script3 = document.createElement("script");
+    script3.src = "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js";
+    script3.integrity = "sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx";
+    script3.crossOrigin = "anonymous";
+    document.head.appendChild(script3);
+  },
+  watch: {
+    tahunAngkatan: {
+      handler: async function (newVal) {
+        this.getMahasiswaPerwalianByTahun()
+      }
+    },
+    inputanCariNama: {
+      handler: async function (newVal) {
+        if (newVal != '') {
+          this.searchNamaMahasiswa()
+        } else {
+          this.listCariMahasiswa = [];
+        }
+      }
+    },
+    inputanPeserta: {
+      handler: async function (newVal) {
+        if (newVal != '') {
+          this.searchPesertaLainnya()
+        } else {
+          this.listDaftarPesertaLainnya = [];
+        }
+
+      }
+    },
+    nimMahasiswa: {
+      handler: async function (newVal) {
+        if (this.nimMahasiswa == "") {
+          this.isReadonly = true
+          //tambah cursor not-allowed ketika nim mahasiswa belum di isi
+          const divInputanPesertaLainnya = document.querySelector("#inputCariMahasiswa");
+          divInputanPesertaLainnya.classList.add("readonlyInput");
+          divInputanPesertaLainnya.setAttribute('title', 'Mulailah dengan memilih nama mahasiswa, sebelum menambahkan peserta lainnya');
+        } else {
+          this.isReadonly = false
+          //hapus cursor not-allower ketika nim mahasiswa sudah di isi
+          const divInputanPesertaLainnya = document.querySelector("#inputCariMahasiswa");
+          divInputanPesertaLainnya.classList.remove("readonlyInput");
+          divInputanPesertaLainnya.removeAttribute('title');
+        }
+      }
+    }
+  },
+  computed: {
+    handlingInputCariNama() {
+      if (!this.inputanCariNama.includes("/") && this.listCariMahasiswa.length == 0 && this.inputanCariNama != '') {
+        return true
+      } else {
+        return false
+      }
+    }
+  }
 }
 </script>
 

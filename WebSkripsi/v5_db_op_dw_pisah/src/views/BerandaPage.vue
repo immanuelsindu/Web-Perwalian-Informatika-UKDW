@@ -8,50 +8,8 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
     </head>
-    <div class="row align-items-center ml-0 stickyNavbar" id="navbar">
-      <div id="navbar1" class="col-lg-8 mt-lg-0 col-sm-12 mt-sm-3">
-        <div class="d-flex">
-          <div class="ml-3" id="iconBeranda">
-            <router-link to="/">
-              <span class="material-symbols-outlined" style="color: #3c2a21">
-                home
-              </span>
-            </router-link>
-          </div>
 
-          <div id="judulWeb" class="mb-0">
-            <p class="ml-2">Program Studi Informatika UKDW</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="navbar2" class="col-lg-4 col-sm-12">
-        <div id="idPengguna" class="w-100">
-          <div class="">
-            <div class="d-flex justify-content-end col-12 p-0">
-              <div id="labelNamaDosen" class="d-flex align-items-center mr-3">
-                <p class="m-0 text-center">
-                  <v-icon class="mr-2 " size="small">
-                    mdi-account
-                  </v-icon>
-                </p>
-                <p id="infoNamaDosen" class="m-0">
-                  {{ this.namaDosen }}
-                </p>
-              </div>
-
-              <v-btn class="dropDownDosen" color="#E5E5CB" flat active theme="light" @click="this.logoutDosen()">
-                <v-icon size="default">
-                  mdi-logout
-                </v-icon>
-                <v-tooltip activator="parent" content-class="bg-grey-darken-1" location="bottom">Logout
-                </v-tooltip>
-              </v-btn>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Header :namaDosen="this.namaDosen" @click="this.logoutDosen()" />
 
     <div id="drawerContainer" class="mt-4 ">
       <div id="navDrawer">
@@ -997,14 +955,17 @@ import axios from 'axios'
 import $ from 'jquery';
 window.$ = window.jQuery = $;
 
-import BreadcrumbModule from './BreadcrumbModule.vue';
+import BreadcrumbModule from '@/views/BreadcrumbModule.vue';
 import debounce from 'lodash.debounce';
 import Cookies from 'js-cookie';
+
+import Header from "@/components/header/Header.vue"
 
 export default {
   name: "BerandaPage",
   components: {
-    BreadcrumbModule
+    BreadcrumbModule,
+    Header
   },
   data() {
     return {
