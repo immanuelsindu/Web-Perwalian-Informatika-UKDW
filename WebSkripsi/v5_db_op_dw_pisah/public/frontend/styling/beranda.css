@@ -1047,3 +1047,27 @@ article {
     margin-left: 0.25rem;
     margin-right: 0.25rem;
 }
+
+.btnBerandaKaProdi{
+  width: 11rem;
+  height: 2.8rem;
+  border-radius: 0.325rem;
+  background-color: #EFEFEF;
+}
+
+.btnBerandaKaProdi{
+  width: 11rem;
+  height: 2.8rem;
+  border-radius: 0.325rem;
+  background-color: #EFEFEF;
+  transition: 0.2s all ease-in-out;
+  font-weight: bolder;
+}
+
+.btnBerandaKaProdi:hover{
+  width: 11rem;
+  height: 2.8rem;
+  border-radius: 0.325rem;
+  background-color: #d5d5be;
+  transition: 0.2s all ease-in-out;
+}

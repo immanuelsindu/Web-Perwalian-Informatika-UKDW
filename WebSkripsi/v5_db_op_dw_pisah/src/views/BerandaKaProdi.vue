@@ -11,46 +11,6 @@
 
     <Header :namaDosen="this.namaDosen" @click="this.logoutDosen()" />
 
-    <div id="drawerContainer" class="mt-4 ">
-      <div id="navDrawer">
-        <v-icon color="brown-darken-4" size="large" @click.stop="this.drawer = !this.drawer">
-          mdi-menu
-        </v-icon>
-        <v-tooltip activator="parent" content-class="bg-grey-darken-1" location="bottom">Menu Pintas
-        </v-tooltip>
-      </div>
-
-      <div id="sideDrawer">
-        <template>
-          <v-card>
-            <v-layout>
-              <v-navigation-drawer v-model="this.drawer" temporary width="300">
-
-                <div class="text-right pt-5 mt-4 pr-2">
-                  <v-icon color="brown-darken-4" size="large" @click.stop="this.drawer = !this.drawer">
-                    mdi-close
-                  </v-icon>
-                </div>
-
-                <div class="pl-3 listItemSideDrawer">
-                  <v-list-item><b>Menu Pintas</b></v-list-item>
-                  <v-list-item link title="Catatan Perwalian Dosen"
-                    @click="this.scrollTo('catatan-perwalian-dosen')"></v-list-item>
-                  <v-list-item link title="Catatan Dosen" @click="this.scrollTo('catatan-dosen')"></v-list-item>
-                  <v-list-item link title="Daftar Grup Perwalian Mahasiswa"
-                    @click="this.scrollTo('daftar-grup-perwalian-mahasiswa')"></v-list-item>
-                  <v-list-item link title="Grafik Rata-Rata IPK Angkatan"
-                    @click="this.scrollTo('grafik-rata-rata-ipk-angkatan')"></v-list-item>
-                </div>
-
-              </v-navigation-drawer>
-            </v-layout>
-          </v-card>
-        </template>
-      </div>
-    </div>
-
-
     <div id="content" class="row container-fluid p-0 m-0">
       <div class="col-12 mt-4">
         <div class="d-flex">
@@ -58,87 +18,7 @@
             <BreadcrumbModule class="m-0 ml-5 breadCrumb"></BreadcrumbModule>
           </div>
 
-          <div id="preferensi" class="d-flex gap-3 justify-content-end align-center  col-3">
-            <div>
-              <button class="btnBerandaKaProdi" @click="$router.push({ name: 'BerandaKaProdi' })">
-                Beranda KaProdi
-              </button>
-            </div>
-
-            <div>
-              <button type="button" id="buttonSort" v-on:click="showPopUpPreferensi()" class="btn">
-                <v-tooltip activator="parent" content-class="bg-grey-darken-1" location="bottom">Ubah urutan
-                  item beranda
-                </v-tooltip>
-                <span class="material-symbols-outlined viewAgenda">
-                  flex_direction
-                </span>
-              </button>
-            </div>
-
-          </div>
-
-          <Transition>
-            <div id="overlay" v-if="this.isOn" class="d-flex justify-content-center align-items-center">
-              <div id="windowPreferensi">
-                <div id="contentPreferensi" class="p-4">
-                  <p class="text-center">Pilih Urutan Item Beranda</p>
-
-
-                  <div class="row mb-3 opsiUrutan" id="opsiUrutan1">
-                    <div class="col-9 pr-0 pl-0">
-                      <ul class="pl-0 ulNoType mb-0">
-                        <li class="">
-                          <ol class="pl-4">
-                            <li>Catatan Perwalian Dosen</li>
-                            <li>Catatan Dosen</li>
-                            <li>Daftar Grup Perwalian</li>
-                          </ol>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div class="col-3 px-0 d-flex justify-content-center align-items-center">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                        value="pilihan1" v-model="this.opsiUrutanItemBeranda"
-                        :checked="this.opsiUrutanItemBeranda === 'pilihan1'">
-                    </div>
-                  </div>
-
-
-                  <div class="row mb-3 opsiUrutan" id="opsiUrutan2">
-                    <div class="col-9 pr-0 pl-0">
-                      <ul class="pl-0 ulNoType mb-0">
-                        <li class="">
-                          <ol class="pl-4">
-                            <li>Daftar Grup Perwalian</li>
-                            <li>Catatan Perwalian Dosen</li>
-                            <li>Catatan Dosen</li>
-                          </ol>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div class="col-3 px-0 d-flex justify-content-center align-items-center">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                        value="pilihan2" v-model="this.opsiUrutanItemBeranda"
-                        :checked="this.opsiUrutanItemBeranda === 'pilihan2'">
-                    </div>
-                  </div>
-
-
-                  <div class="row mt-4">
-                    <div class="col-4 px-0 d-flex justify-content-center">
-                      <button class="btn batal urutan" @click="batal()">Batal</button>
-                    </div>
-                    <div class="col-4 offset-4 px-0 d-flex justify-content-center">
-                      <button class="btn simpan urutan" @click="simpan(false)">Simpan</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Transition>
+          <div class="col-3"></div>
         </div>
       </div>
 
@@ -202,7 +82,7 @@
                             <div class="d-flex d-flex justify-content-center">
 
                               <p class="m-0 align-middle font-weight-bold">
-                                <router-link :to="{ name: 'DetailAngkatan', params: { id: item, isHover: 1 } }">
+                                <router-link :to="{ name: 'BerandaKaProdi' }">
                                   Lihat selengkapnya >
                                 </router-link>
                               </p>
@@ -234,509 +114,6 @@
       </div>
 
       <div id="contentKanan" class="col-lg-9 col-sm-12 mb-md-5 ">
-
-        <div id="bagianCatatan" class="mb-2">
-          <div class="d-flex align-content-start flex-wrap mt-4">
-            <div v-if="this.togglePencarianCatatanPerwalianDosen" id="containerHasilCariCatatanPerwalian">
-              <div
-                v-if="this.hasilPencarianCatatanPerwalianDosen.length >= 1 && this.hasilPencarianCatatanPerwalianDosen[0] != 'kosongError'"
-                id="kolomHasilPencarian" class="col-10">
-                <div class="d-flex flex-wrap col-12 py-2 px-1">
-                  <div v-for="(catatan, index) in this.hasilPencarianCatatanPerwalianDosen" :key="index"
-                    class="col-6 my-3 px-0" id="itemCariCatatan">
-                    <div id="itemHasilPencarian" class="p-2">
-                      <span v-bind:class="{
-                        garisMahasiswa: catatan.tipe == 'mahasiswa',
-                        garisOrangTuaWali: catatan.tipe == 'orang-tua-wali',
-                        garisOrangTuaWaliMahasiswa: catatan.tipe == 'orang-tua-wali-dan-mahasiswa',
-                        garisGrupAngkatan: catatan.tipe == 'grup-angkatan',
-                      }"></span>
-
-                      <p class="m-0" id="judulItemHasilPencarian">
-                        <b>
-                          {{ this.limitJudul(catatan.judul) }}
-                        </b>
-                      </p>
-
-                      <p class="m-0">{{ this.convertTimestamp(catatan.waktu) }} | {{
-                        this.convertToWIB(catatan.waktu_awal) }}
-                        - {{ this.convertToWIB(catatan.waktu_akhir) }}
-                      </p>
-
-                      <p class="m-0" v-if="catatan.tipe != 'grup-angkatan'">
-                        <b>
-                          {{ catatan.nama }} / {{ catatan.nim }}
-                        </b>
-                      </p>
-                      <p class="m-0 text-justify" id="agendaPerwalian">
-                        {{ limitAgenda(catatan.agenda_perwalian) }}
-
-                        <router-link v-if="catatan.tipe == 'mahasiswa'"
-                          :to="{ name: 'EditCatatanMahasiswa', params: { id: catatan.id_catatan_perwalian_dosen } }"
-                          id="lihatSelengkapnyaHasilPencarian">
-                          <u>
-                            Lihat selengkapnya
-                          </u>
-                        </router-link>
-
-                        <router-link v-else-if="catatan.tipe == 'orang-tua-wali'"
-                          :to="{ name: 'EditCatatanOrangTuaWali', params: { id: catatan.id_catatan_perwalian_dosen } }"
-                          id="lihatSelengkapnyaHasilPencarian">
-                          <u>
-                            Lihat selengkapnya
-                          </u>
-                        </router-link>
-
-                        <router-link v-else-if="catatan.tipe == 'orang-tua-wali-dan-mahasiswa'"
-                          :to="{ name: 'EditCatatanOrangTuaWaliDanMahasiswa', params: { id: catatan.id_catatan_perwalian_dosen } }"
-                          id="lihatSelengkapnyaHasilPencarian">
-                          <u>
-                            Lihat selengkapnya
-                          </u>
-                        </router-link>
-
-                        <router-link v-else
-                          :to="{ name: 'EditCatatanGrupAngkatan', params: { id: catatan.id_catatan_perwalian_dosen } }"
-                          id="lihatSelengkapnyaHasilPencarian">
-                          <u>
-                            Lihat selengkapnya
-                          </u>
-                        </router-link>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                v-else-if="this.hasilPencarianCatatanPerwalianDosen.length >= 1 && this.hasilPencarianCatatanPerwalianDosen[0] == 'kosongError'"
-                id="kolomHasilPencarian" class="d-flex align-items-center col-10">
-
-                <div class="d-flex col-12 py-2 px-1 ">
-                  <div class="col-12 my-3 px-0">
-                    <div id="itemHasilPencarianNotFound" class="p-2">
-                      <div class="text-center m-0 mt-2" id="judulItemHasilPencarian">
-                        <h4 class="mt-3">
-                          <b>
-                            Catatan tidak ditemukan
-                          </b>
-                        </h4>
-                        <p class=" mt-1">
-                          Silahkan cari catatan menggunakan kata kunci pencarian lainnya
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                v-else-if="this.hasilPencarianCatatanPerwalianDosen.length == 0 && this.inputanCariCatatanPerwalianDosen != ''"
-                id="kolomHasilPencarian" class="d-flex align-items-center col-10">
-
-                <div class="d-flex col-12 py-2 px-1 ">
-                  <div class="col-12 my-3 px-0">
-                    <div id="itemHasilPencarianNotFound" class="p-2">
-                      <div class="text-center">
-                        <v-progress-circular color="primary" indeterminate :size="70" :width="6">
-                        </v-progress-circular>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-7 col-sm-12 px-0" id="catatanPerwalianDosen">
-
-              <div id="judulCariCatatanPerwalian" class="col-12 pl-0">
-                <p class="mb-0">Catatan Perwalian Dosen</p>
-              </div>
-              <div class="col-12 mb-1 mt-xl-3 pl-0" id="containerCariCatatanPerwalian">
-                <span class="material-symbols-outlined search"> search </span>
-                <input id="inputCariCatatanPerwalian" type="text" placeholder="Cari catatan perwalian semua angkatan"
-                  @keyup="cariCatatanPerwalianDosen" @focus="scrollPage('catatan-perwalian-dosen')"
-                  v-model="inputanCariCatatanPerwalianDosen">
-              </div>
-              <div class="pt-0 mb-0">
-                <p id="indikatorWarna">
-                  <span class="material-symbols-outlined bullet align-middle"> circle </span>
-                  <span class="mr-1">Mahasiswa</span>
-
-                  <span class="material-symbols-outlined bullet align-middle">circle</span>
-                  <span class="mr-1"> Orang Tua / Wali</span>
-
-                  <span class="material-symbols-outlined bullet align-middle"> circle </span>
-                  <span class="mr-1"> Orang Tua / Wali &amp; Mahasiswa</span>
-
-                  <span class="material-symbols-outlined bullet align-middle"> circle </span>
-                  <span class="mr-1"> Grup Angkatan</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="col-md-4 col-sm-12 my-sm-3 d-flex align-items-center">
-
-              <div id="kolomTambahCatatan d-flex ">
-                <router-link :to="{ name: 'TambahCatatanPerwalian', params: { canBack: 1 } }" id="tambahCatatan"
-                  class="align-middle">
-                  <span class="material-symbols-outlined mr-2">
-                    add_box
-                  </span>
-                </router-link>
-
-                <router-link :to="{ name: 'TambahCatatanPerwalian', params: { canBack: 1 } }" id="tambahCatatan"
-                  class="judulTambahCatatan">
-                  Tambah Catatan Perwalian
-                </router-link>
-              </div>
-
-            </div>
-          </div>
-
-          <div id="listCatatanPerwalian" class="d-flex align-content-start flex-wrap mt-1 pb-3">
-            <!-- jika loading catatan dari api -->
-            <div v-if="this.loadingCatatanPerwalianTerbaru" class="w-100 d-flex">
-              <div v-for="(catatan, index) in 3" :key="index" id="itemCatatan"
-                class="d-flex justify-content-center col-lg-3 col-md-4 mr-lg-3 mr-md-0 col-sm-6 mb-sm-4 px-sm-0">
-                <div id="itemCatatanPerwalian" class="card ">
-                  <div class="card-body w-100 p-2">
-                    <article>
-                      <div class="line"></div>
-                      <div class="line"></div>
-                      <div class="line"></div>
-                      <div class="shimmer"></div>
-                    </article>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- jika tidak ada catatan dari api -->
-            <div v-else-if="this.catatanPerwalianDosenTerbaru.length == 0" class="w-100">
-              <div id="itemCatatan"
-                class="d-flex justify-content-center col-lg-3 col-md-4 mr-lg-3 mr-md-0 col-sm-6 mb-sm-4 px-sm-0">
-                <div id="itemCatatanPerwalian" class="card">
-
-                  <div class="card-body">
-                    <!-- tipe garis -->
-                    <span v-bind:class="{
-                      garisMahasiswa: true,
-                    }"></span>
-
-                    <!-- judul catatan == tipe catatan -->
-                    <h5 class="card-title text-center">Tidak ada catatan</h5>
-                    <p>Tidak ada catatan perwalian dosen terbaru</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- jika sudah di load -->
-            <div v-else class="w-100 d-flex" id="listCatatanPerwalianTerbaru">
-              <div v-for="(catatan, index) in this.catatanPerwalianDosenTerbaru" :key="index" id="itemCatatan"
-                class="d-flex justify-content-center col-lg-3 col-md-4 mr-lg-3 mr-md-0 col-sm-6 mb-sm-4 px-sm-0">
-                <div id="itemCatatanPerwalian" class="card ">
-
-                  <div class="card-body">
-                    <!-- tipe garis -->
-                    <span v-bind:class="{
-                      garisMahasiswa: catatan.tipe == 'mahasiswa',
-                      garisOrangTuaWali: catatan.tipe == 'orang-tua-wali',
-                      garisOrangTuaWaliMahasiswa: catatan.tipe == 'orang-tua-wali-dan-mahasiswa',
-                      garisGrupAngkatan: catatan.tipe == 'grup-angkatan',
-                    }"></span>
-
-                    <!-- judul catatan == tipe catatan -->
-                    <h5 class="card-title text-center">{{ this.limitJudul(catatan.judul) }}</h5>
-                    <!-- waktu catatan -->
-                    <h6 class="card-subtitle mb-2 text-center">{{
-                      this.convertTimestamp(catatan.waktu)
-                    }}
-                    </h6>
-                    <!-- nama mahasiswa -->
-                    <h6 v-if="catatan.tipe != 'grup-angkatan'"
-                      class="card-subtitle mt-4 mb-1 font-weight-bold text-left">
-                      {{ catatan.nama }} / {{ catatan.nim }}</h6>
-                    <h6 v-else class="card-subtitle mt-4 mb-1 font-weight-bold text-left">
-                      Angkatan {{ catatan.tahun_angkatan }}</h6>
-
-                    <!-- lihat selengkapnya per kategori catatan -->
-                    <p v-if="catatan.tipe != 'grup-angkatan'" class="card-text text-justify">
-                      {{ limitAgenda(catatan.agenda_perwalian) }}
-                      <span>
-                        <router-link v-if="catatan.tipe == 'mahasiswa'"
-                          :to="`edit-catatan-mahasiswa/${catatan.id_catatan_perwalian_dosen}`"
-                          class="font-weight-bold"><u>Lihat selengkapnya</u></router-link>
-                        <router-link v-else-if="catatan.tipe == 'orang-tua-wali'"
-                          :to="`edit-catatan-orang-tua-wali/${catatan.id_catatan_perwalian_dosen}`"
-                          class="font-weight-bold"><u>Lihat selengkapnya</u></router-link>
-                        <router-link v-else-if="catatan.tipe == 'orang-tua-wali-dan-mahasiswa'"
-                          :to="`edit-catatan-orang-tua-wali-dan-mahasiswa/${catatan.id_catatan_perwalian_dosen}`"
-                          class="font-weight-bold"><u>Lihat selengkapnya</u></router-link>
-                      </span>
-                    </p>
-                    <p v-else id="catatanCatatanGrupAngkatan" class="card-text text-justify">
-                      {{ limitAgenda(catatan.agenda_perwalian) }}
-                      <span>
-                        <router-link :to="`edit-catatan-grup-angkatan/${catatan.id_catatan_perwalian_dosen}`"
-                          class="font-weight-bold"><u>Lihat selengkapnya</u></router-link>
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-
-            <div class="col-12 d-flex justify-content-start mt-3 px-0">
-              <div id="lihatSemuaCatatan" class="px-0">
-                <router-link id="lihatSemuaCatatanPerwalianDosen" :to="{ name: 'DaftarCatatanPerwalianDosen' }">Lihat
-                  semua
-                  catatan
-                  perwalian</router-link>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 d-flex justify-content-start mt-4 px-0">
-            <div id="garisBatasCatatan"></div>
-          </div>
-
-        </div>
-
-        <div id="bagianCatatanDosen">
-          <div class="d-flex align-content-start flex-wrap mt-4">
-            <div v-if="this.togglePencarianCatatanDosen" id="containerHasilCariCatatanPerwalian">
-              <div
-                v-if="this.hasilPencarianCatatanDosen.length >= 1 && this.hasilPencarianCatatanDosen[0] != 'kosongError'"
-                id="kolomHasilPencarian" class="col-10">
-                <div class="d-flex flex-wrap col-12 py-2 px-1">
-                  <div v-for="(catatan, index) in this.hasilPencarianCatatanDosen" :key="index" class="col-6 my-3 px-0"
-                    id="itemCariCatatan">
-                    <div id="itemHasilPencarian" class="p-2">
-                      <span v-bind:class="{
-                        garisMahasiswa: catatan.tipe == 'refleksi-dosen',
-                        garisOrangTuaWali: catatan.tipe == 'khusus',
-                      }"></span>
-
-                      <p class="m-0" id="judulItemHasilPencarian">
-                        <b>
-                          {{ this.limitJudul(catatan.judul) }}
-                        </b>
-                      </p>
-
-                      <p class="m-0">{{ this.convertTimestamp(catatan.waktu) }} | {{
-                        this.convertToWIB(catatan.waktu_awal) }}
-                        - {{ this.convertToWIB(catatan.waktu_akhir) }}
-                      </p>
-
-                      <p class="m-0" v-if="catatan.nim != null && catatan.nama != null">
-                        <b>
-                          {{ catatan.nama }} / {{ catatan.nim }}
-                        </b>
-                      </p>
-                      <p class="m-0 text-justify">
-                        {{ limitAgenda(catatan.agenda_perwalian) }}
-
-                        <router-link v-if="catatan.tipe == 'refleksi-dosen'"
-                          :to="{ name: 'EditCatatanOrangTuaWaliDanMahasiswa', params: { id: catatan.id_catatan_dosen } }"
-                          id="lihatSelengkapnyaHasilPencarian">
-                          <u>
-                            Lihat selengkapnya
-                          </u>
-                        </router-link>
-
-                        <router-link v-else-if="catatan.tipe == 'khusus'"
-                          :to="{ name: 'EditCatatanGrupAngkatan', params: { id: catatan.id_catatan_dosen } }"
-                          id="lihatSelengkapnyaHasilPencarian">
-                          <u>
-                            Lihat selengkapnya
-                          </u>
-                        </router-link>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                v-else-if="this.hasilPencarianCatatanDosen.length >= 1 && this.hasilPencarianCatatanDosen[0] == 'kosongError'"
-                id="kolomHasilPencarian" class="d-flex align-items-center col-10">
-
-                <div class="d-flex col-12 py-2 px-1 ">
-                  <div class="col-12 my-3 px-0">
-                    <div id="itemHasilPencarianNotFound" class="p-2">
-                      <div class="text-center m-0 mt-2" id="judulItemHasilPencarian">
-                        <h4 class="mt-3">
-                          <b>
-                            Catatan tidak ditemukan
-                          </b>
-                        </h4>
-                        <p class=" mt-1">
-                          Silahkan cari catatan menggunakan kata kunci pencarian lainnya
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div v-else-if="this.hasilPencarianCatatanDosen.length == 0 && this.inputanCariCatatanDosen != ''"
-                id="kolomHasilPencarian" class="d-flex align-items-center col-10">
-
-                <div class="d-flex col-12 py-2 px-1 ">
-                  <div class="col-12 my-3 px-0">
-                    <div id="itemHasilPencarianNotFound" class="p-2">
-                      <div class="text-center">
-                        <v-progress-circular color="primary" indeterminate :size="70" :width="6">
-                        </v-progress-circular>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-7 col-sm-12 px-0">
-              <div id="judulCariCatatanPerwalian" class="d-flex col-12 pl-0">
-                <p class="mb-0">Catatan Dosen</p>
-
-                <div>
-                  <v-icon class="ml-2" size="small" color="grey-darken-1">
-                    mdi-information-outline
-                  </v-icon>
-                  <v-tooltip activator="parent" width="400" content-class="bg-grey-darken-1" location="bottom">Catatan
-                    Dosen
-                    merupakan catatan yang digunakan untuk Dosen Wali sendiri. Catatan Dosen Tipe 'Refleksi Dosen'
-                    sebagai
-                    pengingat / catatan untuk Dosen Wali. Sedangkan Catatan Dosen Tipe 'Khusus' sebagai catatan diluar
-                    semua
-                    tipe di Catatan Perwalian Dosen dan Catatan Dosen Tipe 'Refleksi Dosen'
-                  </v-tooltip>
-                </div>
-
-              </div>
-              <div class="col-12 mb-1 mt-xl-3 pl-0" id="containerCariCatatanPerwalian">
-                <span class="material-symbols-outlined search"> search </span>
-                <input id="inputCariCatatanDosen" type="text" placeholder="Cari catatan dosen" @keyup="cariCatatanDosen"
-                  @focus="scrollPage('catatan-dosen')" v-model="inputanCariCatatanDosen">
-              </div>
-
-              <div class="pt-0 mb-0">
-                <p id="indikatorWarna">
-                  <span class="material-symbols-outlined bullet align-middle"> circle </span>
-                  <span class="mr-1">Refleksi Dosen</span>
-
-                  <span class="material-symbols-outlined bullet align-middle">circle</span>
-                  <span class="mr-1">Khusus</span>
-
-                </p>
-              </div>
-            </div>
-
-            <div class="col-md-4 col-sm-12 my-sm-3 d-flex align-items-center">
-
-              <div id="kolomTambahCatatan d-flex ">
-                <router-link :to="{ name: 'TambahCatatanDosen', params: { canBack: 1 } }" id="tambahCatatan"
-                  class="align-middle">
-                  <span class="material-symbols-outlined mr-2">
-                    add_box
-                  </span>
-                </router-link>
-
-
-                <router-link :to="{ name: 'TambahCatatanDosen', params: { canBack: 1 } }" id="tambahCatatan"
-                  class="judulTambahCatatan">
-                  Tambah Catatan Dosen
-                </router-link>
-              </div>
-
-            </div>
-          </div>
-
-          <div id="listCatatanPerwalian" class="d-flex align-content-start flex-wrap mt-1 pb-3">
-            <div v-if="this.loadingCatatanDosenTerbaru" class="w-100 d-flex">
-              <div v-for="(catatan, index) in 3" :key="index" id="itemCatatan"
-                class="d-flex justify-content-center col-lg-3 col-md-4 mr-lg-3 mr-md-0 col-sm-6 mb-sm-4 px-sm-0">
-                <div id="itemCatatanPerwalian" class="card ">
-                  <div class="card-body w-100 p-2">
-                    <article>
-                      <div class="line"></div>
-                      <div class="line"></div>
-                      <div class="line"></div>
-                      <div class="shimmer"></div>
-                    </article>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div v-else-if="this.catatanDosenTerbaru.length == 0" class="w-100 d-flex">
-              <div id="itemCatatan"
-                class="d-flex justify-content-center col-lg-3 col-md-4 mr-lg-3 mr-md-0 col-sm-6 mb-sm-4 px-sm-0">
-                <div id="itemCatatanPerwalian" class="card">
-
-                  <div class="card-body">
-                    <!-- tipe garis -->
-                    <span v-bind:class="{
-                      garisMahasiswa: true,
-                    }"></span>
-
-                    <!-- judul catatan == tipe catatan -->
-                    <h5 class="card-title text-center">Tidak ada catatan</h5>
-                    <p>Tidak ada catatan dosen terbaru</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div v-else class="w-100 d-flex" id="listCatatanDosenTerbaru">
-              <div v-for="(catatan, index) in this.catatanDosenTerbaru" :key="index" id="itemCatatan"
-                class="d-flex justify-content-center col-lg-3 col-md-4 mr-lg-3 mr-md-0 col-sm-6 mb-sm-4 px-sm-0">
-                <div id="itemCatatanPerwalian" class="card ">
-                  <div class="card-body">
-
-                    <span v-bind:class="{
-                      garisMahasiswa: catatan.tipe == 'refleksi-dosen',
-                      garisOrangTuaWali: catatan.tipe == 'khusus',
-                    }"></span>
-
-                    <h5 class="card-title text-center">{{ this.limitJudul(catatan.judul) }}</h5>
-                    <h6 class="card-subtitle mb-2 text-center">{{ this.convertTimestamp(catatan.waktu)
-                      }}
-                    </h6>
-                    <p v-if="catatan.tipe == 'khusus'" class="mt-4 mb-0 font-weight-bold">
-                      {{ catatan.nama }} / {{ catatan.nim }}
-                    </p>
-                    <p class="card-text mb-3  text-justify">{{ limitAgenda(catatan.agenda_perwalian)
-                      }}
-                      <span v-if="catatan.tipe == 'refleksi-dosen'"><router-link
-                          :to="{ name: 'EditCatatanRefleksiDosen', params: { id: catatan.id_catatan_dosen } }"
-                          class="font-weight-bold"><u>Lihat selengkapnya</u></router-link></span>
-                      <span v-else><router-link
-                          :to="{ name: 'EditCatatanKhusus', params: { id: catatan.id_catatan_dosen } }"
-                          class="font-weight-bold"><u>Lihat selengkapnya</u></router-link></span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 d-flex justify-content-start mt-3 px-0">
-              <div id="lihatSemuaCatatan" class="px-0">
-                <router-link id="lihatSemuaCatatanDosen" :to="{ name: 'DaftarCatatanDosen' }">
-                  Lihat semua catatan dosen
-                </router-link>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 d-flex justify-content-start mt-4 px-0">
-            <div id="garisBatasCatatan"></div>
-          </div>
-        </div>
-
         <div id="bagianGrupAngkatan">
           <div id="judulDaftarGrupPerwalian" class="mt-4">
 
@@ -807,9 +184,9 @@
           </div>
 
           <div id="containerMahasiswaAngkatan" class="row mt-4 d-flex justify-content-center">
-            <div v-if="this.listTahunAngkatanBimbingan.length > 0" class="w-100 d-flex">
-              <div v-for="(tahunAngkatan, index) in this.listTahunAngkatanBimbingan" :key="index" id="mahasiswaAngkatan"
-                class="col-sm-12 col-md-12 col-lg-12 col-xl-6 mb-3 px-0">
+            <div v-if="this.listTahunAngkatanBimbinganKaprodi.length > 0" class="w-100 d-flex flex-wrap">
+              <div v-for="(tahunAngkatan, index) in this.listTahunAngkatanBimbinganKaprodi" :key="index"
+                id="mahasiswaAngkatan" class="col-sm-12 col-md-12 col-lg-12 col-xl-6 mb-5 pb-3 px-0">
                 <p>Mahasiswa Informatika {{ tahunAngkatan }}</p>
                 <div id="itemNamaMhs">
                   <div v-for="(mahasiswa, index) in this.mahasiswaPerwalian.get(tahunAngkatan)" :key="index"
@@ -892,8 +269,7 @@
                   </div>
 
                   <div class="d-flex justify-content-end mr-4">
-                    <router-link :to="{ name: 'DetailAngkatan', params: { id: tahunAngkatan, isHover: 0 } }"
-                      class="lihatSelengkapnya">
+                    <router-link :to="{ name: 'BerandaKaProdi' }" class="lihatSelengkapnya">
                       Lihat selengkapnya >
                     </router-link>
                   </div>
@@ -915,35 +291,7 @@
                 </div>
               </div>
             </div>
-
           </div>
-
-          <div id="chartRataRataIPK" class="mt-4">
-            <div class="d-flex align-self-center mb-3">
-              <p class="mb-0">Grafik Rata Rata IPK Angkatan</p>
-
-              <div class="d-inline align-self-center">
-                <v-icon class="ml-2" size="default" color="grey-darken-1">
-                  mdi-information-outline
-                </v-icon>
-                <v-tooltip activator="parent" content-class="bg-grey-darken-1" location="bottom" width="300">Anda dapat
-                  menghilangkan garis "{{ this.labelRataChart() }}" dengan menekan label angkatan
-                  tersebut pada chart dibawah
-                  <br class="mb-3">
-                  Jika nilai IPK suatu angkatan tidak ada, maka IPK angkatan tersebut tidak akan dihitung
-                  menjadi nilai rata-rata IPK Angkatan per tahun
-                </v-tooltip>
-
-              </div>
-            </div>
-
-            <div id="containerChart">
-              <!-- <canvas ref="myChart"></canvas> -->
-              <canvas ref="myChart" id="myChart"></canvas>
-            </div>
-          </div>
-
-
         </div>
       </div>
 
@@ -985,6 +333,7 @@ export default {
       kodeDosen: "",
       drawer: null,
       listTahunAngkatanBimbingan: [],
+      listTahunAngkatanBimbinganKaprodi: [],
       jumlahStatusPerwalian: new Map(),
       jumlahMahasiswaPerwalian: new Map(),
       jumlahSemuaMahasiswaPerwalianAngkatan: 0,
@@ -1001,26 +350,6 @@ export default {
       togglePencarianMahasiswa: false,
       catatanPerwalianDosenTerbaru: [],
       catatanDosenTerbaru: [],
-      items: [
-        {
-          myRadioValue: "pilihan1",
-          data:
-            [
-              { id: "bagianCatatan", pos: 1 },
-              { id: "bagianCatatanDosen", pos: 2 },
-              { id: "bagianGrupAngkatan", pos: 3 },
-            ]
-        },
-        {
-          myRadioValue: "pilihan2",
-          data:
-            [
-              { id: "bagianGrupAngkatan", pos: 1 },
-              { id: "bagianCatatan", pos: 2 },
-              { id: "bagianCatatanDosen", pos: 3 },
-            ]
-        }
-      ],
       itemsLogout: [
         { title: 'Logout' },
       ],
@@ -1038,7 +367,6 @@ export default {
         'AN': 'AN',
         'LS': 'Lulus'
       },
-      isKaprodi: false
 
     }
   },
@@ -1105,19 +433,50 @@ export default {
       this.namaDosen = localStorage.getItem("namaDosen")
       this.kodeDosen = localStorage.getItem("kodeDosen")
 
-      this.getOpsiUrutanBeranda()
-      await this.getTahunAngkatan()
-      // membuat template list tahun untuk chart IPK angkatan seperti di bawah 
 
+
+
+      await this.getTahunAngkatan()
+
+      await this.getListMahasiswaAngkatan()
       await this.getJumlahStatusMahasiswa()
-      this.loadChart()
       await this.getCatatanDosenTerbaru()
       await this.getCatatanPerwalianDosenTerbaru()
 
-      this.hitungRataRataIPKAngkatan()
-      this.createChart2()
-      //untuk untuk atur ulang urutan opsi beranda
-      this.simpan(true)
+
+    },
+    async getListMahasiswaAngkatan() {
+      // membuat list , isinya 2015 - tahun sekarang
+      const currentYear = new Date().getFullYear();
+      this.listTahunAngkatanBimbinganKaprodi = Array.from({ length: currentYear - 2015 + 1 }, (v, i) => 2015 + i);
+
+      // iterasi tahun tersebut
+      this.listTahunAngkatanBimbinganKaprodi.forEach(async (tahunAngkatan) => {
+        try {
+          const response = await axios.get(process.env.VUE_APP_API_OPERASIONAL + `/mahasiswaPerwalianByYear/`, {
+            params: {
+              tahun_angkatan: tahunAngkatan
+            },
+          });
+
+          if (response.data.error === false) {
+            console.log(response.data);
+            this.mahasiswaPerwalian.set(tahunAngkatan, this.filterDuplicateMahasiswa(response.data.response))
+          } else {
+            // jika tidak ada data untuk tahun tersebut, hapus tahun angkatan tersebut dari list.
+            this.listTahunAngkatanBimbinganKaprodi = this.listTahunAngkatanBimbinganKaprodi.filter(tahun => tahun !== tahunAngkatan);
+          }
+        } catch (error) {
+          console.error("Terjadi kesalahan saat mengambil data:", error);
+        }
+      })
+
+      console.log(this.mahasiswaPerwalian);
+
+
+
+
+
     },
     async getJumlahStatusMahasiswa() {
       if (this.listTahunAngkatanBimbingan.length != 0) {
@@ -1164,26 +523,6 @@ export default {
 
             if (response.data.error === false) {
               this.mahasiswaPerwalian.set(this.listTahunAngkatanBimbingan[i], this.filterDuplicateMahasiswa(response.data.response.list_status))
-            }
-          } catch (error) {
-            console.error("Terjadi kesalahan saat mengambil data:", error);
-          }
-
-          //get rata-rata ipk angkatan per tahun
-          try {
-            const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/rataIPKAngkatanPerTahun/`, {
-              params: {
-                kode_dosen: this.kodeDosen,
-                tahun_angkatan: this.listTahunAngkatanBimbingan[i]
-              },
-            });
-
-            if (response.data.error === false) {
-              // membuat hash map 2015 => list_ipk
-              this.dataResponIPK.set(this.listTahunAngkatanBimbingan[i], response.data.response)
-              // buat template chart tahun
-              // data respon berisi list ipk per tahun angkatan. misal angkatan 2015 ipknya pertahun 3.00, 3.12, 3.45, dst
-              this.templateChart(this.listTahunAngkatanBimbingan[i], response.data.response.length)
             }
           } catch (error) {
             console.error("Terjadi kesalahan saat mengambil data:", error);
@@ -1243,103 +582,7 @@ export default {
       //     { tahunChart: 2022 },
       // ]
     },
-    loadChart() { //membuat isi data dari chart.js yang akan di pakai
-      let counter = 0
-      //isi template chart tahun sebelumnya
-      for (let i = 0; i < this.listTahunAngkatanBimbingan.length; i++) { // mengulangi 2 tahun angkatan
-        //misal angkatan tahun 2015, maka startTahun = 2016
-        let startTahun = parseInt(this.listTahunAngkatanBimbingan[i]) + 1
-        // dataRataIPK berisi key value, tahun angkatan => list ipk per tahun 
-        const dataRataIPK = this.dataResponIPK.get(this.listTahunAngkatanBimbingan[i])
-        // rataIPKAngkatanPerTahun = [
-        //     { tahunChart: 2016 },
-        //     { tahunChart: 2017 },
-        //     { tahunChart: 2018 },
-        //     { tahunChart: 2019 },
-        //     { tahunChart: 2020 },
-        //     { tahunChart: 2021 },
-        //     { tahunChart: 2022 },
-        // ]
 
-        // dataRataIPK misal tahun 2015
-        // {kode_semester: '20152', round: '2.12'}
-        // {kode_semester: '20162', round: '2.25'}
-        // {kode_semester: '20172', round: '2.37'}
-        // {kode_semester: '20182', round: '2.66'}               
-        // {kode_semester: '20192', round: '2.83'}
-        // {kode_semester: '20202', round: '2.52'}
-        if (counter == 0) {
-          for (let ii = 0; ii < dataRataIPK.length; ii++) {
-            // this.rataIPKAngkatanPerTahun dipanggil dari templateChart()
-            const existingYearData = this.rataIPKAngkatanPerTahun.find((d) => d.tahunChart === startTahun);
-            if (existingYearData) {
-              if (dataRataIPK[ii] != null) {
-                // setting nilai dataA 
-                existingYearData.dataA = parseFloat(dataRataIPK[ii].round)
-              }
-            }
-            startTahun += 1
-          }
-          //mengecek yang masih null ,
-          // jadi ada template chart rataIPKAngkatanPerTahun, lalu diisi dengan list ipk yang dimiliki oleh sebuah angkatan (2015)
-          // misal dari list ipk 2015 cuman ada 6 ipk, padahal ada 7 slot ipk (dari template), 
-          // maka slot null tersebut akan di isi dengan nilai 0 menggunakan perulangan dibawah  
-          startTahun = parseInt(this.rataIPKAngkatanPerTahun[0].tahunChart)
-          for (let iii = 0; iii < this.rataIPKAngkatanPerTahun.length; iii++) {
-            const existingYearData = this.rataIPKAngkatanPerTahun.find((d) => d.tahunChart === startTahun);
-            // cek apakah nilai dataA belum di setting, maka jadikan null
-            if (!existingYearData.hasOwnProperty("dataA")) {
-              existingYearData.dataA = null
-            }
-            startTahun += 1
-          }
-
-        }
-        // tahun angkatan bimbingan ke dua (misal 2020)
-        else if (counter == 1) {
-          for (let i = 0; i < dataRataIPK.length; i++) {
-            const existingYearData = this.rataIPKAngkatanPerTahun.find((d) => d.tahunChart === startTahun);
-            if (existingYearData) {
-              if (dataRataIPK[i] != null) {
-                existingYearData.dataB = parseFloat(dataRataIPK[i].round)
-              }
-            }
-            startTahun += 1
-          }
-          //mengecek yang masih null 
-          startTahun = parseInt(this.rataIPKAngkatanPerTahun[0].tahunChart)
-          for (let ii = 0; ii < this.rataIPKAngkatanPerTahun.length; ii++) {
-            const existingYearData = this.rataIPKAngkatanPerTahun.find((d) => d.tahunChart === startTahun);
-            if (!existingYearData.hasOwnProperty("dataB")) {
-              existingYearData.dataB = null
-            }
-            startTahun += 1
-          }
-        }
-        else if (counter == 2) {
-          for (let i = 0; i < dataRataIPK.length; i++) {
-            const existingYearData = this.rataIPKAngkatanPerTahun.find((d) => d.tahunChart === startTahun);
-            if (existingYearData) {
-              if (dataRataIPK[i] != null) {
-                existingYearData.dataC = parseFloat(dataRataIPK[i].round)
-              }
-            }
-            startTahun += 1
-          }
-
-          //mengecek yang masih null 
-          startTahun = parseInt(this.rataIPKAngkatanPerTahun[0].tahunChart)
-          for (let ii = 0; ii < this.rataIPKAngkatanPerTahun.length; ii++) {
-            const existingYearData = this.rataIPKAngkatanPerTahun.find((d) => d.tahunChart === startTahun);
-            if (!existingYearData.hasOwnProperty("dataC")) {
-              existingYearData.dataC = null
-            }
-            startTahun += 1
-          }
-        }
-        counter += 1
-      }
-    },
     async getCatatanPerwalianDosenTerbaru() {
       //get 3 catatan perwalian dosen terbaru  
       try {

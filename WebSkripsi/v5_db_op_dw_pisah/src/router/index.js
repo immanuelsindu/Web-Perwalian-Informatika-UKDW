@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 
 import LoginPage from "@/views/LoginPage.vue";
 import BerandaPageVue from "@/views/BerandaPage.vue";
+import BerandaKaProdi from "@/views/BerandaKaProdi.vue";
 import DetailMahasiswa from "@/views/DetailMahasiswa.vue";
 import DetailAngkatan from "@/views/DetailAngkatan.vue";
 import DetailYudisium from "@/views/DetailYudisium.vue";
@@ -54,6 +55,46 @@ const routes = [
     path: "/",
     name: "Beranda",
     component: BerandaPageVue,
+    meta: {
+      requiresAuth: true,
+      breadCrumb(route) {
+        if (tempBreadCrumbs.length != 0) {
+          const breadCrumbText = formatString(route.name);
+          // mengecek breadcrumb yang sudah ada dari store
+          const storeBreadcrumb =
+            this.$store.getters.getStoreBreadCrumbs;
+
+          let isContains = storeBreadcrumb.some((crumb) =>
+            crumb.text.includes(breadCrumbText)
+          );
+
+          //jika belum ada tambahkan ke breadCrumbs
+          if (!isContains) {
+            this.$store.commit("pushStoreBreadCrumbs", {
+              text: breadCrumbText,
+              to: {
+                name: route.name,
+              },
+            });
+          } else {
+            this.$store.commit("sliceStoreBreadCrumbs", 0); //commit method sliceStoreBreadCrumbs dengan parameter 0
+          }
+
+          tempBreadCrumbs = tempBreadCrumbs.slice(0, 1); //kodingan formalitas
+          tempBreadCrumbs = this.$store.getters.getStoreBreadCrumbs;
+
+        } else {
+          window.alert(
+            "KOSONG LENGTH ".concat(tempBreadCrumbs.length)
+          );
+        }
+      },
+    },
+  },
+  {
+    path: "/beranda-kaprodi",
+    name: "BerandaKaProdi",
+    component: BerandaKaProdi,
     meta: {
       requiresAuth: true,
       breadCrumb(route) {
