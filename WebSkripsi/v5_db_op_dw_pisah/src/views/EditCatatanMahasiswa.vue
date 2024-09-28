@@ -583,9 +583,6 @@ export default {
                     tambah_peserta: tempWadah,
                     id_catatan_perwalian_dosen: tempWadah[i].id_catatan_perwalian_dosen,
                   };
-
-                  console.log(paramObject);
-
                   await axios.put(
                     process.env.VUE_APP_API_OPERASIONAL +
                     `/updateTambahPesertaCatatan/`,

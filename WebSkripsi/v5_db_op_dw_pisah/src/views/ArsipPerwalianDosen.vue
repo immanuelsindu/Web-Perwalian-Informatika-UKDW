@@ -548,7 +548,6 @@ export default {
       return year
     },
     async showPopUpArsip(catatan) {
-      console.log(catatan);
       this.relasiCatatanHapus = []
       this.showWarningArsip = true
       this.idArsip = catatan // isi item catatan dulu
@@ -575,7 +574,6 @@ export default {
     },
     async arsipCatatanYa() {
       if (this.relasiCatatanHapus.tambah_peserta.length != 0) {
-        console.log("masuk sini a");
         for (let i = 0; i < this.relasiCatatanHapus.tambah_peserta.length; i++) {
           const paramObject = {
             id_catatan_perwalian_dosen: this.relasiCatatanHapus.tambah_peserta[i].id_catatan_perwalian_dosen,
@@ -594,7 +592,6 @@ export default {
           }, 2000);
         }, 200);
       } else {
-        console.log("masuk sini b");
         try {
           const paramObject = {
             id_catatan_perwalian_dosen: this.idArsip.id_catatan_perwalian_dosen,
@@ -665,7 +662,6 @@ export default {
 
         //get kata kunci pencarian
         const kataKunciPencarian = baru.toLowerCase().trim();
-        // console.log(kataKunciPencarian);
 
         let hasilFilter = ""
         if (tempListCatatanArsip != null) {

@@ -412,8 +412,6 @@ export default {
           this.listCatatanArsip = response.data.response.list_catatan_dosen_arsip;
           this.pesanError = "Berhasil menemukan " + this.listCatatanArsip.length + " data"
 
-          console.log(this.listCatatanArsip);
-
           //simpan ke local untuk fitur pencarian agar tidak get listCatatanArsip lagi dari awal (ambil api lagi)
           localStorage.setItem("listCatatanArsip", JSON.stringify(this.listCatatanArsip))
 
@@ -445,7 +443,6 @@ export default {
         const paramObject = {
           id_catatan_dosen: this.idHapus,
         }
-        console.log(paramObject);
         const response = await axios.put(process.env.VUE_APP_API_OPERASIONAL + `/deleteCatatanDosen/`, paramObject);
 
         if (response.data.error === false) {
@@ -549,7 +546,6 @@ export default {
 
         //get kata kunci pencarian
         const kataKunciPencarian = baru.toLowerCase().trim();
-        // console.log(kataKunciPencarian);
 
         // //lakukan filtering catatan berdasarkan kata kunci 
         let hasilFilter = ""
@@ -567,7 +563,6 @@ export default {
           this.listCatatanArsip = []
           this.pesanError = "Catatan yang dicari tidak ditemukan"
         }
-        console.log(hasilFilter);
       }
     },
     tipeCatatan: {

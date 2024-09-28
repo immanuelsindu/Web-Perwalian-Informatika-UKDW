@@ -363,7 +363,6 @@ export default {
       }
     },
     addPesertaKeWadahPesertaLainnya(mahasiswa) {
-      console.log(mahasiswa.nim);
       let checkExists = this.isMahasiswaExits(mahasiswa.nim)
 
       switch (checkExists) {

@@ -321,7 +321,7 @@
                         <span v-if="this.isSACKurang(item.poin_keaktifan, item.nim)" class="cekalSAC m-0">
                           <v-tooltip activator="parent" location="bottom" width="400"
                             content-class="bg-grey-darken-1">{{
-                            this.pesanSAC }}
+                              this.pesanSAC }}
                           </v-tooltip>
                           SAC {{ item.poin_keaktifan }}
                         </span>
@@ -487,7 +487,6 @@ export default {
         });
 
         if (response.data.error === false) {
-          // console.log(response.data.response[0].count);
           this.jumlahAktifDanTidakAktif = response.data.response[0].count;
         } else {
           this.jumlahAktifDanTidakAktif = 0;

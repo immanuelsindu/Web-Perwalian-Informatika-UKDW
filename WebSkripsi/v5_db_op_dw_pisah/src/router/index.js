@@ -1307,7 +1307,7 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else if (to.meta.guest) {
-    console.log("masuk g");
+
   }
   next()
 });

@@ -348,7 +348,6 @@ export default {
         if (response.data.error === false) {
           this.data =
             response.data.response.list_catatan_dosen_perwalian_dosen[0];
-          console.log(this.data);
         } else {
           this.data = [];
         }

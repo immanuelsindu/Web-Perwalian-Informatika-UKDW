@@ -437,7 +437,6 @@ export default {
 
         //get kata kunci pencarian
         const kataKunciPencarian = baru.toLowerCase().trim();
-        // console.log(kataKunciPencarian);
 
         // //lakukan filtering catatan berdasarkan kata kunci 
         let hasilFilter = ""

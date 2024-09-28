@@ -79,7 +79,7 @@
                                 :id="'flexRadioDefault' +
                                   index
                                   " :value="items" v-model="valueSort
-                                                                  " />
+                                    " />
                             </div>
                           </div>
                         </li>
@@ -105,7 +105,7 @@
                                 :id="'flexRadioDefault' +
                                   index
                                   " :value="items" v-model="valueFilter
-                                                                  " />
+                                    " />
                             </div>
                           </div>
                         </li>
@@ -183,8 +183,8 @@
           <div class="col-md-3 offset-md-1">
             <div id="opsiTambahNHistoryKiri" class="d-flex flex-row">
               <button v-bind:class="!this.isHistory
-                  ? 'historyButtonTrue'
-                  : 'historyButtonFalse'
+                ? 'historyButtonTrue'
+                : 'historyButtonFalse'
                 " @click="showHistory()" class="d-flex align-items-center">
                 <span class="material-symbols-outlined history">
                   receipt_long
@@ -367,13 +367,13 @@
                             .dataShowPreviewCatatan
                             .tipe == 'mahasiswa'
                         " :to="{
-                                                      name: 'EditCatatanMahasiswa',
-                                                      params: {
-                                                        id: this
-                                                          .dataShowPreviewCatatan
-                                                          .id_catatan_perwalian_dosen,
-                                                      },
-                                                    }" class="card-link">
+                          name: 'EditCatatanMahasiswa',
+                          params: {
+                            id: this
+                              .dataShowPreviewCatatan
+                              .id_catatan_perwalian_dosen,
+                          },
+                        }" class="card-link">
                           <u>Lihat selengkapnya</u>
                         </router-link>
                         <router-link v-else-if="
@@ -382,13 +382,13 @@
                             .tipe ==
                           'orang-tua-wali'
                         " :to="{
-                                                      name: 'EditCatatanOrangTuaWali',
-                                                      params: {
-                                                        id: this
-                                                          .dataShowPreviewCatatan
-                                                          .id_catatan_perwalian_dosen,
-                                                      },
-                                                    }" class="card-link">
+                          name: 'EditCatatanOrangTuaWali',
+                          params: {
+                            id: this
+                              .dataShowPreviewCatatan
+                              .id_catatan_perwalian_dosen,
+                          },
+                        }" class="card-link">
                           <u>Lihat selengkapnya</u>
                         </router-link>
                         <router-link v-if="
@@ -397,13 +397,13 @@
                             .tipe ==
                           'orang-tua-wali-dan-mahasiswa'
                         " :to="{
-                                                      name: 'EditCatatanOrangTuaWaliDanMahasiswa',
-                                                      params: {
-                                                        id: this
-                                                          .dataShowPreviewCatatan
-                                                          .id_catatan_perwalian_dosen,
-                                                      },
-                                                    }" class="card-link">
+                          name: 'EditCatatanOrangTuaWaliDanMahasiswa',
+                          params: {
+                            id: this
+                              .dataShowPreviewCatatan
+                              .id_catatan_perwalian_dosen,
+                          },
+                        }" class="card-link">
                           <u>Lihat selengkapnya</u>
                         </router-link>
                       </div>
@@ -441,8 +441,7 @@
               <!-- jika ada data di pagination -->
               <div v-if="this.paginatedItems.length > 0" id="containerlistCatatan" class="d-flex flex-wrap">
                 <div v-for="(catatan, index) in this
-                  .paginatedItems" :key="index"
-                  class="col-xl-3 col-sm-12 mb-5 d-flex justify-content-center">
+                  .paginatedItems" :key="index" class="col-xl-3 col-sm-12 mb-5 d-flex justify-content-center">
                   <div id="itemCatatanPerwalian">
                     <span v-if="catatan.tipe === 'mahasiswa'" id="garisMahasiswa"></span>
                     <span v-else-if="
@@ -509,31 +508,31 @@
                           catatan.tipe ===
                           'mahasiswa'
                         " :to="{
-                                                      name: 'EditCatatanMahasiswa',
-                                                      params: {
-                                                        id: catatan.id_catatan_perwalian_dosen,
-                                                      },
-                                                    }"><b>
+                          name: 'EditCatatanMahasiswa',
+                          params: {
+                            id: catatan.id_catatan_perwalian_dosen,
+                          },
+                        }"><b>
                             Lihat selengkapnya</b></router-link>
                         <router-link v-if="
                           catatan.tipe ===
                           'orang-tua-wali'
                         " :to="{
-                                                      name: 'EditCatatanOrangTuaWali',
-                                                      params: {
-                                                        id: catatan.id_catatan_perwalian_dosen,
-                                                      },
-                                                    }"><b>
+                          name: 'EditCatatanOrangTuaWali',
+                          params: {
+                            id: catatan.id_catatan_perwalian_dosen,
+                          },
+                        }"><b>
                             Lihat selengkapnya</b></router-link>
                         <router-link v-if="
                           catatan.tipe ===
                           'orang-tua-wali-dan-mahasiswa'
                         " :to="{
-                                                      name: 'EditCatatanOrangTuaWaliDanMahasiswa',
-                                                      params: {
-                                                        id: catatan.id_catatan_perwalian_dosen,
-                                                      },
-                                                    }"><b>
+                          name: 'EditCatatanOrangTuaWaliDanMahasiswa',
+                          params: {
+                            id: catatan.id_catatan_perwalian_dosen,
+                          },
+                        }"><b>
                             Lihat selengkapnya</b></router-link>
                       </p>
                     </div>
@@ -544,33 +543,33 @@
                           catatan.tipe ===
                           'mahasiswa'
                         " :to="{
-                                                      name: 'EditCatatanMahasiswa',
-                                                      params: {
-                                                        id: catatan.id_catatan_perwalian_dosen,
-                                                      },
-                                                    }" id="buttonEdit" type="button" class="btn btn-light">
+                          name: 'EditCatatanMahasiswa',
+                          params: {
+                            id: catatan.id_catatan_perwalian_dosen,
+                          },
+                        }" id="buttonEdit" type="button" class="btn btn-light">
                           Edit
                         </router-link>
                         <router-link v-if="
                           catatan.tipe ===
                           'orang-tua-wali'
                         " :to="{
-                                                      name: 'EditCatatanOrangTuaWali',
-                                                      params: {
-                                                        id: catatan.id_catatan_perwalian_dosen,
-                                                      },
-                                                    }" id="buttonEdit" type="button" class="btn btn-light">
+                          name: 'EditCatatanOrangTuaWali',
+                          params: {
+                            id: catatan.id_catatan_perwalian_dosen,
+                          },
+                        }" id="buttonEdit" type="button" class="btn btn-light">
                           Edit
                         </router-link>
                         <router-link v-if="
                           catatan.tipe ===
                           'orang-tua-wali-dan-mahasiswa'
                         " :to="{
-                                                      name: 'EditCatatanOrangTuaWaliDanMahasiswa',
-                                                      params: {
-                                                        id: catatan.id_catatan_perwalian_dosen,
-                                                      },
-                                                    }" id="buttonEdit" type="button" class="btn btn-light">
+                          name: 'EditCatatanOrangTuaWaliDanMahasiswa',
+                          params: {
+                            id: catatan.id_catatan_perwalian_dosen,
+                          },
+                        }" id="buttonEdit" type="button" class="btn btn-light">
                           Edit
                         </router-link>
                       </div>
@@ -638,8 +637,7 @@
               <div class="d-flex">
                 <ol class="mb-0">
                   <li v-for="(catatan, index) in this
-                    .relasiCatatanHapus.tambah_peserta" :key="index"
-                    class="mb-2 align-self-center">
+                    .relasiCatatanHapus.tambah_peserta" :key="index" class="mb-2 align-self-center">
                     <p class="mb-0">
                       <b>{{
                         this.relasiCatatanHapus.judul
@@ -692,8 +690,7 @@
               <div class="d-flex">
                 <ol class="mb-0">
                   <li v-for="(catatan, index) in this
-                    .relasiCatatanArsip.tambah_peserta" :key="index"
-                    class="mb-2 align-self-center">
+                    .relasiCatatanArsip.tambah_peserta" :key="index" class="mb-2 align-self-center">
                     <p class="mb-0">
                       <b>{{
                         this.relasiCatatanArsip.judul
@@ -962,7 +959,6 @@ export default {
     },
     showPopUpPreferensi2(catatan) {
       this.indexHapusCatatan = catatan;
-      // console.log(this.indexHapusCatatan);
       this.isOn2 = true;
     },
     editCatatan() {

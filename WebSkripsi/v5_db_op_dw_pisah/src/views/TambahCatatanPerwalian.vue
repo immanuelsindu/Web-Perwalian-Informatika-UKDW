@@ -526,11 +526,9 @@ export default {
       } else {
         hasilCode = 'mahasiswa-input'
       }
-      console.log(hasilCode);
       return hasilCode
     },
     deletePesertaLain(index) {
-      console.log(index);
       this.wadahPesertaLainnya.splice(index, 1);
     },
     async getMahasiswaPerwalianByTahun() {

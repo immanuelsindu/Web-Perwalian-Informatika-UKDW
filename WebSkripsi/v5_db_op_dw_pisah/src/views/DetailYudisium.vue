@@ -188,7 +188,6 @@ export default {
 
         if (response.data.error === false) {
           this.namaMahasiswa = response.data.response.list_mahasiswa[0].nama;
-          console.log(this.namaMahasiswa);
         } else {
           this.namaMahasiswa = [];
         }

@@ -1172,10 +1172,8 @@ export default {
             if (response.data.error === false) {
               // membuat hash map 2015 => list_ipk
               this.dataResponIPK.set(this.listTahunAngkatanBimbingan[i], response.data.response)
-              console.log(this.dataResponIPK);
               // buat template chart tahun
               // data respon berisi list ipk per tahun angkatan. misal angkatan 2015 ipknya pertahun 3.00, 3.12, 3.45, dst
-              // console.log(response.data.response);
               this.templateChart(this.listTahunAngkatanBimbingan[i], response.data.response.length)
             }
           } catch (error) {
@@ -1242,12 +1240,8 @@ export default {
       for (let i = 0; i < this.listTahunAngkatanBimbingan.length; i++) { // mengulangi 2 tahun angkatan
         //misal angkatan tahun 2015, maka startTahun = 2016
         let startTahun = parseInt(this.listTahunAngkatanBimbingan[i]) + 1
-        console.log(startTahun);
         // dataRataIPK berisi key value, tahun angkatan => list ipk per tahun 
         const dataRataIPK = this.dataResponIPK.get(this.listTahunAngkatanBimbingan[i])
-        console.log(this.dataResponIPK);
-        console.log(dataRataIPK);
-        // console.log(this.rataIPKAngkatanPerTahun);
         // rataIPKAngkatanPerTahun = [
         //     { tahunChart: 2016 },
         //     { tahunChart: 2017 },
@@ -1269,14 +1263,11 @@ export default {
           for (let ii = 0; ii < dataRataIPK.length; ii++) {
             // this.rataIPKAngkatanPerTahun dipanggil dari templateChart()
             const existingYearData = this.rataIPKAngkatanPerTahun.find((d) => d.tahunChart === startTahun);
-            console.log(existingYearData);
             if (existingYearData) {
-              // console.log(dataRataIPK[ii]);
               if (dataRataIPK[ii] != null) {
                 // setting nilai dataA 
                 existingYearData.dataA = parseFloat(dataRataIPK[ii].round)
               }
-              // console.log(existingYearData);
             }
             startTahun += 1
           }
@@ -1741,7 +1732,6 @@ export default {
       try {
         // patokan adalah dataA dan dataB
         let patokan = Object.keys(this.rataIPKAngkatanPerTahun[0]).slice(1)
-        // console.log("patokan"+ patokan);
         for (let i = 0; i < this.rataIPKAngkatanPerTahun.length; i++) {
           let rataIPK = 0
           let counterRata = 0
@@ -1852,7 +1842,6 @@ export default {
       } else {
         this.hasilPencarianMahasiswa = []
       }
-      // console.log(this.hasilPencarianMahasiswa);
     }, 500)
     ,
     convertToWIB(waktu) {

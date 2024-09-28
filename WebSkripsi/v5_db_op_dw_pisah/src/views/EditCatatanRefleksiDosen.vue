@@ -286,7 +286,6 @@ export default {
           waktu_akhir: this.waktuAkhir,
           agenda_perwalian: this.agendaPerwalian,
         }
-        // console.log(paramObject);
 
         //update catatan mahasiswa ybs
         try {

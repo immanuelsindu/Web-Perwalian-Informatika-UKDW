@@ -288,8 +288,6 @@ export default {
 
         }
 
-        console.log(paramObject);
-
         //insert catatan grup angkatan
         try {
           const response = await axios.post(process.env.VUE_APP_API_OPERASIONAL + `/tambahCatatanPerwalianDosen/`, paramObject);
