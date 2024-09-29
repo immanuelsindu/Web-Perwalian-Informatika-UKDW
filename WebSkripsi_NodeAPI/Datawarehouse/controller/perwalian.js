@@ -422,6 +422,135 @@ const getjumlahStatusAktifDanTidakAktifMahasiswa = async (req, res) => {
   }
 };
 
+const getListCountMahasiswaAngkatan = async (req, res) => {
+  try {
+    const resdb = await pool.query(
+      `select m.tahun_angkatan, count(m.nim) as jumlah_mahasiswa from mahasiswa m where m.nim like '71%' and (m.kode_prodi = '71' and m.tahun_angkatan >= '2015') group by m.tahun_angkatan order by m.tahun_angkatan asc`
+    );
+
+    if (resdb.rows.length) {
+      return res.send({
+        error: false,
+        message: "berhasil",
+        response: resdb.rows,
+      });
+    } else {
+      return customError("Data gagal diambil!", 404, res);
+    }
+  } catch (error) {
+    return customError(error.message, 500, res);
+  }
+};
+
+const getCountStatusMahasiswaByYear = async (req, res) => {
+  const { tahun_angkatan } = req.query;
+
+  try {
+    const resdb = await pool.query(
+      `select status, count(ms.status) as jumlah from mahasiswa_status ms join mahasiswa m on ms.nim = m.nim where m.tahun_angkatan = '${tahun_angkatan}' and m.kode_prodi = '71' and ms.kode_semester = (select max(ms2.kode_semester) from mahasiswa_status ms2 where ms2.nim = ms.nim) group by ms.status;
+`
+    );
+
+    if (resdb.rows.length) {
+      return res.send({
+        error: false,
+        message: "berhasil",
+        response: resdb.rows,
+      });
+    } else {
+      return customError("Data gagal diambil!", 404, res);
+    }
+  } catch (error) {
+    return customError(error.message, 500, res);
+  }
+};
+
+const getCountStatusMahasiswaAktifDanTidakAktifByYear = async (req, res) => {
+  const { tahun_angkatan } = req.query;
+
+  try {
+    const resdb = await pool.query(
+      `select status, count(ms.status) as jumlah from mahasiswa_status ms join mahasiswa m on ms.nim = m.nim where m.tahun_angkatan = '${tahun_angkatan}' and m.kode_prodi = '71' and ms.kode_semester = (select max(ms2.kode_semester) from mahasiswa_status ms2 where ms2.nim = ms.nim) group by ms.status;
+`
+    );
+
+    if (resdb.rows.length) {
+      return res.send({
+        error: false,
+        message: "berhasil",
+        response: resdb.rows,
+      });
+    } else {
+      return customError("Data gagal diambil!", 404, res);
+    }
+  } catch (error) {
+    return customError(error.message, 500, res);
+  }
+};
+
+const searcMahasiswaKaprodi = async (req, res) => {
+  const { inputan } = req.query;
+
+  try {
+    const resdb = await pool.query(
+      `select nim, initcap(nama) as nama from mahasiswa where kode_prodi = '71' and nim like '71%' and (lower(nama) like '%${inputan}%' or nim like '%${inputan}%') order by nim asc`
+    );
+
+    if (resdb.rows.length) {
+      return res.send({
+        error: false,
+        message: "berhasil",
+        response: resdb.rows,
+      });
+    } else {
+      return customError("Data gagal diambil!", 404, res);
+    }
+  } catch (error) {
+    return customError(error.message, 500, res);
+  }
+};
+
+const getMahasiswaAngkatanFilteredKaProdi = async (req, res) => {
+  const { tahun_angkatan, filter } = req.query;
+
+  try {
+    let tempFilter = ""
+    switch (filter) {
+      case "Semua Mahasiswa":
+        tempFilter = ""
+        break;
+      case "Aktif dan Tidak Aktif":
+        tempFilter = "and (ms.status = 'AK' or ms.status = 'TA')"
+        break;
+      default:
+        tempFilter = `and ms.status = '${filter}'`
+        break;
+    }
+
+    const resdb = await pool.query(
+      `select distinct m.nim, initcap(m.nama) as nama, ms.total_sks, ms.ipk, ms.status, pk.poin_keaktifan, c.id_cekal, c.jenis as cekal, c.deskripsi from  mahasiswa m  join mahasiswa_status ms on ms.nim = m.nim join (select ms.nim, max(ms.kode_semester) as max_kode_tahun_semester from mahasiswa_status ms group by ms.nim) max_kode_semester on ms.nim = max_kode_semester.nim and ms.kode_semester = max_kode_semester.max_kode_tahun_semester join poin_keaktifan pk on pk.nim = m.nim join bridge_cekal bc on bc.nim = m.nim left join cekal c on c.id_cekal = bc.id_cekal  where m.kode_prodi = '71'  and m.tahun_angkatan = '${tahun_angkatan}'${tempFilter}`
+    );
+
+    if (resdb.rows.length) {
+      return res.send({
+        error: false,
+        message:
+          "Berhasil mendapatkan " +
+          resdb.rows.length +
+          " data mahasiswa",
+        response: {
+          tahun_angkatan: tahun_angkatan,
+          list_mahasiswa: resdb.rows,
+        },
+      });
+    } else {
+      return customError("Data gagal diambil!", 404, res);
+    }
+  } catch (error) {
+    return customError(error.message, 500, res);
+  }
+};
+
 module.exports = {
 
 
@@ -446,6 +575,13 @@ module.exports = {
   getListMahasiswaAngkatanByTahun,
 
   getCekalMahasiswa,
-  getjumlahStatusAktifDanTidakAktifMahasiswa
+  getjumlahStatusAktifDanTidakAktifMahasiswa,
+
+  // getListMahasiswaGroupedByYear
+  getListCountMahasiswaAngkatan,
+  getCountStatusMahasiswaByYear,
+  searcMahasiswaKaprodi,
+  getCountStatusMahasiswaAktifDanTidakAktifByYear,
+  getMahasiswaAngkatanFilteredKaProdi
 
 };

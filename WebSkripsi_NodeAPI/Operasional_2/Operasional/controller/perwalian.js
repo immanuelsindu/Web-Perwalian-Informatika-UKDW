@@ -10,13 +10,12 @@ const pool = new Pool({
 });
 pool.connect();
 
-//TODO: Operasional
-const loginDosen = async (req, res) => {
+const loginDosen2 = async (req, res) => {
   const { username, password } = req.query;
 
   try {
     const resdb = await pool.query(
-      `select * from login_dosen where username = '${username}' and password = '${password}'`
+      `select ld.id_login_dosen, ld.kode_dosen, d.nama_gelar as nama , ld.username, ld.password, ld.opsi_beranda, ld.opsi_detail_angkatan,  ld.is_kaprodi from login_dosen ld join dosen d on d.kode_dosen = ld.kode_dosen where ld.username = '${username}' and ld.password = '${password}' `
     );
 
     if ((resdb.rows.length = 1)) {
@@ -33,7 +32,7 @@ const loginDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
+
 const getCatatanPerwalianDosenTerbaru = async (req, res) => {
   const { kode_dosen } = req.query;
 
@@ -59,7 +58,6 @@ const getCatatanPerwalianDosenTerbaru = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const insertCatatanPerwalianDosen = async (req, res) => {
   const {
     kode_dosen,
@@ -105,7 +103,6 @@ const insertCatatanPerwalianDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const updateIsArsipCatatanPerwalianDosen = async (req, res) => {
   const { id_catatan_perwalian_dosen, is_arsip, filter_arsip } = req.body;
 
@@ -135,7 +132,6 @@ const updateIsArsipCatatanPerwalianDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const updateIsDeleteCatatanPerwalianDosen = async (req, res) => {
   const { id_catatan_perwalian_dosen } = req.body;
 
@@ -154,7 +150,6 @@ const updateIsDeleteCatatanPerwalianDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const updateCatatanPerwalianDosen = async (req, res) => {
   const {
     judul,
@@ -240,7 +235,6 @@ const updateCatatanPerwalianDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanPerwalianDosenFiltered = async (req, res) => {
   const { kode_dosen, sort_waktu, filter_tipe_catatan } = req.query;
 
@@ -292,7 +286,6 @@ const getCatatanPerwalianDosenFiltered = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanPerwalianDosenArsipFiltered = async (req, res) => {
   const { kode_dosen, tahun_catatan, filter_tipe_catatan } = req.query;
 
@@ -318,7 +311,6 @@ const getCatatanPerwalianDosenArsipFiltered = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const searchCatatanPerwalianDosen = async (req, res) => {
   const { inputan, kode_dosen } = req.query;
 
@@ -343,7 +335,6 @@ const searchCatatanPerwalianDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanDosenFiltered = async (req, res) => {
   const { kode_dosen, sort_waktu, filter_tipe_catatan } = req.query;
 
@@ -386,7 +377,6 @@ const getCatatanDosenFiltered = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const insertCatatanDosen = async (req, res) => {
   const {
     kode_dosen,
@@ -421,7 +411,6 @@ const insertCatatanDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const updateCatatanDosen = async (req, res) => {
   const {
     judul,
@@ -459,7 +448,6 @@ const updateCatatanDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const updateIsArsipCatatanDosen = async (req, res) => {
   const { id_catatan_dosen, is_arsip, filter_arsip } = req.body;
 
@@ -489,7 +477,6 @@ const updateIsArsipCatatanDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const updateIsDeleteCatatanDosen = async (req, res) => {
   const { id_catatan_dosen } = req.body;
 
@@ -507,7 +494,6 @@ const updateIsDeleteCatatanDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const searchCatatanDosen = async (req, res) => {
   const { inputan, kode_dosen } = req.query;
 
@@ -531,7 +517,6 @@ const searchCatatanDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const gettAllCatatanGrupAngkatanDetail = async (req, res) => {
   const { tahun_angkatan, kode_dosen, sort_waktu } = req.query;
 
@@ -556,7 +541,6 @@ const gettAllCatatanGrupAngkatanDetail = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanAngkatanArsipFiltered = async (req, res) => {
   const { tahun_angkatan, kode_dosen, tahun_catatan } = req.query;
 
@@ -580,7 +564,6 @@ const getCatatanAngkatanArsipFiltered = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanPerwalianDosenById = async (req, res) => {
   const { kode_dosen, id_catatan_perwalian_dosen } = req.query;
 
@@ -604,7 +587,6 @@ const getCatatanPerwalianDosenById = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanDosenById = async (req, res) => {
   const { kode_dosen, id_catatan_dosen } = req.query;
 
@@ -628,7 +610,6 @@ const getCatatanDosenById = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanDosenTerbaru = async (req, res) => {
   const { kode_dosen } = req.query;
 
@@ -654,7 +635,6 @@ const getCatatanDosenTerbaru = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanMahasiswaTerbaru = async (req, res) => {
   const { kode_dosen, nim } = req.query;
 
@@ -679,7 +659,6 @@ const getCatatanMahasiswaTerbaru = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanMahasiswaFiltered = async (req, res) => {
   const { kode_dosen, sort_waktu, filter_tipe_catatan, nim } = req.query;
 
@@ -727,7 +706,6 @@ const getCatatanMahasiswaFiltered = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanMahasiswaHistory = async (req, res) => {
   const { kode_dosen, nim } = req.query;
 
@@ -752,7 +730,6 @@ const getCatatanMahasiswaHistory = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanMahasiswaArsipFiltered = async (req, res) => {
   const { kode_dosen, tahun_catatan, filter_tipe_catatan, nim } = req.query;
 
@@ -777,7 +754,6 @@ const getCatatanMahasiswaArsipFiltered = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getTahunArsipCatatanPerwalianDosen = async (req, res) => {
   const { kode_dosen } = req.query;
 
@@ -804,7 +780,6 @@ const getTahunArsipCatatanPerwalianDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getTahunArsipCatatanDosen = async (req, res) => {
   const { kode_dosen } = req.query;
 
@@ -831,7 +806,6 @@ const getTahunArsipCatatanDosen = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanDosenArsipFiltered = async (req, res) => {
   const { kode_dosen, tahun_catatan, filter_tipe_catatan } = req.query;
 
@@ -857,7 +831,6 @@ const getCatatanDosenArsipFiltered = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getTahunArsipCatatanAngkatan = async (req, res) => {
   const { kode_dosen } = req.query;
 
@@ -884,7 +857,6 @@ const getTahunArsipCatatanAngkatan = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getCatatanGrupAngkatanTerbaru = async (req, res) => {
   const { kode_dosen, tahun_angkatan } = req.query;
 
@@ -907,7 +879,6 @@ const getCatatanGrupAngkatanTerbaru = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getOpsiUrutanBeranda = async (req, res) => {
   const { kode_dosen } = req.query;
 
@@ -930,7 +901,6 @@ const getOpsiUrutanBeranda = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const setOpsiUrutanBeranda = async (req, res) => {
   const { kode_dosen, inputan } = req.body;
 
@@ -947,7 +917,6 @@ const setOpsiUrutanBeranda = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const updateTambahPesertaCatatanPerwalian = async (req, res) => {
   const { tambah_peserta, id_catatan_perwalian_dosen } = req.body;
 
@@ -967,7 +936,6 @@ const updateTambahPesertaCatatanPerwalian = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const getOpsiUrutanDetailAngkatan = async (req, res) => {
   const { kode_dosen } = req.query;
 
@@ -990,7 +958,6 @@ const getOpsiUrutanDetailAngkatan = async (req, res) => {
   }
 };
 
-//TODO: Operasional
 const setOpsiUrutanDetailAngkatan = async (req, res) => {
   const { kode_dosen, inputan } = req.body;
 
@@ -1007,23 +974,26 @@ const setOpsiUrutanDetailAngkatan = async (req, res) => {
   }
 };
 
-//TODO: Operasional
-const loginDosen2 = async (req, res) => {
-  const { username, password } = req.query;
+const getMahasiswaPerwalianByYear = async (req, res) => {
+  const { tahun_angkatan } = req.query;
 
   try {
-    const resdb = await pool.query(
-      `select ld.id_login_dosen, ld.kode_dosen, d.nama_gelar as nama , ld.username, ld.password, ld.opsi_beranda, ld.opsi_detail_angkatan  from login_dosen ld join dosen d on d.kode_dosen = ld.kode_dosen where ld.username = '${username}' and ld.password = '${password}' `
+    let resdb = await pool.query(
+      `select m.tahun_angkatan, m.nim, initcap(m.nama) as nama, ms.kode_semester, ms.total_sks, ms.ipk, ms.status, pk.poin_keaktifan, c.id_cekal, c.jenis as cekal, c.deskripsi from mahasiswa m join mahasiswa_status ms on m.nim = ms.nim join poin_keaktifan pk on m.nim = pk.nim join bridge_cekal bc on bc.nim = m.nim join cekal c on c.id_cekal = bc.id_cekal where kode_prodi = '71' and m.tahun_angkatan = '${tahun_angkatan}' and ms.kode_semester = (select max(ms2.kode_semester) from mahasiswa_status ms2 where ms2.nim = m.nim) order by m.nim asc;`
     );
 
-    if ((resdb.rows.length = 1)) {
+    if (resdb.rows.length) {
       return res.send({
         error: false,
-        message: "berhasil",
+        message: "Berhasil mendapat " + resdb.rows.length + " data",
         response: resdb.rows,
       });
     } else {
-      return customError("Data gagal diambil!", 404, res);
+      return res.send({
+        error: true,
+        message: "Tidak ada data",
+        response: [],
+      });
     }
   } catch (error) {
     return customError(error.message, 500, res);
@@ -1031,7 +1001,6 @@ const loginDosen2 = async (req, res) => {
 };
 
 module.exports = {
-  loginDosen,
   getCatatanPerwalianDosenTerbaru, insertCatatanPerwalianDosen,
   updateIsArsipCatatanPerwalianDosen,
   updateIsDeleteCatatanPerwalianDosen,
@@ -1068,5 +1037,7 @@ module.exports = {
 
 
   /// api baru
-  loginDosen2
+  loginDosen2,
+
+  getMahasiswaPerwalianByYear
 };

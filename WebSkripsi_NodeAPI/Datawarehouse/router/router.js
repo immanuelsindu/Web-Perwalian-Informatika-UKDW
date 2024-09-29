@@ -1,25 +1,33 @@
 const router = require("express").Router();
 const {
-    getMahasiswaAngkatanFiltered,
-    getCekalMahasiswa,
-    getNamaNimMahasiswaKhusus,
+  getMahasiswaAngkatanFiltered,
+  getCekalMahasiswa,
+  getNamaNimMahasiswaKhusus,
 
-    getIPSMahasiswa,
-    getIPKTotalSKSMahasiswa,
-    getSACMahasiswa,
+  getIPSMahasiswa,
+  getIPKTotalSKSMahasiswa,
+  getSACMahasiswa,
 
-    getAngkatanMahasiswaPerwalianDosen,
-    getJumlahStatusMahasiswaPerPerwalian,
-    getMahasiswaAngkatan,
+  getAngkatanMahasiswaPerwalianDosen,
+  getJumlahStatusMahasiswaPerPerwalian,
+  getMahasiswaAngkatan,
 
-    getMataKuliahMahasiswa,
-    getStatusMahasiswa,
-    getNamaNimMahasiswa,
-    getKRSMahasiswa,
+  getMataKuliahMahasiswa,
+  getStatusMahasiswa,
+  getNamaNimMahasiswa,
+  getKRSMahasiswa,
 
-    getIPKPerTahunAngkatan,
-    getListMahasiswaAngkatanByTahun,
-    getjumlahStatusAktifDanTidakAktifMahasiswa
+  getIPKPerTahunAngkatan,
+  getListMahasiswaAngkatanByTahun,
+  getjumlahStatusAktifDanTidakAktifMahasiswa,
+
+  getListCountMahasiswaAngkatan,
+  getCountStatusMahasiswaByYear,
+  searcMahasiswaKaprodi,
+  getCountStatusMahasiswaAktifDanTidakAktifByYear,
+
+  getMahasiswaAngkatanFilteredKaProdi
+
 } = require("../controller/perwalian");
 
 router.get("/angkatanMahasiswaPerwalian", getAngkatanMahasiswaPerwalianDosen); //list tahun angkatan mahasiswa perwalian
@@ -38,6 +46,12 @@ router.get("/mahasiswaPerwalianPerTahun", getListMahasiswaAngkatanByTahun); // g
 router.get("/getKRSMahasiswa", getKRSMahasiswa); // set opsi item beranda
 router.get("/cekalMahasiswa", getCekalMahasiswa); // cekal mahasiswa by nim
 router.get("/getJumlahAktifdanTidakAktif", getjumlahStatusAktifDanTidakAktifMahasiswa); // cekal mahasiswa by nim
+
+router.get("/getListCountMahasiswaAngkatan", getListCountMahasiswaAngkatan); // get list jumlah mahasiswa per tahun angkatan
+router.get("/getCountStatusMahasiswaByYear", getCountStatusMahasiswaByYear); // get list count jumlah status mahasiswa per angkatan
+router.get("/searchMahasiswaKaprodi", searcMahasiswaKaprodi); // search mahasiswa di beranda kaprodi
+router.get("/getCountStatusMahasiswaAktifDanTidakAktifByYear", getCountStatusMahasiswaAktifDanTidakAktifByYear); // search mahasiswa di beranda kaprodi
+router.get("/getMahasiswaAngkatanFilteredKaProdi", getMahasiswaAngkatanFilteredKaProdi); // search mahasiswa di beranda kaprodi
 
 module.exports = router;
 

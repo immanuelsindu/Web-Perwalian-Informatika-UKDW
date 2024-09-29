@@ -1,46 +1,46 @@
 const router = require("express").Router();
 const {
-    loginDosen,
-    getCatatanPerwalianDosenTerbaru,
-    insertCatatanPerwalianDosen,
-    updateIsArsipCatatanPerwalianDosen,
-    updateIsDeleteCatatanPerwalianDosen,
-    updateCatatanPerwalianDosen,
-    getCatatanPerwalianDosenFiltered,
-    getCatatanPerwalianDosenArsipFiltered,
-    searchCatatanPerwalianDosen,
-    getCatatanDosenFiltered,
-    insertCatatanDosen,
-    updateCatatanDosen,
-    updateIsArsipCatatanDosen,
-    updateIsDeleteCatatanDosen,
-    searchCatatanDosen,
-    gettAllCatatanGrupAngkatanDetail,
-    getCatatanAngkatanArsipFiltered,
-    getCatatanPerwalianDosenById,
-    getCatatanDosenById,
-    getCatatanDosenTerbaru,
-    getCatatanMahasiswaTerbaru,
-    getCatatanMahasiswaHistory,
-    getCatatanMahasiswaFiltered,
-    getCatatanMahasiswaArsipFiltered,
-    getTahunArsipCatatanPerwalianDosen,
-    getTahunArsipCatatanDosen,
-    getCatatanDosenArsipFiltered,
-    getTahunArsipCatatanAngkatan,
-    getCatatanGrupAngkatanTerbaru,
-    getOpsiUrutanBeranda,
-    setOpsiUrutanBeranda,
-    updateTambahPesertaCatatanPerwalian,
-    getOpsiUrutanDetailAngkatan,
-    setOpsiUrutanDetailAngkatan,
+  getCatatanPerwalianDosenTerbaru,
+  insertCatatanPerwalianDosen,
+  updateIsArsipCatatanPerwalianDosen,
+  updateIsDeleteCatatanPerwalianDosen,
+  updateCatatanPerwalianDosen,
+  getCatatanPerwalianDosenFiltered,
+  getCatatanPerwalianDosenArsipFiltered,
+  searchCatatanPerwalianDosen,
+  getCatatanDosenFiltered,
+  insertCatatanDosen,
+  updateCatatanDosen,
+  updateIsArsipCatatanDosen,
+  updateIsDeleteCatatanDosen,
+  searchCatatanDosen,
+  gettAllCatatanGrupAngkatanDetail,
+  getCatatanAngkatanArsipFiltered,
+  getCatatanPerwalianDosenById,
+  getCatatanDosenById,
+  getCatatanDosenTerbaru,
+  getCatatanMahasiswaTerbaru,
+  getCatatanMahasiswaHistory,
+  getCatatanMahasiswaFiltered,
+  getCatatanMahasiswaArsipFiltered,
+  getTahunArsipCatatanPerwalianDosen,
+  getTahunArsipCatatanDosen,
+  getCatatanDosenArsipFiltered,
+  getTahunArsipCatatanAngkatan,
+  getCatatanGrupAngkatanTerbaru,
+  getOpsiUrutanBeranda,
+  setOpsiUrutanBeranda,
+  updateTambahPesertaCatatanPerwalian,
+  getOpsiUrutanDetailAngkatan,
+  setOpsiUrutanDetailAngkatan,
 
-    //// api baru 
-    loginDosen2
+  //// api baru 
+  loginDosen2,
+
+  getMahasiswaPerwalianByYear
 
 } = require("../controller/perwalian");
 
-router.get("/loginDosen", loginDosen); //list tahun angkatan mahasiswa perwalian
 router.get("/catatanPerwalianDosenTerbaru", getCatatanPerwalianDosenTerbaru); // get catatan perwalian dosen
 router.post("/tambahCatatanPerwalianDosen", insertCatatanPerwalianDosen); // tambah catatan perwalian dosen
 router.put("/updateIsArsipCatatanPerwalianDosen", updateIsArsipCatatanPerwalianDosen); // update is arsip catatan perwalian dosen
@@ -76,7 +76,9 @@ router.get("/getOpsiDetailAngkatan", getOpsiUrutanDetailAngkatan); // get opsi i
 router.put("/setOpsiDetailAngkatan", setOpsiUrutanDetailAngkatan); // set opsi item beranda
 
 /// API Baru 
-router.get("/loginDosen2", loginDosen2); //list tahun angkatan mahasiswa perwalian
+router.get("/loginDosen2", loginDosen2); //login dosen yang baru
+
+router.get("/mahasiswaPerwalianByYear", getMahasiswaPerwalianByYear); //get list mahasiswa angkatan by year
 
 module.exports = router;
 
