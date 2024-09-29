@@ -83,7 +83,8 @@
                             <div class="d-flex d-flex justify-content-center">
 
                               <p class="m-0 align-middle font-weight-bold">
-                                <router-link :to="{ name: 'BerandaKaProdi' }">
+                                <router-link
+                                  :to="{ name: 'DetailAngkatanKaProdi', params: { id: item.tahun_angkatan, isHover: 1 } }">
                                   Lihat selengkapnya >
                                 </router-link>
                               </p>
@@ -171,7 +172,6 @@
                 </div>
               </div>
             </div>
-
 
             <div id="judulCariCatatanPerwalian" class="col-12 pl-0">
               <p class="mb-0">Daftar Grup Perwalian Mahasiswa</p>
@@ -270,7 +270,8 @@
                   </div>
 
                   <div class="d-flex justify-content-end mr-4">
-                    <router-link :to="{ name: 'BerandaKaProdi' }" class="lihatSelengkapnya">
+                    <router-link :to="{ name: 'DetailAngkatanKaProdi', params: { id: tahunAngkatan, isHover: 0 } }"
+                      class="lihatSelengkapnya">
                       Lihat selengkapnya >
                     </router-link>
                   </div>
@@ -330,15 +331,15 @@ export default {
       inputanCariMahasiswa: "",
       namaDosen: "",
       kodeDosen: "",
+      isKaprodi: "",
+      counter: new Map(),
       listTahunAngkatanBimbingan: [],
       listTahunAngkatanBimbinganKaprodi: [],
       jumlahStatusPerwalian: new Map(),
       jumlahMahasiswaPerwalian: new Map(),
       jumlahSemuaMahasiswaPerwalianAngkatan: 0,
       showInfoAngkatan: new Map(), //untuk on off toggle ke bawah 
-      counter: new Map(), // untuk counter chart rata-rata ipk angkatan (asumsi dosen memiliki tidak <= 3 angkatan perwalian)
       mahasiswaPerwalian: new Map(), //untuk wadah list nama mahasiswa & info kuliah
-      dataResponIPK: new Map(),
       hasilPencarianMahasiswa: [],
       togglePencarianMahasiswa: false,
       itemsLogout: [
@@ -420,9 +421,7 @@ export default {
     async initData() {
       this.namaDosen = localStorage.getItem("namaDosen")
       this.kodeDosen = localStorage.getItem("kodeDosen")
-
-
-
+      this.isKaprodi = localStorage.getItem("isKaprodi")
 
       await this.getTahunAngkatan()
 
@@ -454,58 +453,6 @@ export default {
         }
       })
     },
-    // async getJumlahStatusMahasiswa() {
-    //   if (this.listTahunAngkatanBimbingan.length != 0) {
-    //     for (let i = 0; i < this.listTahunAngkatanBimbingan.length; i++) {
-    //       //get jumlah status mahasiswa angkatan per tahun angkatan (AK, DO, CS, dll)
-    //       try {
-    //         const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/jumlahStatusPerwalian/`, {
-    //           params: {
-    //             kode_dosen: this.kodeDosen,
-    //             tahun_angkatan: this.listTahunAngkatanBimbingan[i]
-    //           },
-    //         });
-
-    //         if (response.data.error === false) {
-    //           // map untuk toggle data false true
-    //           this.showInfoAngkatan.set(this.listTahunAngkatanBimbingan[i], false)
-    //           // map untuk counter toggle detail & scroll layar
-    //           this.counter.set(this.listTahunAngkatanBimbingan[i], 0)
-    //           // simpan list status mahasiswa AK DO UD dll 
-    //           this.jumlahStatusPerwalian.set(this.listTahunAngkatanBimbingan[i], response.data.response.list_status)
-    //         }
-    //       } catch (error) {
-    //         console.error("Terjadi kesalahan saat mengambil data:", error);
-    //         this.listMahasiswaPerwalianFiltered = [];
-    //       }
-
-    //       // get jumlah mahasiswa perwalian => "Total Mahasiswa Perwalian"
-    //       const listStatusAngkatan = this.jumlahStatusPerwalian.get(this.listTahunAngkatanBimbingan[i])
-    //       let tempTotalMahasiswaAngkatan = 0
-    //       for (let i = 0; i < listStatusAngkatan.length; i++) {
-    //         tempTotalMahasiswaAngkatan += parseInt(listStatusAngkatan[i].count)
-    //         this.jumlahSemuaMahasiswaPerwalianAngkatan += parseInt(listStatusAngkatan[i].count)
-    //       }
-    //       this.jumlahMahasiswaPerwalian.set(this.listTahunAngkatanBimbingan[i], tempTotalMahasiswaAngkatan)
-
-    //       //get mahasiswaPerwalian 
-    //       try {
-    //         const response = await axios.get(process.env.VUE_APP_API_DATAWAREHOUSE + `/mahasiswaPerwalian/`, {
-    //           params: {
-    //             kode_dosen: this.kodeDosen,
-    //             tahun_angkatan: this.listTahunAngkatanBimbingan[i]
-    //           },
-    //         });
-
-    //         if (response.data.error === false) {
-    //           this.mahasiswaPerwalian.set(this.listTahunAngkatanBimbingan[i], this.filterDuplicateMahasiswa(response.data.response.list_status))
-    //         }
-    //       } catch (error) {
-    //         console.error("Terjadi kesalahan saat mengambil data:", error);
-    //       }
-    //     }
-    //   }
-    // },
     async getTahunAngkatan() {
       //get tahun angkatan perwalian dosen (misal 2015, 2020)
       try {
@@ -544,47 +491,6 @@ export default {
         // untuk total semua mahasiswa dalam semua angkatan "Total Mahasiswa"
         this.jumlahSemuaMahasiswaPerwalianAngkatan += parseInt(item.jumlah_mahasiswa)
       })
-
-
-    },
-    async simpan(loadValue) {
-      if (this.opsiUrutanItemBeranda == "pilihan1") {
-        this.isOn = false;
-        /*mulai atur urutan berdasarkan pilihan pengguna*/
-        this.items[0].data.forEach(dataPosisi => {
-          const element = document.getElementById(dataPosisi.id);
-          element.style.order = dataPosisi.pos;
-        });
-        // this.isChecked1 = true;
-        // this.isChecked2 = false;
-
-      } else if (this.opsiUrutanItemBeranda == "pilihan2") {
-        this.isOn = false;
-        /*mulai atur urutan berdasarkan pilihan pengguna*/
-        this.items[1].data.forEach(dataPosisi => {
-          const element = document.getElementById(dataPosisi.id);
-          element.style.order = dataPosisi.pos;
-        });
-        // this.isChecked1 = false;
-        // this.isChecked2 = true;
-      }
-
-      //simpan this.opsiUrutanItemBeranda ke database 
-      const hasil = await this.setOpsiUrutanBeranda()
-
-      //kalau true berarti dari init data, 
-      // kalau false berarti dari button simpan
-      if (loadValue) {
-        //do nothing
-      } else if (!loadValue && hasil) {
-        // berhasil
-        this.pesanSnackBar = "Berhasil memperbarui urutan beranda"
-        this.snackbar()
-      } else if (!loadValue && !hasil) {
-        // gagal
-        this.pesanSnackBar = "Gagal memperbarui urutan beranda"
-        this.snackbar()
-      }
     },
     snackbar() {
       var x = document.getElementById("snackbar");
@@ -593,10 +499,6 @@ export default {
         x.className = x.className.replace("show", "");
       }, 3000);
     },
-    showPopUpPreferensi() {
-      this.isOn = true;
-      this.opsiUrutanItemBerandaSebelumnya = this.opsiUrutanItemBeranda
-    },
     batal() {
       this.isOn = false;
       this.opsiUrutanItemBeranda = this.opsiUrutanItemBerandaSebelumnya
@@ -604,20 +506,20 @@ export default {
     },
     toggleshowinfoAngkatan(tahunAngkatan) {
       if (this.counter.get(tahunAngkatan) != 1) {
-        // const scrollable = document.querySelector('.mySticky');
-        // const scrollHeight = scrollable.scrollHeight - scrollable.clientHeight;
-        // scrollable.scrollTo({
-        //   top: scrollHeight,
-        //   behavior: 'smooth'
-        // });
+        const scrollable = document.querySelector('.mySticky');
+        const scrollHeight = scrollable.scrollHeight - scrollable.clientHeight;
+        scrollable.scrollTo({
+          top: scrollHeight,
+          behavior: 'smooth'
+        });
         this.showInfoAngkatan.set(tahunAngkatan, !this.showInfoAngkatan.get(tahunAngkatan))
         this.counter.set(tahunAngkatan, this.counter.get(tahunAngkatan) + 1)
       } else {
-        // const scrollable = document.querySelector('.mySticky');
-        // scrollable.scrollTo({
-        //   top: 0,
-        //   behavior: 'smooth'
-        // });
+        const scrollable = document.querySelector('.mySticky');
+        scrollable.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
         this.showInfoAngkatan.set(tahunAngkatan, !this.showInfoAngkatan.get(tahunAngkatan.toString()))
         this.counter.set(tahunAngkatan, 0)
       }

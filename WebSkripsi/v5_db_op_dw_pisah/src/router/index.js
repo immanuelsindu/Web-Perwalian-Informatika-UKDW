@@ -5,6 +5,7 @@ import BerandaPageVue from "@/views/BerandaPage.vue";
 import BerandaKaProdi from "@/views/BerandaKaProdi.vue";
 import DetailMahasiswa from "@/views/DetailMahasiswa.vue";
 import DetailAngkatan from "@/views/DetailAngkatan.vue";
+import DetailAngkatanKaProdi from "@/views/DetailAngkatanKaProdi.vue";
 import DetailYudisium from "@/views/DetailYudisium.vue";
 import ProfilMahasiswa from "@/views/ProfilMahasiswa.vue";
 import ArsipDosen from "@/views/ArsipDosen.vue";
@@ -193,6 +194,60 @@ const routes = [
     path: "/detail-angkatan/:id/:isHover",
     name: "DetailAngkatan",
     component: DetailAngkatan,
+    meta: {
+      requiresAuth: true,
+      breadCrumb(route) {
+        if (
+          tempBreadCrumbs.length == 1 &&
+          tempBreadCrumbs[0].text == "dummy"
+        ) {
+          const breadCrumbSimpanan =
+            this.$store.getters.getStoreBreadCrumbs;
+
+          tempBreadCrumbs = breadCrumbSimpanan;
+
+          var savedData = Cookies.get("listKey");
+          savedData = JSON.parse(savedData);
+
+          this.$store.commit("updateStoreBreadCrumbs", savedData);
+        } else {
+          const breadCrumbText = formatString(route.name);
+          const storeBreadcrumb =
+            this.$store.getters.getStoreBreadCrumbs;
+          let isContains = storeBreadcrumb.some((crumb) =>
+            crumb.text.includes(breadCrumbText)
+          );
+
+          //jika belum ada tambahkan ke breadCrumbs
+          if (!isContains) {
+            this.$store.commit("pushStoreBreadCrumbs", {
+              text: breadCrumbText,
+              to: {
+                name: route.name,
+                params: {
+                  id: route.params.id,
+                  isHover: route.params.isHover,
+                },
+              },
+            });
+          } else {
+            let index = storeBreadcrumb.findIndex(
+              (obj) => obj.text === breadCrumbText
+            );
+            this.$store.commit("sliceStoreBreadCrumbs", index);
+
+            tempBreadCrumbs = tempBreadCrumbs.slice(0, 1); //kodingan formalitas
+            tempBreadCrumbs =
+              this.$store.getters.getStoreBreadCrumbs;
+          }
+        }
+      },
+    },
+  },
+  {
+    path: "/detail-angkatan-kaprodi/:id/:isHover",
+    name: "DetailAngkatanKaProdi",
+    component: DetailAngkatanKaProdi,
     meta: {
       requiresAuth: true,
       breadCrumb(route) {

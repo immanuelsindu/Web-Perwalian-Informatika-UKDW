@@ -59,8 +59,8 @@
           </div>
 
           <div id="preferensi" class="d-flex gap-3 justify-content-end align-center  col-3">
-            <div>
-              <button class="btnBerandaKaProdi" @click="$router.push({ name: 'BerandaKaProdi' })">
+            <div v-if="this.isKaprodi">
+              <button class=" btnBerandaKaProdi" @click="$router.push({ name: 'BerandaKaProdi' })">
                 Beranda KaProdi
               </button>
             </div>
@@ -983,6 +983,7 @@ export default {
       inputanCariMahasiswa: "",
       namaDosen: "",
       kodeDosen: "",
+      isKaprodi: Boolean,
       drawer: null,
       listTahunAngkatanBimbingan: [],
       jumlahStatusPerwalian: new Map(),
@@ -1038,7 +1039,7 @@ export default {
         'AN': 'AN',
         'LS': 'Lulus'
       },
-      isKaprodi: false
+
 
     }
   },
@@ -1104,6 +1105,7 @@ export default {
     async initData() {
       this.namaDosen = localStorage.getItem("namaDosen")
       this.kodeDosen = localStorage.getItem("kodeDosen")
+      this.isKaprodi = JSON.parse(localStorage.getItem('isKaprodi'));
 
       this.getOpsiUrutanBeranda()
       await this.getTahunAngkatan()
@@ -1202,6 +1204,7 @@ export default {
 
         if (response.data.error === false) {
           this.listTahunAngkatanBimbingan = response.data.response.tahun_angkatan
+          localStorage.setItem('listTahunAngkatanBimbingan', JSON.stringify(response.data.response.tahun_angkatan));
 
         } else {
           this.listTahunAngkatanBimbingan = [];
