@@ -146,7 +146,8 @@
 
         <div class="mySticky">
           <div class="d-flex justify-content-center">
-            <img id="fotoDosen" src="../../public/frontend/media/fotoDosen.jpg" alt="">
+            <img v-if="this.fotoDosen != null" id="fotoDosen" :src="this.fotoDosen" alt="">
+            <img v-else id="fotoDosen" src="../../public/frontend/media/fotoDosen.jpg" alt="">
           </div>
 
           <div id="infoDosen" class="mt-3">
@@ -1039,6 +1040,7 @@ export default {
         'AN': 'AN',
         'LS': 'Lulus'
       },
+      fotoDosen: ""
 
 
     }
@@ -1106,6 +1108,7 @@ export default {
       this.namaDosen = localStorage.getItem("namaDosen")
       this.kodeDosen = localStorage.getItem("kodeDosen")
       this.isKaprodi = JSON.parse(localStorage.getItem('isKaprodi'));
+      this.fotoDosen = JSON.parse(localStorage.getItem('fotoDosen'));
 
       this.getOpsiUrutanBeranda()
       await this.getTahunAngkatan()

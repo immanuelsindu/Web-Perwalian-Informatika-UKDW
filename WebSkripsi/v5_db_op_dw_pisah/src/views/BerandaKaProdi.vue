@@ -356,6 +356,7 @@ export default {
         'LS': 'Lulus'
       },
       listCountStatusMahasiswaByYear: new Map(),
+      fotoDosen: ""
 
     }
   },
@@ -422,6 +423,7 @@ export default {
       this.namaDosen = localStorage.getItem("namaDosen")
       this.kodeDosen = localStorage.getItem("kodeDosen")
       this.isKaprodi = localStorage.getItem("isKaprodi")
+      this.fotoDosen = JSON.parse(localStorage.getItem('fotoDosen'));
 
       await this.getTahunAngkatan()
 
