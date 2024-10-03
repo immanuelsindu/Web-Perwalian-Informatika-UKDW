@@ -15,7 +15,7 @@ const loginDosen2 = async (req, res) => {
 
   try {
     const resdb = await pool.query(
-      `select ld.id_login_dosen, ld.kode_dosen, d.nama_gelar as nama , ld.username, ld.password, ld.opsi_beranda, ld.opsi_detail_angkatan,  ld.is_kaprodi from login_dosen ld join dosen d on d.kode_dosen = ld.kode_dosen where ld.username = '${username}' and ld.password = '${password}' `
+      `select ld.id_login_dosen, ld.kode_dosen, d.nama_gelar as nama , ld.username, ld.password, ld.opsi_beranda, ld.opsi_detail_angkatan,  ld.is_kaprodi, d.foto_dosen from login_dosen ld join dosen d on d.kode_dosen = ld.kode_dosen where ld.username = '${username}' and ld.password = '${password}'`
     );
 
     if ((resdb.rows.length = 1)) {

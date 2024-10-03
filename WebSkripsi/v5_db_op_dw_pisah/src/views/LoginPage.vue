@@ -32,7 +32,8 @@
               <v-form @submit.prevent>
                 <div>
                   <v-text-field v-model="this.username" label="Username" id="username" class="mb-2"></v-text-field>
-                  <v-text-field v-model="this.password" label="Password" id="password" class="mb-2"></v-text-field>
+                  <v-text-field v-model="this.password" label="Password" id="password" type="password"
+                    class="mb-2"></v-text-field>
                   <v-btn type="submit" color="blue" @click="login()" block class="mb-5" id="btnSubmit">Submit</v-btn>
                 </div>
               </v-form>
@@ -113,8 +114,7 @@ export default {
             localStorage.setItem('kodeDosen', response.data.response[0].kode_dosen)
             localStorage.setItem('namaDosen', response.data.response[0].nama)
             localStorage.setItem('isKaprodi', JSON.stringify(response.data.response[0].is_kaprodi));
-
-
+            localStorage.setItem('fotoDosen', JSON.stringify(response.data.response[0].foto_dosen));
 
             //memberikan sesi login ke dosen wali                    
             this.$store.commit("setAksesLogin", true)
